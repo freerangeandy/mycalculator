@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import Layout from './hoc/Layout/Layout';
-
-class App extends Component {
+class Stub extends Component {
+    state = {};
 
     render () {
         return (
             <div>
-                <Layout />
+
             </div>
         );
     }
 }
 
-export default App;
+export default Stub;
