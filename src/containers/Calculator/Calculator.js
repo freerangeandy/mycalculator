@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Entry from '../../components/Entry/Entry';
 import Display from '../../components/Display/Display';
-import Keyboard from '../../components/Keyboard/Keyboard';
+import Keypane from '../../components/Keypane/Keypane';
 
 class Calculator extends Component {
     state = {
@@ -33,11 +33,12 @@ class Calculator extends Component {
     render () {
         return (
             <div>
+                <Display displayOutput={this.state.display} />
                 <Entry
                     entryChanged={this.onEntryChanged}
+                    enterPressed={this.onEnterClick}
                     entryVal={this.state.entry} />
-                <Display displayOutput={this.state.display} />
-                <Keyboard entered={this.onEnterClick} />
+                <Keypane  />
             </div>
         );
     }
