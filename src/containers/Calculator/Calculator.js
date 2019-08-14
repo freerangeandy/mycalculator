@@ -9,9 +9,6 @@ import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
@@ -29,7 +26,7 @@ function Calculator() {
         setEntryVal(event.target.value);
     }
 
-    const onEnterClick = (event) => {
+    const submitEntry = (event) => {
         const currentEntry = entryVal;
         const squaredEntry = currentEntry * currentEntry; // arbitrary calculation
         setDisplayRows([...displayRows, [currentEntry, squaredEntry]]);
@@ -40,17 +37,25 @@ function Calculator() {
         const currentEntry = entryVal;
         const newEntry = currentEntry + val;
         setEntryVal(newEntry);
-        console.log(newEntry);
+        //console.log(newEntry);
     }
 
+    const gridProps = {
+        onKeyPress: (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                submitEntry(event);
+            }
+        },
+    }
     return (
-        <Container className={classes.root}>
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
+        <Container>
+            <Grid {...gridProps} container spacing={1}>
+                <Grid item xs={8}>
                     <Display displayRows={displayRows} />
                     <Entry
                         entryChanged={onEntryChanged}
-                        enterPressed={onEnterClick}
+                        enterPressed={submitEntry}
                         entryVal={entryVal} />
                 </Grid>
                 <Grid item xs={4}>
