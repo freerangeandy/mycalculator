@@ -1,9 +1,6 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-// import Paper from '@material-ui/core/Paper';
-
 import { withStyles} from '@material-ui/core/styles';
-// import { ThemeProvider } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
@@ -26,16 +23,15 @@ const NumButton = withStyles(theme => ({
   },
 }))(Button);
 
+const gridValues = [
+    [7, 8, 9],
+    [4, 5, 6],
+    [1, 2, 3],
+    [0, '.', '( − )'],
+];
+// &#x[unicode]
+
 export default function NumPad (props) {
-    // const classes = useStyles();
-
-    const gridValues = [
-        [7, 8, 9],
-        [4, 5, 6],
-        [1, 2, 3],
-        [0, '.', '—'],
-    ];
-
     const numButtonRows = (array) => array.map((val) => numButton(val));
 
     const numButton = (val) => (

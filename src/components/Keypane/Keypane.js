@@ -1,29 +1,37 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
 
-const keypane = (props) => {
+import paneClasses from './KeyPane.css';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+}));
+
+export default function KeyPane (props) {
+    const classes = useStyles();
+
     return (
-        <Grid container spacing={1}>
-            <Grid item xs={12}>
-                <Paper>
-                    <FunctionPane />
-                </Paper>
-            </Grid>
-            <Grid item xs={5}>
-                <NumPad numberPressed={props.numberPressed}/>
-            </Grid>
-            <Grid item xs={2}>
-                <Paper>
-                    <ArithmeticPane />
-                </Paper>
-            </Grid>
-        </Grid>
+        <Paper className={classes.paper}>
+            <div className={paneClasses.upperKeys}>
+                <FunctionPane numberPressed={props.numberPressed} />
+            </div>
+            <div className={paneClasses.lowerKeys}>
+                <NumPad numberPressed={props.numberPressed} />
+                <ArithmeticPane numberPressed={props.numberPressed} />
+            </div>
+        </Paper>
     )
 }
-
-export default keypane;
