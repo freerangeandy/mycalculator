@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    margin: 'auto'
   },
   input: {
     marginLeft: 8,
@@ -34,7 +34,7 @@ function Entry(props) {
         <Paper className={classes.root}>
             <InputBase
                 className={classes.input}
-                placeholder="asdfasd"
+                placeholder="square this number"
                 onChange={(event) => props.entryChanged(event)}
                 value={props.entryVal}
                 onKeyPress={(event) => {
