@@ -42,7 +42,7 @@ function Calculator (props) {
     //     //console.log(newEntry);
     // }
 
-    const gridProps = {
+    const gridAttributes = {
         onKeyPress: (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -52,7 +52,7 @@ function Calculator (props) {
     }
     return (
         <Container>
-            <Grid {...gridProps} container spacing={1}>
+            <Grid {...gridAttributes} container spacing={1}>
                 <Grid item xs={8}>
                     <Display displayRows={props.currentDisplay} />
                     <Entry
