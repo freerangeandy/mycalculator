@@ -35,19 +35,14 @@ function Entry(props) {
             <InputBase
                 className={classes.input}
                 placeholder="square this number"
-                onChange={(event) => props.entryChanged(event)}
-                value={props.entryVal}
-                onKeyPress={(event) => {
-                    if (event.key === 'Enter') {
-                        props.enterPressed(event);
-                    }
-                }}/>
+                onChange={(event) => props.entryChanged(event.target.value)}
+                value={props.entryVal}/>
             <Divider className={classes.divider} />
             <IconButton
                 color="primary"
                 className={classes.iconButton}
                 aria-label="directions"
-                onClick={(event) => props.enterPressed(event)} >
+                onClick={() => props.enterPressed()} >
               <ForwardIcon />
             </IconButton>
         </Paper>
