@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
-import {updateObject} from '../../shared/utility';
+import { updateObject } from '../../shared/utility';
+import { evaluate } from '../../shared/interpreter';
 
 const initialState = {
   entryVal: '',
@@ -17,9 +18,9 @@ const buttonPress = (state, action) => {
 
 const evaluateExpression = (state, action) => {
   const currentEntry = state.entryVal;
-  const squaredEntry = currentEntry * currentEntry; // arbitrary evaluation
-
-  const updatedRows = [...state.displayRows, [currentEntry, squaredEntry]];
+  //const squaredEntry = currentEntry * currentEntry; // arbitrary evaluation
+  const result = evaluate(currentEntry).text();
+  const updatedRows = [...state.displayRows, [currentEntry, result]];
 
   const newState = {
     entryVal: '',
