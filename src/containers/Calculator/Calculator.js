@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
@@ -10,38 +9,7 @@ import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 import * as actions from '../../store/actions/index';
 
-// const useStyles = makeStyles(theme => ({
-//   paper: {
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//   },
-// }));
-
 function Calculator (props) {
-    // const classes = useStyles();
-
-    // const [entryVal, setEntryVal] = useState("");
-    // const [displayRows, setDisplayRows] = useState([]);
-
-    // const onEntryChanged = (event) => {
-    //     setEntryVal(event.target.value);
-    // }
-
-    // const submitEntry = (event) => {
-    //     const currentEntry = entryVal;
-    //     const squaredEntry = currentEntry * currentEntry; // arbitrary calculation
-    //     setDisplayRows([...displayRows, [currentEntry, squaredEntry]]);
-    //     setEntryVal('');
-    // }
-
-    // const onNumberPress = (val) => {
-    //     const currentEntry = entryVal;
-    //     const newEntry = currentEntry + val;
-    //     setEntryVal(newEntry);
-    //     //console.log(newEntry);
-    // }
-
     const gridAttributes = {
         onKeyPress: (event) => {
             if (event.key === 'Enter') {

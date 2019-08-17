@@ -4,6 +4,8 @@ import { withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import { ARITHMETIC_OPERATORS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+
 const ArithmeticButton = withStyles(theme => ({
   root: {
     borderRadius: 0,
@@ -23,16 +25,17 @@ const ArithmeticButton = withStyles(theme => ({
   },
 }))(Button);
 
-const gridValues = ['∕', '×', '—', '+']; // [/, *, -, +] &#x[unicode]
-
 export default function ArithmeticPane (props) {
     const arithmeticButton = (val) => (
-        <ArithmeticButton key={val} onClick={(event) => props.numberPressed(val)}>
+        <ArithmeticButton key={val} onClick={(event) => {
+            const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
+            return props.numberPressed(convertedVal);
+        }}>
             {val}
         </ArithmeticButton>
     );
 
-    const arithmeticGroup = gridValues.map((val) => (
+    const arithmeticGroup = ARITHMETIC_OPERATORS.map((val) => (
         <Grid key={val}
             container
             spacing={0}

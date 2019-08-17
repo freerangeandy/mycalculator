@@ -4,6 +4,8 @@ import { withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import { FUNCTIONS_OTHERS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+
 const FunctionButton = withStyles(theme => ({
   root: {
     borderRadius: 0,
@@ -22,24 +24,19 @@ const FunctionButton = withStyles(theme => ({
   },
 }))(Button);
 
-const gridValues = [
-    ['∑', '∫', '∂', '√'],
-    ['sin', 'cos', 'tan', 'ln'],
-    ['=','>','<', 'C'],
-    ['(',')', ',', '^'],
-];
-// &#x[unicode]
-
 export default function FunctionPane (props) {
     const functionButtonRows = (array) => array.map((val) => functionButton(val));
 
     const functionButton = (val) => (
-        <FunctionButton key={val} onClick={(event) => props.numberPressed(val)}>
+        <FunctionButton key={val} onClick={(event) => {
+                const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
+                return props.numberPressed(convertedVal);
+            }}>
             {val}
         </FunctionButton>
     )
 
-    const functionGrid = gridValues.map((row) => (
+    const functionGrid = FUNCTIONS_OTHERS.map((row) => (
         <Grid key={row[0]}
             container
             spacing={0}

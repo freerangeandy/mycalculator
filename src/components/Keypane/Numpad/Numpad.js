@@ -4,6 +4,8 @@ import { withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import { NUM_PAD } from '../../../shared/interpreter';
+
 const NumButton = withStyles(theme => ({
   root: {
     borderRadius: 0,
@@ -23,14 +25,6 @@ const NumButton = withStyles(theme => ({
   },
 }))(Button);
 
-const gridValues = [
-    [7, 8, 9],
-    [4, 5, 6],
-    [1, 2, 3],
-    [0, '.', '( − )'],
-];
-// &#x[unicode]
-
 export default function NumPad (props) {
     const numButtonRows = (array) => array.map((val) => numButton(val));
 
@@ -40,7 +34,7 @@ export default function NumPad (props) {
         </NumButton>
     )
 
-    const numpadGrid = gridValues.map(([a, b, c]) => (
+    const numpadGrid = NUM_PAD.map(([a, b, c]) => (
         <Grid key={a + b + c}
             container
             spacing={0}
