@@ -6,13 +6,14 @@ const initialState = {
   entryVal: '',
   displayRows: [],
   selection: [0,0],
+  errorMsg: '',
 };
 
 const buttonPress = (state, action) => {
   const currentEntryVal = state.entryVal;
   const insertVal = action.buttonVal;
   const [selectStart, selectEnd] = state.selection;
-  
+
   const selectWidth = selectEnd - selectStart;
   const selectionShift = insertVal.toString().length - selectWidth;
   const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
@@ -31,16 +32,32 @@ const buttonPress = (state, action) => {
 const evaluateExpression = (state, action) => {
   const currentEntry = state.entryVal;
   //const squaredEntry = currentEntry * currentEntry; // arbitrary evaluation
-  const result = evaluate(currentEntry).text();
-  const updatedRows = [...state.displayRows, [currentEntry, result]];
+  try {
+    const result = evaluate(currentEntry).text();
+    const updatedRows = [...state.displayRows, [currentEntry, result]];
 
-  const newState = {
-    entryVal: '',
-    displayRows: updatedRows,
-    selection: [0,0],
+    const newState = {
+      entryVal: '',
+      displayRows: updatedRows,
+      selection: [0,0],
+    }
+
+    return updateObject(state, newState);
+  } catch (e) {
+    console.log(e.name, e.message);
+
+    const errorMsg = e.message;
+    const errorIndex = Number(errorMsg.match(/(\d+)$/g)[0]);
+
+    const newSelection = [errorIndex - 1, errorIndex];
+    console.log(errorIndex);
+    const newState = {
+      entryVal: currentEntry,
+      selection: newSelection,
+      error: e,
+    }
+    return updateObject(state, newState);
   }
-
-  return updateObject(state, newState);
 }
 
 const entryUpdate = (state, action) => {
