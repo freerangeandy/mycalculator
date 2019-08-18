@@ -19,3 +19,11 @@ export const evaluate = () => {
     type: actionTypes.EVALUATE,
   }
 };
+
+export const selection = (start, end) => {
+  return {
+    type: actionTypes.SELECTION,
+    selectStart: start,
+    selectEnd: end,
+  }
+};

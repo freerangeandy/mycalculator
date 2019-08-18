@@ -5,15 +5,27 @@ import { evaluate } from '../../shared/interpreter';
 const initialState = {
   entryVal: '',
   displayRows: [],
+  selection: [0,0],
 };
 
 const buttonPress = (state, action) => {
-  const currentEntry = state.entryVal;
-  const newEntryVal = action.buttonVal;
-  const newEntry = {
-    entryVal: currentEntry + newEntryVal,
+  const currentEntryVal = state.entryVal;
+  const insertVal = action.buttonVal;
+  const [selectStart, selectEnd] = state.selection;
+  
+  const selectWidth = selectEnd - selectStart;
+  const selectionShift = insertVal.toString().length - selectWidth;
+  const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
+
+  const preInsert = selectStart > 0 ? currentEntryVal.slice(0, selectStart) : '';
+  const postInsert = selectEnd < currentEntryVal.length ? currentEntryVal.slice(selectEnd) : '';
+  const newEntryVal =  preInsert + insertVal + postInsert;
+
+  const newState = {
+    entryVal: newEntryVal,
+    selection: newSelection,
   };
-  return updateObject(state, newEntry);
+  return updateObject(state, newState);
 }
 
 const evaluateExpression = (state, action) => {
@@ -25,6 +37,7 @@ const evaluateExpression = (state, action) => {
   const newState = {
     entryVal: '',
     displayRows: updatedRows,
+    selection: [0,0],
   }
 
   return updateObject(state, newState);
@@ -37,6 +50,13 @@ const entryUpdate = (state, action) => {
   return updateObject(state, newEntry);
 }
 
+const selectionUpdate = (state, action) => {
+  const newSelection = {
+    selection: [action.selectStart, action.selectEnd]
+  }
+  return updateObject(state, newSelection);
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.BUTTON_ENTRY:
@@ -45,6 +65,8 @@ const reducer = (state = initialState, action) => {
       return entryUpdate(state, action);
     case actionTypes.EVALUATE:
       return evaluateExpression(state, action);
+    case actionTypes.SELECTION:
+      return selectionUpdate(state, action);
     default:
       return state;
   }

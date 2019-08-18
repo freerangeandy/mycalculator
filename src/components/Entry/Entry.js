@@ -33,9 +33,11 @@ function Entry(props) {
     return (
         <Paper className={classes.root}>
             <InputBase
+                inputRef={props.entryRef}
                 className={classes.input}
                 placeholder="square this number"
                 onChange={(event) => props.entryChanged(event.target.value)}
+                onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
                 value={props.entryVal}/>
             <Divider className={classes.divider} />
             <IconButton

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -10,23 +10,33 @@ import KeyPane from '../../components/KeyPane/KeyPane';
 import * as actions from '../../store/actions/index';
 
 function Calculator (props) {
+    const entryRef = useRef();
+
     const gridAttributes = {
         onKeyPress: (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                props.onEnterPress();
+                enterThenFocus();
             }
         },
     }
+
+    const enterThenFocus = () => {
+        props.onEnterPress();
+        entryRef.current.focus();
+    }
+
     return (
         <Container>
             <Grid {...gridAttributes} container spacing={1}>
                 <Grid item xs={8}>
                     <Display displayRows={props.currentDisplay} />
                     <Entry
+                        entryRef={entryRef}
                         entryChanged={props.onEntryChange}
-                        enterPressed={props.onEnterPress}
-                        entryVal={props.currentEntry} />
+                        enterPressed={enterThenFocus}
+                        entryVal={props.currentEntry}
+                        selectionChanged={props.onSelectChange}/>
                 </Grid>
                 <Grid item xs={4}>
                     <Paper>
@@ -50,6 +60,7 @@ const mapDispatchToProps = dispatch => {
         onButtonPress: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
         onEntryChange: (newEntry) => dispatch(actions.inputEntry(newEntry)),
         onEnterPress: () => dispatch(actions.evaluate()),
+        onSelectChange: (start, end) => dispatch(actions.selection(start, end)),
     }
 }
 
