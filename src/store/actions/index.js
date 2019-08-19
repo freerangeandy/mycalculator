@@ -27,3 +27,11 @@ export const selection = (start, end) => {
     selectEnd: end,
   }
 };
+
+export const setError = (errName, errMsg) => {
+  return {
+    type: actionTypes.SET_ERROR,
+    errName: errName,
+    errMsg: errMsg,
+  }
+};

@@ -6,6 +6,7 @@ const initialState = {
   entryVal: '',
   displayRows: [],
   selection: [0,0],
+  errorName: '',
   errorMsg: '',
 };
 
@@ -44,17 +45,16 @@ const evaluateExpression = (state, action) => {
 
     return updateObject(state, newState);
   } catch (e) {
-    console.log(e.name, e.message);
 
+    const errorName = e.name;
     const errorMsg = e.message;
-    const errorIndex = Number(errorMsg.match(/(\d+)$/g)[0]);
+    console.log(errorName, errorMsg);
 
-    const newSelection = [errorIndex - 1, errorIndex];
-    console.log(errorIndex);
     const newState = {
       entryVal: currentEntry,
-      selection: newSelection,
-      error: e,
+      // selection: newSelection,
+      errorName: errorName,
+      errorMsg: errorMsg,
     }
     return updateObject(state, newState);
   }
@@ -74,6 +74,17 @@ const selectionUpdate = (state, action) => {
   return updateObject(state, newSelection);
 }
 
+const setError = (state, action) => {
+  const newError = {
+    errorName: action.errName,
+    errorMsg: action.errMsg,
+  }
+
+  console.log(`error set: ${newError.errorName, newError.errorMsg}`)
+
+  return updateObject(state, newError);
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.BUTTON_ENTRY:
@@ -84,6 +95,8 @@ const reducer = (state = initialState, action) => {
       return evaluateExpression(state, action);
     case actionTypes.SELECTION:
       return selectionUpdate(state, action);
+    case actionTypes.SET_ERROR:
+      return setError(state, action);
     default:
       return state;
   }
