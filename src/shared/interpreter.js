@@ -1,4 +1,6 @@
-import nerdamer from 'nerdamer';
+import nerdamer from 'nerdamer/nerdamer.core';
+import 'nerdamer/Algebra';
+import 'nerdamer/Calculus';
 
 export const BUTTON_CONVERSION = {
     '∕' : '/',
@@ -7,11 +9,13 @@ export const BUTTON_CONVERSION = {
     '+' : '+',
     '∑' : 'sum(',
     '∫' : 'integrate(',
-    '∂' : '√',
+    '∂' : 'diff(',
+    '√' : 'sqrt(',
     'sin': 'sin(',
     'cos' : 'cos(',
     'tan' : 'tan(',
     'ln' : 'ln(',
+    '( − )': '-',
 }
 export const ARITHMETIC_OPERATORS = ['∕', '×', '—', '+']; // [/, *, -, +] &#x[unicode]
 
@@ -28,7 +32,7 @@ export const FUNCTIONS_OTHERS = [
     ['=','>','<', 'C'],
     ['(',')', ',', '^'],
 ];
-export const evaluate = (expression) => {
+export const evalExpression = (expression) => {
     const out = nerdamer(expression).evaluate();
     return out;
 }

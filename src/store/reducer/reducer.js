@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { evaluate } from '../../shared/interpreter';
+import { evalExpression } from '../../shared/interpreter';
 
 const initialState = {
   entryVal: '',
@@ -34,7 +34,7 @@ const evaluateExpression = (state, action) => {
   const currentEntry = state.entryVal;
   //const squaredEntry = currentEntry * currentEntry; // arbitrary evaluation
   try {
-    const result = evaluate(currentEntry).text();
+    const result = evalExpression(currentEntry).toString();
     const updatedRows = [...state.displayRows, [currentEntry, result]];
 
     const newState = {
@@ -79,8 +79,6 @@ const setError = (state, action) => {
     errorName: action.errName,
     errorMsg: action.errMsg,
   }
-
-  console.log(`error set: ${newError.errorName, newError.errorMsg}`)
 
   return updateObject(state, newError);
 }

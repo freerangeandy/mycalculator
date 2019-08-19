@@ -35,7 +35,7 @@ function Entry(props) {
             <InputBase
                 inputRef={props.entryRef}
                 className={classes.input}
-                placeholder="square this number"
+                placeholder="evaluate this expression"
                 onChange={(event) => props.entryChanged(event.target.value)}
                 onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
                 value={props.entryVal}/>
