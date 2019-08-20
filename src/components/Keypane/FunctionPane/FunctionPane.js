@@ -1,34 +1,22 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import CalcButton from '../../UI/CalcButton';
 import { FUNCTIONS_OTHERS, BUTTON_CONVERSION } from '../../../shared/interpreter';
 
 const FunctionButton = withStyles(theme => ({
   root: {
-    borderRadius: 0,
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: '13px',
-    padding: '4px',
-    border: '1px solid',
-    lineHeight: '22.75px',
     width: '25%',
-
-    '&:hover': {
-
-      boxShadow: 'none',
-    },
   },
-}))(Button);
+}))(CalcButton);
 
 export default function FunctionPane (props) {
     const functionButtonRows = (array) => array.map((val) => functionButton(val));
 
     const functionButton = (val) => (
-        <FunctionButton key={val} onClick={(event) => {
+        <FunctionButton color="primary" key={val} onClick={(event) => {
                 const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
                 return props.numberPressed(convertedVal);
             }}>

@@ -1,29 +1,22 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import CalcButton from '../../UI/CalcButton';
 import { ARITHMETIC_OPERATORS, BUTTON_CONVERSION } from '../../../shared/interpreter';
 
 const ArithmeticButton = withStyles(theme => ({
   root: {
-    borderRadius: 0,
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: '13px',
-    padding: '4px',
-    border: '1px solid',
-    lineHeight: '22.75px',
-    width: '24px',
+    fontWeight: 600,
+    width: '100%',
     borderColor: '#4c885a',
     backgroundColor: '#4caf50',
     '&:hover': {
       backgroundColor: '#388e3c',
-      boxShadow: 'none',
     },
   },
-}))(Button);
+}))(CalcButton);
 
 export default function ArithmeticPane (props) {
     const arithmeticButton = (val) => (
@@ -51,7 +44,6 @@ export default function ArithmeticPane (props) {
           </Grid>
         </Grid>
     ));
-
 
     return (
         <div>

@@ -1,29 +1,21 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
+import CalcButton from '../../UI/CalcButton';
 import { NUM_PAD } from '../../../shared/interpreter';
 
 const NumButton = withStyles(theme => ({
   root: {
-    borderRadius: 0,
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: '13px',
-    padding: '4px',
-    border: '1px solid',
-    lineHeight: '22.75px',
-    width: '24px',
+    width: '30%',
     borderColor: '#bdbdbd',
     backgroundColor: '#e0e0e0',
     '&:hover': {
       backgroundColor: '#d5d5d5',
-      boxShadow: 'none',
     },
   },
-}))(Button);
+}))(CalcButton);
 
 export default function NumPad (props) {
     const numButtonRows = (array) => array.map((val) => numButton(val));

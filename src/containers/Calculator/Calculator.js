@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 
 import Entry from '../../components/Entry/Entry';
 import Display from '../../components/Display/Display';
@@ -46,7 +46,7 @@ function Calculator (props) {
               errorName={props.errorName}
               errorMsg={props.errorMsg}/>
             <Grid {...gridAttributes} container spacing={1}>
-                <Grid item xs={8}>
+                <Grid item xs={12} sm={8}>
                     <Display displayRows={props.currentDisplay} />
                     <Entry
                         entryRef={entryRef}
@@ -55,10 +55,8 @@ function Calculator (props) {
                         entryVal={props.currentEntry}
                         selectionChanged={props.onSelectChange}/>
                 </Grid>
-                <Grid item xs={4}>
-                    <Paper>
-                        <KeyPane numberPressed={props.onButtonPress} />
-                    </Paper>
+                <Grid item xs={12} sm={4}>
+                    <KeyPane numberPressed={props.onButtonPress} />
                 </Grid>
             </Grid>
         </Container>

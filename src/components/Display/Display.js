@@ -10,9 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
+  // root: {
+  //   width: '100%',
+  // },
   paper: {
     marginTop: theme.spacing(3),
     width: '100%',
@@ -32,7 +32,7 @@ function Display(props){
     const tableEndRef = useRef(null);
 
     const scrollToBottom = () => {
-      if (displayRows.length > 0){
+      if (displayRows.length > 0) {
         tableEndRef.current.scrollIntoView({ behavior: "smooth" });
         console.log('scrolled');
       }
@@ -59,21 +59,19 @@ function Display(props){
       )
     });
     return (
-        <div className={classes.root}>
-           <Paper className={classes.paper}>
-             <Table size="small">
-               <TableHead>
-                 <TableRow className={tableClasses.headerRow}>
-                   <TableCell className={tableClasses.head}>input</TableCell>
-                   <TableCell className={tableClasses.head} align="right">output</TableCell>
-                 </TableRow>
-               </TableHead>
-               <TableBody>
-                 {tableRows}
-               </TableBody>
-             </Table>
-           </Paper>
-         </div>
+       <Paper className={classes.paper}>
+         <Table size="small">
+           <TableHead>
+             <TableRow className={tableClasses.headerRow}>
+               <TableCell className={tableClasses.head}>input</TableCell>
+               <TableCell className={tableClasses.head} align="right">output</TableCell>
+             </TableRow>
+           </TableHead>
+           <TableBody>
+             {tableRows}
+           </TableBody>
+         </Table>
+       </Paper>
     )
 };
 
