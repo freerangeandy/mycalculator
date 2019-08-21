@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
+import ActionPane from './ActionPane/ActionPane';
+import ModifierPane from './ModifierPane/ModifierPane';
 import paneClasses from './KeyPane.css';
 
 const useStyles = makeStyles(theme => ({
@@ -23,11 +25,15 @@ export default function KeyPane (props) {
         <Paper className={classes.paper}>
             <Grid container spacing={0}>
                 <Grid item xs={6} sm={12} className={paneClasses.upperKeys}>
-                    <FunctionPane numberPressed={props.numberPressed} />
+                    <FunctionPane
+                        buttonPressed={props.buttonPressed}
+                        altState={props.altState} />
+                    <ModifierPane actionModifier={props.actionModifier} />
                 </Grid>
                 <Grid item xs={6} sm={12} className={paneClasses.lowerKeys}>
-                    <NumPad numberPressed={props.numberPressed} />
-                    <ArithmeticPane numberPressed={props.numberPressed} />
+                    <ActionPane actionModifier={props.actionModifier} />
+                    <NumPad numberPressed={props.buttonPressed} />
+                    <ArithmeticPane buttonPressed={props.buttonPressed} />
                 </Grid>
             </Grid>
         </Paper>

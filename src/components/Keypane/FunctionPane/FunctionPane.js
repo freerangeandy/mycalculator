@@ -4,7 +4,7 @@ import { withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { FUNCTIONS_OTHERS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+import { FUNCTIONS, ALTERNATES, BUTTON_CONVERSION } from '../../../shared/interpreter';
 
 const FunctionButton = withStyles(theme => ({
   root: {
@@ -15,16 +15,20 @@ const FunctionButton = withStyles(theme => ({
 export default function FunctionPane (props) {
     const functionButtonRows = (array) => array.map((val) => functionButton(val));
 
-    const functionButton = (val) => (
-        <FunctionButton color="primary" key={val} onClick={(event) => {
-                const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
-                return props.numberPressed(convertedVal);
-            }}>
-            {val}
-        </FunctionButton>
-    )
+    const bgColor = props.altState ? "secondary" : "primary";
+    const functionButton = (val) => {
+        const funcVal = props.altState ? (val in ALTERNATES ? ALTERNATES[val] : val) : val;
+        return (
+            <FunctionButton color={bgColor} key={funcVal} onClick={(event) => {
+                    const convertedVal = funcVal in BUTTON_CONVERSION ? BUTTON_CONVERSION[funcVal] : funcVal;
+                    return props.buttonPressed(convertedVal);
+                }}>
+                {funcVal}
+            </FunctionButton>
+        )
+    }
 
-    const functionGrid = FUNCTIONS_OTHERS.map((row) => (
+    const functionGrid = FUNCTIONS.map((row) => (
         <Grid key={row[0]}
             container
             spacing={0}

@@ -56,7 +56,10 @@ function Calculator (props) {
                         selectionChanged={props.onSelectChange}/>
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <KeyPane numberPressed={props.onButtonPress} />
+                    <KeyPane
+                        altState={props.altState}
+                        buttonPressed={props.onButtonPress}
+                        actionModifier={props.onActionModifier}/>
                 </Grid>
             </Grid>
         </Container>
@@ -69,11 +72,13 @@ const mapStateToProps = state => {
         currentDisplay: state.displayRows,
         errorName: state.errorName,
         errorMsg: state.errorMsg,
+        altState: state.showAltButtons,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        onActionModifier: (btnVal) => dispatch(actions.actionModifier(btnVal)),
         onButtonPress: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
         onEntryChange: (newEntry) => dispatch(actions.inputEntry(newEntry)),
         onEnterPress: () => dispatch(actions.evaluate()),

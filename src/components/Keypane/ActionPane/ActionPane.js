@@ -1,39 +1,39 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles} from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
+import yellow from '@material-ui/core/colors/yellow';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { ARITHMETIC_OPERATORS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+import { ACTIONS, BUTTON_CONVERSION } from '../../../shared/interpreter';
 
-const borderColor = '#4c885a';
-const backgroundColor = green[500];
-const bgHoverColor = green[700];
+const borderColor = '#bdbdbd';
+const backgroundColor = yellow[400];
+const bgHoverColor = yellow[600];
 
-const ArithmeticButton = withStyles(theme => ({
+const ActionButton = withStyles(theme => ({
   root: {
     fontWeight: 600,
     width: '100%',
-    borderColor: borderColor, //'#4c885a',
-    backgroundColor: backgroundColor,//'#4caf50',
+    borderColor: borderColor,// '#bdbdbd',
+    backgroundColor: backgroundColor, //'#d9f253',
     '&:hover': {
-      backgroundColor: bgHoverColor,//'#388e3c',
+      backgroundColor: bgHoverColor, //'#c6db4b',
     },
   },
 }))(CalcButton);
 
-export default function ArithmeticPane (props) {
-    const arithmeticButton = (val) => (
-        <ArithmeticButton key={val} onClick={(event) => {
+export default function ActionPane (props) {
+    const actionButton = (val) => (
+        <ActionButton key={val} onClick={(event) => {
             const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
-            return props.buttonPressed(convertedVal);
+            return props.actionModifier(convertedVal);
         }}>
             {val}
-        </ArithmeticButton>
+        </ActionButton>
     );
 
-    const arithmeticGroup = ARITHMETIC_OPERATORS.map((val) => (
+    const actionGroup = ACTIONS.map((val) => (
         <Grid key={val}
             container
             spacing={0}
@@ -44,7 +44,7 @@ export default function ArithmeticPane (props) {
                 variant="contained"
                 size="small"
                 aria-label="small contained button group">
-              {arithmeticButton(val)}
+              {actionButton(val)}
             </ButtonGroup>
           </Grid>
         </Grid>
@@ -52,7 +52,7 @@ export default function ArithmeticPane (props) {
 
     return (
         <div>
-            {arithmeticGroup}
+            {actionGroup}
         </div>
     );
 };

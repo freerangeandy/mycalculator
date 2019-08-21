@@ -18,7 +18,8 @@ export const BUTTON_CONVERSION = {
     [DISPLAY_SYMBOL.tan] : CONVERTED_SYMBOL.tan,
     [DISPLAY_SYMBOL.naturalLog] : CONVERTED_SYMBOL.naturalLog,
     [DISPLAY_SYMBOL.negate]: CONVERTED_SYMBOL.negate,
-}
+};
+
 export const ARITHMETIC_OPERATORS = [
     DISPLAY_SYMBOL.divide,
     DISPLAY_SYMBOL.multiply,
@@ -37,10 +38,10 @@ export const NUM_PAD = [
 // [1, 2, 3],
 // [0, '.', '( − )'],
 
-export const FUNCTIONS_OTHERS = [
+export const FUNCTIONS = [
     [DISPLAY_SYMBOL.sum, DISPLAY_SYMBOL.integrate, DISPLAY_SYMBOL.diff, DISPLAY_SYMBOL.sqRoot],
     [DISPLAY_SYMBOL.sin , DISPLAY_SYMBOL.cos , DISPLAY_SYMBOL.tan , DISPLAY_SYMBOL.naturalLog],
-    [DISPLAY_SYMBOL.equals , DISPLAY_SYMBOL.greaterThan , DISPLAY_SYMBOL.lessThan , DISPLAY_SYMBOL.clear],
+    [DISPLAY_SYMBOL.equals , DISPLAY_SYMBOL.greaterThan , DISPLAY_SYMBOL.lessThan , ' '],
     ['(',')', ',', DISPLAY_SYMBOL.exponent],
 ];
 // ['∑', '∫', '∂', '√'],
@@ -48,8 +49,27 @@ export const FUNCTIONS_OTHERS = [
 // ['=','>','<', 'C'],
 // ['(',')', ',', '^'],
 
+export const MODIFIERS = [
+    DISPLAY_SYMBOL.secondFunc,
+    '.',
+    '.',
+    '.',
+];
+
+export const ACTIONS = [
+    DISPLAY_SYMBOL.delete,
+    DISPLAY_SYMBOL.answer,
+    DISPLAY_SYMBOL.assign,
+    DISPLAY_SYMBOL.clear,
+];
+
+export const ALTERNATES = {
+    [DISPLAY_SYMBOL.sin]: DISPLAY_SYMBOL.asin,
+    [DISPLAY_SYMBOL.cos]: DISPLAY_SYMBOL.acos,
+    [DISPLAY_SYMBOL.tan]: DISPLAY_SYMBOL.atan,
+}
 
 export const evalExpression = (expression) => {
     const out = nerdamer(expression).evaluate();
     return out;
-}
+};
