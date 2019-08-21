@@ -8,7 +8,10 @@ import { NUM_PAD } from '../../../shared/interpreter';
 
 const NumButton = withStyles(theme => ({
   root: {
-    width: '30%',
+    // width: '30%',
+    minWidth: 48,
+    fontSize: '110%',
+    lineHeight: '135%',
     borderColor: '#bdbdbd',
     backgroundColor: '#e0e0e0',
     '&:hover': {

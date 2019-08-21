@@ -8,7 +8,8 @@ import { FUNCTIONS, ALTERNATES, BUTTON_CONVERSION } from '../../../shared/interp
 
 const FunctionButton = withStyles(theme => ({
   root: {
-    width: '25%',
+    // width: '25%',
+    minWidth: 48,
   },
 }))(CalcButton);
 

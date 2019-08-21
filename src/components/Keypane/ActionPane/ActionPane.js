@@ -14,7 +14,7 @@ const bgHoverColor = yellow[600];
 const ActionButton = withStyles(theme => ({
   root: {
     fontWeight: 600,
-    width: '100%',
+    minWidth: 48,
     borderColor: borderColor,// '#bdbdbd',
     backgroundColor: backgroundColor, //'#d9f253',
     '&:hover': {
