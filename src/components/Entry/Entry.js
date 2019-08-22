@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   },
   iconButton: {
     padding: 10,
+    transform: 'rotate(270deg)'
   },
   divider: {
     width: 1,

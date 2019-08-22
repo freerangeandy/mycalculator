@@ -7,8 +7,9 @@ import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
-import ModifierPane from './ModifierPane/ModifierPane';
+// import ModifierPane from './ModifierPane/ModifierPane';
 import paneClasses from './KeyPane.css';
+import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -28,10 +29,14 @@ export default function KeyPane (props) {
                     <FunctionPane
                         buttonPressed={props.buttonPressed}
                         altState={props.altState} />
-                    <ModifierPane actionModifier={props.actionModifier} />
+                    <ActionPane
+                        actionModifier={props.actionModifier}
+                        columnValues={MODIFIERS} />
                 </Grid>
                 <Grid item xs={6} sm={12} className={paneClasses.lowerKeys}>
-                    <ActionPane actionModifier={props.actionModifier} />
+                    <ActionPane
+                        actionModifier={props.actionModifier}
+                        columnValues={ACTIONS} />
                     <NumPad numberPressed={props.buttonPressed} />
                     <ArithmeticPane buttonPressed={props.buttonPressed} />
                 </Grid>

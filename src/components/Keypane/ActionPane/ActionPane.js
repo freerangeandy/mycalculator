@@ -1,15 +1,15 @@
 import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles} from '@material-ui/core/styles';
-import yellow from '@material-ui/core/colors/yellow';
+import amber from '@material-ui/core/colors/amber';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { ACTIONS } from '../../../shared/interpreter';
+// import { props.columnValues } from '../../../shared/interpreter';
 
 const borderColor = '#bdbdbd';
-const backgroundColor = yellow[400];
-const bgHoverColor = yellow[600];
+const backgroundColor = amber[200];
+const bgHoverColor = amber[500];
 
 const ActionButton = withStyles(theme => ({
   root: {
@@ -30,7 +30,7 @@ export default function ActionPane (props) {
         </ActionButton>
     );
 
-    const actionGroup = ACTIONS.map((val) => (
+    const actionGroup = props.columnValues.map((val) => (
         <Grid key={val}
             container
             spacing={0}
