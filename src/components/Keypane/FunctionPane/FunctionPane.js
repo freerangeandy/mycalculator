@@ -4,7 +4,7 @@ import { withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { FUNCTIONS, ALTERNATES, BUTTON_CONVERSION } from '../../../shared/interpreter';
+import { FUNCTIONS, ALTERNATES } from '../../../shared/interpreter';
 
 const FunctionButton = withStyles(theme => ({
   root: {
@@ -20,10 +20,7 @@ export default function FunctionPane (props) {
     const functionButton = (val) => {
         const funcVal = props.altState ? (val in ALTERNATES ? ALTERNATES[val] : val) : val;
         return (
-            <FunctionButton color={bgColor} key={funcVal} onClick={(event) => {
-                    const convertedVal = funcVal in BUTTON_CONVERSION ? BUTTON_CONVERSION[funcVal] : funcVal;
-                    return props.buttonPressed(convertedVal);
-                }}>
+            <FunctionButton color={bgColor} key={funcVal} onClick={(event) => props.buttonPressed(funcVal)}>
                 {funcVal}
             </FunctionButton>
         )

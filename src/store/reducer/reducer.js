@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { evalExpression } from '../../shared/interpreter';
+import { evalExpression, BUTTON_CONVERSION } from '../../shared/interpreter';
 
 import { DISPLAY_SYMBOL } from '../../shared/symbols.js';
 
@@ -14,8 +14,10 @@ const initialState = {
 };
 
 const buttonPress = (state, action) => {
+  const buttonVal = action.buttonVal;
+  const insertVal = buttonVal in BUTTON_CONVERSION ? BUTTON_CONVERSION[buttonVal] : buttonVal;
   const currentEntryVal = state.entryVal;
-  const insertVal = action.buttonVal;
+  // const insertVal = action.buttonVal;
   const [selectStart, selectEnd] = state.selection;
 
   const selectWidth = selectEnd - selectStart;

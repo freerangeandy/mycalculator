@@ -5,7 +5,7 @@ import green from '@material-ui/core/colors/green';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { ARITHMETIC_OPERATORS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+import { ARITHMETIC_OPERATORS } from '../../../shared/interpreter';
 
 const borderColor = '#4c885a';
 const backgroundColor = green[500];
@@ -25,10 +25,7 @@ const ArithmeticButton = withStyles(theme => ({
 
 export default function ArithmeticPane (props) {
     const arithmeticButton = (val) => (
-        <ArithmeticButton key={val} onClick={(event) => {
-            const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
-            return props.buttonPressed(convertedVal);
-        }}>
+        <ArithmeticButton key={val} onClick={(event) => props.buttonPressed(val)}>
             {val}
         </ArithmeticButton>
     );

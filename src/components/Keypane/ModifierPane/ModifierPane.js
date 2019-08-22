@@ -5,7 +5,7 @@ import yellow from '@material-ui/core/colors/yellow';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { MODIFIERS, BUTTON_CONVERSION } from '../../../shared/interpreter';
+import { MODIFIERS } from '../../../shared/interpreter';
 
 const borderColor = '#bdbdbd';
 const backgroundColor = yellow[400];
@@ -25,10 +25,7 @@ const ModifierButton = withStyles(theme => ({
 
 export default function ModifierPane (props) {
     const modifierButton = (val) => (
-        <ModifierButton key={val} onClick={(event) => {
-            const convertedVal = val in BUTTON_CONVERSION ? BUTTON_CONVERSION[val] : val;
-            return props.actionModifier(convertedVal);
-        }}>
+        <ModifierButton key={val} onClick={(event) => props.actionModifier(val)}>
             {val}
         </ModifierButton>
     );
