@@ -68,11 +68,11 @@ function Calculator (props) {
 
 const mapStateToProps = state => {
     return {
-        currentEntry: state.entryVal,
-        currentDisplay: state.displayRows,
-        errorName: state.errorName,
-        errorMsg: state.errorMsg,
-        altState: state.showAltButtons,
+        currentEntry: state.entryDisplay.entryVal,
+        currentDisplay: state.entryDisplay.displayRows,
+        errorName: state.entryDisplay.errorName,
+        errorMsg: state.entryDisplay.errorMsg,
+        altState: state.keyPane.showAltButtons,
     };
 }
 

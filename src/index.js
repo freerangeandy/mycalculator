@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore, /*combineReducers, applyMiddleware, compose*/} from 'redux';
+import {createStore, combineReducers /* applyMiddleware, compose*/} from 'redux';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducer/reducer';
+import entryDisplayReducer from './store/reducers/entryDisplay';
+import keyPaneReducer from './store/reducers/keyPane';
+
+const rootReducer = combineReducers({
+    entryDisplay: entryDisplayReducer,
+    keyPane: keyPaneReducer,
+});
 
 const store = createStore(
-    reducer,
+    rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

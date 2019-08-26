@@ -10,7 +10,6 @@ const initialState = {
   selection: [0,0],
   errorName: '',
   errorMsg: '',
-  showAltButtons: 'false',
 };
 
 const buttonPress = (state, action) => {
@@ -88,26 +87,8 @@ const setError = (state, action) => {
   return updateObject(state, newError);
 }
 
-const actionModifier = (state, action) => {
-  let newState;
-  if (action.buttonVal === DISPLAY_SYMBOL.secondFunc) {
-      newState = {
-          showAltButtons: !state.showAltButtons,
-      }
-  } else {
-      newState = {
-          errorName: `${action.buttonVal} `,
-          errorMsg: 'not working',
-      }
-  }
-
-  return updateObject(state, newState);
-}
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ACTION_MOD:
-      return actionModifier(state, action);
     case actionTypes.BUTTON_ENTRY:
       return buttonPress(state, action);
     case actionTypes.INPUT_ENTRY:
