@@ -1,8 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { evalExpression, BUTTON_CONVERSION } from '../../shared/interpreter';
-
-import { DISPLAY_SYMBOL } from '../../shared/symbols.js';
+import { evalExpression, convertToLaTeXString } from '../../shared/interpreter';
+import { CONVERTED_SYMBOL } from '../../shared/symbols.js';
 
 const initialState = {
   entryVal: '',
@@ -14,7 +13,9 @@ const initialState = {
 
 const buttonPress = (state, action) => {
   const buttonVal = action.buttonVal;
-  const insertVal = buttonVal in BUTTON_CONVERSION ? BUTTON_CONVERSION[buttonVal] : buttonVal;
+  console.log(`buttonVal: ${buttonVal}`);
+  const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
+  console.log(`insertVal: ${insertVal}`);
   const currentEntryVal = state.entryVal;
   // const insertVal = action.buttonVal;
   const [selectStart, selectEnd] = state.selection;

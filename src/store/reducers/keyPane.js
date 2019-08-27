@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { DISPLAY_SYMBOL } from '../../shared/symbols.js';
+// import { DISPLAY_SYMBOL } from '../../shared/symbols.js';
 
 const initialState = {
   showAltButtons: 'false',
@@ -8,7 +8,7 @@ const initialState = {
 
 const actionModifier = (state, action) => {
   let newState;
-  if (action.buttonVal === DISPLAY_SYMBOL.secondFunc) {
+  if (action.buttonVal === 'secondFunc') {
       newState = {
           showAltButtons: !state.showAltButtons,
       }

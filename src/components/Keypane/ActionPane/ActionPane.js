@@ -5,7 +5,7 @@ import amber from '@material-ui/core/colors/amber';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-// import { props.columnValues } from '../../../shared/interpreter';
+import { DISPLAY_SYMBOL } from '../../../shared/symbols.js';
 
 const borderColor = '#bdbdbd';
 const backgroundColor = amber[200];
@@ -24,11 +24,14 @@ const ActionButton = withStyles(theme => ({
 }))(CalcButton);
 
 export default function ActionPane (props) {
-    const actionButton = (val) => (
-        <ActionButton key={val} onClick={(event) => props.actionModifier(val)}>
-            {val}
-        </ActionButton>
-    );
+    const actionButton = (val) => {
+        const displayVal = val in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[val]: val;
+        return (
+            <ActionButton key={val} onClick={(event) => props.actionModifier(val)}>
+                {displayVal}
+            </ActionButton>
+        )
+    };
 
     const actionGroup = props.columnValues.map((val) => (
         <Grid key={val}
