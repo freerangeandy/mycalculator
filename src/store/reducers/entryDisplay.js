@@ -36,10 +36,12 @@ const buttonPress = (state, action) => {
 
 const evaluateExpression = (state, action) => {
   const currentEntry = state.entryVal;
-  //const squaredEntry = currentEntry * currentEntry; // arbitrary evaluation
   try {
-    const result = evalExpression(currentEntry).toString();
-    const updatedRows = [...state.displayRows, [currentEntry, result]];
+    const result = evalExpression(currentEntry);
+    const latexEntry = convertToLaTeXString(currentEntry);
+    const latexResult = convertToLaTeXString(result);
+
+    const updatedRows = [...state.displayRows, [latexEntry, latexResult]];
 
     const newState = {
       entryVal: '',

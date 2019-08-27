@@ -6,8 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { InlineMath, BlockMath } from 'react-katex';
-import katex from 'katex';
+import { InlineMath } from 'react-katex';
+// import katex from 'katex';
 
 import tableClasses from './Display.css';
 
@@ -55,8 +55,8 @@ function Display(props){
       }
       return (
         <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
-          <TableCell className={tableClasses.cell} align="left">{row.input}</TableCell>
-          <TableCell className={tableClasses.cell} align="right"><InlineMath math="\int_0^\infty x^2 dx"/>{row.output}</TableCell>
+          <TableCell className={tableClasses.cell} align="left"><InlineMath math={row.input}/></TableCell>
+          <TableCell className={tableClasses.cell} align="right"><InlineMath math={row.output}/></TableCell>
         </TableRow>
       )
     });

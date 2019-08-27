@@ -70,6 +70,10 @@ export const ALTERNATES = {
 }
 
 export const evalExpression = (expression) => {
-    const out = nerdamer(expression).evaluate();
+    const out = nerdamer(expression).evaluate().toString();
     return out;
 };
+
+export const convertToLaTeXString = (expression) => {
+    return nerdamer.convertToLaTeX(expression).toString();
+}
