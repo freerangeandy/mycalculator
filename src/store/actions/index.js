@@ -4,6 +4,7 @@ export {
     evaluate,
     selection,
     setError,
+    useDecimals,
 } from './entryDisplay';
 export {
     actionModifier,

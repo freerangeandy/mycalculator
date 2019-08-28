@@ -26,7 +26,11 @@ function Calculator (props) {
             }
         },
     }
-
+    //
+    const decimalState = props.useDecimals
+                        ? (<div>decimals</div>)
+                        : (<div>fractions</div>);
+    //
     const enterThenFocus = () => {
         props.onEnterPress();
         entryRef.current.focus();
@@ -62,6 +66,8 @@ function Calculator (props) {
                         actionModifier={props.onActionModifier}/>
                 </Grid>
             </Grid>
+            <button onClick={() => props.toggleDecimals()}/>
+            {decimalState}
         </Container>
     );
 }
@@ -73,6 +79,7 @@ const mapStateToProps = state => {
         errorName: state.entryDisplay.errorName,
         errorMsg: state.entryDisplay.errorMsg,
         altState: state.keyPane.showAltButtons,
+        useDecimals: state.entryDisplay.useDecimals,
     };
 }
 
@@ -84,6 +91,7 @@ const mapDispatchToProps = dispatch => {
         onEnterPress: () => dispatch(actions.evaluate()),
         onSelectChange: (start, end) => dispatch(actions.selection(start, end)),
         setError: (name, msg) => dispatch(actions.setError(name, msg)),
+        toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }
 

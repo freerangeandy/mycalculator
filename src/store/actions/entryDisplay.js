@@ -35,3 +35,9 @@ export const setError = (errName, errMsg) => {
     errMsg: errMsg,
   }
 };
+
+export const useDecimals = () => {
+  return {
+    type: actionTypes.USE_DECIMALS,
+  }
+};

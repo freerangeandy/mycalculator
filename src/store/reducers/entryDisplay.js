@@ -9,13 +9,14 @@ const initialState = {
   selection: [0,0],
   errorName: '',
   errorMsg: '',
+  useDecimals: false,
 };
 
 const buttonPress = (state, action) => {
   const buttonVal = action.buttonVal;
-  console.log(`buttonVal: ${buttonVal}`);
+  // console.log(`buttonVal: ${buttonVal}`);
   const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
-  console.log(`insertVal: ${insertVal}`);
+  // console.log(`insertVal: ${insertVal}`);
   const currentEntryVal = state.entryVal;
   // const insertVal = action.buttonVal;
   const [selectStart, selectEnd] = state.selection;
@@ -37,10 +38,16 @@ const buttonPress = (state, action) => {
 
 const evaluateExpression = (state, action) => {
   const currentEntry = state.entryVal;
+  const currentUseDecimals = state.useDecimals;
   try {
+    // console.log(`currentEntry: ${currentEntry}`);
     const result = evalExpression(currentEntry);
+    console.log(`result: ${result}`);
     const latexEntry = convertToLaTeXString(currentEntry);
-    const latexResult = convertToLaTeXString(result);
+    const latexResult = currentUseDecimals
+                    ? result.text('decimals')
+                    : convertToLaTeXString(result.toString());
+    console.log(`latexResult: ${latexResult}`);
 
     const updatedRows = [...state.displayRows, [latexEntry, latexResult]];
 
@@ -90,6 +97,14 @@ const setError = (state, action) => {
   return updateObject(state, newError);
 }
 
+const setUseDecimals = (state, action) => {
+  const newState = {
+    useDecimals: !state.useDecimals,
+  }
+
+  return updateObject(state, newState);
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.BUTTON_ENTRY:
@@ -102,6 +117,8 @@ const reducer = (state = initialState, action) => {
       return selectionUpdate(state, action);
     case actionTypes.SET_ERROR:
       return setError(state, action);
+    case actionTypes.USE_DECIMALS:
+      return setUseDecimals(state, action);
     default:
       return state;
   }

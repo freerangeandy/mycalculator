@@ -46,7 +46,7 @@ export const ALTERNATES = {
 }
 
 export const evalExpression = (expression) => {
-    const out = nerdamer(expression).evaluate().toString();
+    const out = nerdamer(expression).evaluate();
     return out;
 };
 
