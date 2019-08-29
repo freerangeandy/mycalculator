@@ -36,6 +36,13 @@ export const setError = (errName, errMsg) => {
   }
 };
 
+export const setSecondaryAction = (btnVal) => {
+  return {
+    type: actionTypes.SET_SECONDARY_ACTION,
+    buttonVal: btnVal,
+  }
+}
+
 export const useDecimals = () => {
   return {
     type: actionTypes.USE_DECIMALS,

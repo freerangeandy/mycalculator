@@ -7,7 +7,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InlineMath } from 'react-katex';
-// import katex from 'katex';
+
+import { convertToLaTeXString } from '../../shared/interpreter';
 
 import tableClasses from './Display.css';
 
@@ -43,7 +44,11 @@ function Display(props){
     useEffect(scrollToBottom, [displayRows]);
 
     const rows = displayRows.map(([input, output]) => {
-        return createData(input, output);
+        const latexEntry = convertToLaTeXString(input);
+        const latexResult = props.useDecimals
+                        ? output.text('decimals')
+                        : convertToLaTeXString(output.toString());
+        return createData(latexEntry, latexResult);
     });
 
     const tableRows = rows.map((row, idx, arr) => {

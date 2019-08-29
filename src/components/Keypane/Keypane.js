@@ -35,7 +35,7 @@ export default function KeyPane (props) {
                 </Grid>
                 <Grid item xs={6} sm={12} className={paneClasses.lowerKeys}>
                     <ActionPane
-                        actionModifier={props.actionModifier}
+                        actionModifier={props.secondaryAction}
                         columnValues={ACTIONS} />
                     <NumPad numberPressed={props.buttonPressed} />
                     <ArithmeticPane buttonPressed={props.buttonPressed} />

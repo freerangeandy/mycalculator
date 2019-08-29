@@ -4,6 +4,7 @@ export {
     evaluate,
     changeSelection,
     setError,
+    setSecondaryAction,
     useDecimals,
 } from './entryDisplay';
 export {

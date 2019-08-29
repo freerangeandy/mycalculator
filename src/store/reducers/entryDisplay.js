@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-import { evalExpression, convertToLaTeXString } from '../../shared/interpreter';
-import { CONVERTED_SYMBOL } from '../../shared/symbols.js';
+import { evalExpression } from '../../shared/interpreter';
+import { CONVERTED_SYMBOL, KEYS } from '../../shared/symbols.js';
 
 const initialState = {
   entryVal: '',
@@ -20,11 +20,11 @@ const buttonEntry = (state, action) => {
   const currentEntryVal = state.entryVal;
   // const insertVal = action.buttonVal;
   const [selectStart, selectEnd] = state.selection;
-
+  //
   const selectWidth = selectEnd - selectStart;
   const selectionShift = insertVal.toString().length - selectWidth;
   const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
-
+  //
   const preInsert = selectStart > 0 ? currentEntryVal.slice(0, selectStart) : '';
   const postInsert = selectEnd < currentEntryVal.length ? currentEntryVal.slice(selectEnd) : '';
   const newEntryVal =  preInsert + insertVal + postInsert;
@@ -47,30 +47,19 @@ const evaluate = (state, action) => {
   const currentEntry = state.entryVal;
   const currentUseDecimals = state.useDecimals;
   try {
-    // console.log(`currentEntry: ${currentEntry}`);
     const result = evalExpression(currentEntry);
     console.log(`result: ${result}`);
-    const latexEntry = convertToLaTeXString(currentEntry);
-    const latexResult = currentUseDecimals
-                    ? result.text('decimals')
-                    : convertToLaTeXString(result.toString());
-    console.log(`latexResult: ${latexResult}`);
-
-    const updatedRows = [...state.displayRows, [latexEntry, latexResult]];
-
+    const updatedRows = [...state.displayRows, [currentEntry, result]];
     const newState = {
       entryVal: '',
       displayRows: updatedRows,
       selection: [0,0],
     }
-
     return updateObject(state, newState);
   } catch (e) {
-
     const errorName = e.name;
     const errorMsg = e.message;
     console.log(errorName, errorMsg);
-
     const newState = {
       entryVal: currentEntry,
       // selection: newSelection,
@@ -93,13 +82,53 @@ const setError = (state, action) => {
     errorName: action.errName,
     errorMsg: action.errMsg,
   }
-
   return updateObject(state, newError);
 }
 
 const setUseDecimals = (state, action) => {
   const newState = {
     useDecimals: !state.useDecimals,
+  }
+  return updateObject(state, newState);
+}
+
+const setSecondaryAction = (state, action) => {
+  let newState;
+  switch(action.buttonVal) {
+    case KEYS.delete:
+      // look in buttonEntry(..) for code (write delete/insert function in utility.js?)
+      newState = {
+          entryVal: '',
+          selection: [0,0],
+      }
+      break;
+    case KEYS.answer:
+      const prevAnswerObj = state.displayRows.slice(-1)[0][1];
+      const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
+                                           : prevAnswerObj.text('fraction');
+      const ansLength = prevAnswer.length;
+      newState = {
+        entryVal: prevAnswer,
+        selection: [ansLength,ansLength],
+      }
+      break;
+    case KEYS.assign:
+      newState = {
+        errorName: `${action.buttonVal} `,
+        errorMsg: 'stub',
+      }
+      break;
+    case KEYS.clear:
+      newState = {
+          entryVal: '',
+          selection: [0,0],
+      }
+      break;
+    default:
+      newState = {
+        errorName: `${action.buttonVal} `,
+        errorMsg: 'not working',
+      }
   }
 
   return updateObject(state, newState);
@@ -117,6 +146,8 @@ const reducer = (state = initialState, action) => {
       return changeSelection(state, action);
     case actionTypes.SET_ERROR:
       return setError(state, action);
+    case actionTypes.SET_SECONDARY_ACTION:
+      return setSecondaryAction(state, action);
     case actionTypes.USE_DECIMALS:
       return setUseDecimals(state, action);
     default:

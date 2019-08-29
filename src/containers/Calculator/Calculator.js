@@ -52,7 +52,9 @@ function Calculator (props) {
               errorMsg={props.errorMsg}/>
             <Grid {...gridAttributes} container spacing={1}>
                 <Grid item xs={12} sm={8}>
-                    <Display displayRows={props.currentDisplay} />
+                    <Display
+                        displayRows={props.currentDisplay}
+                        useDecimals={props.useDecimals}/>
                     <Entry
                         entryRef={entryRef}
                         entryChanged={props.onTypedEntry}
@@ -64,7 +66,8 @@ function Calculator (props) {
                     <KeyPane
                         altState={props.altState}
                         buttonPressed={props.onButtonEntry}
-                        actionModifier={props.onSetModifier}/>
+                        actionModifier={props.onSetModifier}
+                        secondaryAction={props.onSetSecondaryAction} />
                 </Grid>
                 <SettingsDrawer />
             </Grid>
@@ -80,18 +83,19 @@ const mapStateToProps = state => {
         errorName: state.entryDisplay.errorName,
         errorMsg: state.entryDisplay.errorMsg,
         altState: state.keyPane.showAltButtons,
-        // useDecimals: state.entryDisplay.useDecimals,
+        useDecimals: state.entryDisplay.useDecimals,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
         onButtonEntry: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
         onTypedEntry: (newEntry) => dispatch(actions.typedEntry(newEntry)),
         onEvaluate: () => dispatch(actions.evaluate()),
         onChangeSelection: (start, end) => dispatch(actions.changeSelection(start, end)),
         onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
+        onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
+        onSetSecondaryAction: (btnVal) => dispatch(actions.setSecondaryAction(btnVal)),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }
