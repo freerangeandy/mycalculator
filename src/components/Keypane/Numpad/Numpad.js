@@ -16,7 +16,7 @@ const NumButton = withStyles(theme => ({
     borderColor: '#bdbdbd',
     backgroundColor: '#e0e0e0',
     '&:hover': {
-      backgroundColor: '#d5d5d5',
+      backgroundColor: '#b8b8b8',
     },
   },
 }))(CalcButton);
