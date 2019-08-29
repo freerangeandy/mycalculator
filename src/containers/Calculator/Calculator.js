@@ -8,6 +8,7 @@ import Entry from '../../components/Entry/Entry';
 import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 import ErrorModal from '../../components/UI/ErrorModal';
+import SettingsDrawer from '../Settings/SettingsDrawer';
 import * as actions from '../../store/actions/index';
 
 function Calculator (props) {
@@ -27,10 +28,10 @@ function Calculator (props) {
         },
     }
     //
-    const decimalState = props.useDecimals
-                        ? (<div>decimals</div>)
-                        : (<div>fractions</div>);
-    //
+    // const decimalState = props.useDecimals
+    //                     ? (<div>decimals</div>)
+    //                     : (<div>fractions</div>);
+    // //
     const enterThenFocus = () => {
         props.onEnterPress();
         entryRef.current.focus();
@@ -65,13 +66,13 @@ function Calculator (props) {
                         buttonPressed={props.onButtonPress}
                         actionModifier={props.onActionModifier}/>
                 </Grid>
+                <SettingsDrawer />
             </Grid>
-            <button onClick={() => props.toggleDecimals()}/>
-            {decimalState}
         </Container>
     );
 }
-
+// <button onClick={() => props.toggleDecimals()}/>
+// {decimalState}
 const mapStateToProps = state => {
     return {
         currentEntry: state.entryDisplay.entryVal,
