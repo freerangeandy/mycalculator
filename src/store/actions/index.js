@@ -1,11 +1,11 @@
 export {
     buttonEntry ,
-    inputEntry,
+    typedEntry,
     evaluate,
-    selection,
+    changeSelection,
     setError,
     useDecimals,
 } from './entryDisplay';
 export {
-    actionModifier,
+    setModifier,
 } from './keyPane';

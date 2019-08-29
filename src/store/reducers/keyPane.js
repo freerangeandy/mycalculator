@@ -6,7 +6,7 @@ const initialState = {
   showAltButtons: 'false',
 };
 
-const actionModifier = (state, action) => {
+const setModifier = (state, action) => {
   let newState;
   if (action.buttonVal === 'secondFunc') {
       newState = {
@@ -24,8 +24,8 @@ const actionModifier = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ACTION_MOD:
-      return actionModifier(state, action);
+    case actionTypes.SET_MODIFIER:
+      return setModifier(state, action);
     default:
       return state;
   }

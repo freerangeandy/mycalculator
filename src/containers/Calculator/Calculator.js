@@ -33,13 +33,13 @@ function Calculator (props) {
     //                     : (<div>fractions</div>);
     // //
     const enterThenFocus = () => {
-        props.onEnterPress();
+        props.onEvaluate();
         entryRef.current.focus();
         entryRef.current.select();
     }
 
     const handleClose = () => {
-      props.setError('','');
+      props.onSetError('','');
       setErrorOpen(false);
     }
 
@@ -55,16 +55,16 @@ function Calculator (props) {
                     <Display displayRows={props.currentDisplay} />
                     <Entry
                         entryRef={entryRef}
-                        entryChanged={props.onEntryChange}
+                        entryChanged={props.onTypedEntry}
                         enterPressed={enterThenFocus}
                         entryVal={props.currentEntry}
-                        selectionChanged={props.onSelectChange}/>
+                        selectionChanged={props.onChangeSelection}/>
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <KeyPane
                         altState={props.altState}
-                        buttonPressed={props.onButtonPress}
-                        actionModifier={props.onActionModifier}/>
+                        buttonPressed={props.onButtonEntry}
+                        actionModifier={props.onSetModifier}/>
                 </Grid>
                 <SettingsDrawer />
             </Grid>
@@ -80,19 +80,19 @@ const mapStateToProps = state => {
         errorName: state.entryDisplay.errorName,
         errorMsg: state.entryDisplay.errorMsg,
         altState: state.keyPane.showAltButtons,
-        useDecimals: state.entryDisplay.useDecimals,
+        // useDecimals: state.entryDisplay.useDecimals,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onActionModifier: (btnVal) => dispatch(actions.actionModifier(btnVal)),
-        onButtonPress: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
-        onEntryChange: (newEntry) => dispatch(actions.inputEntry(newEntry)),
-        onEnterPress: () => dispatch(actions.evaluate()),
-        onSelectChange: (start, end) => dispatch(actions.selection(start, end)),
-        setError: (name, msg) => dispatch(actions.setError(name, msg)),
-        toggleDecimals: () => dispatch(actions.useDecimals()),
+        onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
+        onButtonEntry: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
+        onTypedEntry: (newEntry) => dispatch(actions.typedEntry(newEntry)),
+        onEvaluate: () => dispatch(actions.evaluate()),
+        onChangeSelection: (start, end) => dispatch(actions.changeSelection(start, end)),
+        onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
+        // toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }
 

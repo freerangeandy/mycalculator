@@ -12,7 +12,7 @@ const initialState = {
   useDecimals: false,
 };
 
-const buttonPress = (state, action) => {
+const buttonEntry = (state, action) => {
   const buttonVal = action.buttonVal;
   // console.log(`buttonVal: ${buttonVal}`);
   const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
@@ -36,7 +36,14 @@ const buttonPress = (state, action) => {
   return updateObject(state, newState);
 }
 
-const evaluateExpression = (state, action) => {
+const typedEntry = (state, action) => {
+  const newEntry = {
+    entryVal: action.updatedEntry,
+  };
+  return updateObject(state, newEntry);
+}
+
+const evaluate = (state, action) => {
   const currentEntry = state.entryVal;
   const currentUseDecimals = state.useDecimals;
   try {
@@ -74,14 +81,7 @@ const evaluateExpression = (state, action) => {
   }
 }
 
-const entryUpdate = (state, action) => {
-  const newEntry = {
-    entryVal: action.updatedEntry,
-  };
-  return updateObject(state, newEntry);
-}
-
-const selectionUpdate = (state, action) => {
+const changeSelection = (state, action) => {
   const newSelection = {
     selection: [action.selectStart, action.selectEnd]
   }
@@ -108,13 +108,13 @@ const setUseDecimals = (state, action) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.BUTTON_ENTRY:
-      return buttonPress(state, action);
-    case actionTypes.INPUT_ENTRY:
-      return entryUpdate(state, action);
+      return buttonEntry(state, action);
+    case actionTypes.TYPED_ENTRY:
+      return typedEntry(state, action);
     case actionTypes.EVALUATE:
-      return evaluateExpression(state, action);
-    case actionTypes.SELECTION:
-      return selectionUpdate(state, action);
+      return evaluate(state, action);
+    case actionTypes.CHANGE_SELECTION:
+      return changeSelection(state, action);
     case actionTypes.SET_ERROR:
       return setError(state, action);
     case actionTypes.USE_DECIMALS:

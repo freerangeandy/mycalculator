@@ -7,9 +7,9 @@ export const buttonEntry = (btnVal) => {
   }
 };
 
-export const inputEntry = (updatedEntry) => {
+export const typedEntry = (updatedEntry) => {
   return {
-    type: actionTypes.INPUT_ENTRY,
+    type: actionTypes.TYPED_ENTRY,
     updatedEntry: updatedEntry,
   }
 };
@@ -20,9 +20,9 @@ export const evaluate = () => {
   }
 };
 
-export const selection = (start, end) => {
+export const changeSelection = (start, end) => {
   return {
-    type: actionTypes.SELECTION,
+    type: actionTypes.CHANGE_SELECTION,
     selectStart: start,
     selectEnd: end,
   }
