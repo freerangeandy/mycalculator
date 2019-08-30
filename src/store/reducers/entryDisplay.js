@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../../shared/utility';
+import { updateObject, insertReplace } from '../../shared/utility';
 import { evalExpression } from '../../shared/interpreter';
 import { CONVERTED_SYMBOL, KEYS } from '../../shared/symbols.js';
 
@@ -14,25 +14,8 @@ const initialState = {
 
 const buttonEntry = (state, action) => {
   const buttonVal = action.buttonVal;
-  // console.log(`buttonVal: ${buttonVal}`);
   const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
-  // console.log(`insertVal: ${insertVal}`);
-  const currentEntryVal = state.entryVal;
-  // const insertVal = action.buttonVal;
-  const [selectStart, selectEnd] = state.selection;
-  //
-  const selectWidth = selectEnd - selectStart;
-  const selectionShift = insertVal.toString().length - selectWidth;
-  const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
-  //
-  const preInsert = selectStart > 0 ? currentEntryVal.slice(0, selectStart) : '';
-  const postInsert = selectEnd < currentEntryVal.length ? currentEntryVal.slice(selectEnd) : '';
-  const newEntryVal =  preInsert + insertVal + postInsert;
-
-  const newState = {
-    entryVal: newEntryVal,
-    selection: newSelection,
-  };
+  const newState = insertReplace(insertVal, state.selection, state.entryVal);
   return updateObject(state, newState);
 }
 
@@ -45,7 +28,7 @@ const typedEntry = (state, action) => {
 
 const evaluate = (state, action) => {
   const currentEntry = state.entryVal;
-  const currentUseDecimals = state.useDecimals;
+  //const currentUseDecimals = state.useDecimals;
   try {
     const result = evalExpression(currentEntry);
     console.log(`result: ${result}`);
@@ -96,11 +79,12 @@ const setSecondaryAction = (state, action) => {
   let newState;
   switch(action.buttonVal) {
     case KEYS.delete:
-      // look in buttonEntry(..) for code (write delete/insert function in utility.js?)
-      newState = {
-          entryVal: '',
-          selection: [0,0],
+      let curSelection = state.selection;
+      const curSelectionWidth = curSelection[1] - curSelection[0];
+      if (curSelectionWidth === 0 && curSelection[0] > 0) {
+          curSelection[0] -= 1; // select previous character (to delete)
       }
+      newState = insertReplace("", curSelection, state.entryVal);
       break;
     case KEYS.answer:
       const prevAnswerObj = state.displayRows.slice(-1)[0][1];
