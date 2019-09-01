@@ -87,14 +87,16 @@ const setSecondaryAction = (state, action) => {
       newState = insertReplace("", curSelection, state.entryVal);
       break;
     case KEYS.answer:
-      const prevAnswerObj = state.displayRows.slice(-1)[0][1];
-      const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
-                                           : prevAnswerObj.text('fraction');
-      const ansLength = prevAnswer.length;
-      newState = {
-        entryVal: prevAnswer,
-        selection: [ansLength,ansLength],
-      }
+      if (state.displayRows.length > 0) {
+        const prevAnswerObj = state.displayRows.slice(-1)[0][1];
+        const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
+                                             : prevAnswerObj.text('fraction');
+        const ansLength = prevAnswer.length;
+        newState = {
+          entryVal: prevAnswer,
+          selection: [ansLength,ansLength],
+        }
+      } else newState = {...state};
       break;
     case KEYS.assign:
       newState = {
