@@ -19,23 +19,24 @@ function Calculator (props) {
       if (props.errorMsg) setErrorOpen(true);
     },[props.errorMsg]);
 
+    useEffect(() => {
+      const [start, end] = props.currentSelection;
+      entryRef.current.focus();
+      entryRef.current.setSelectionRange(start,end);
+    },[props.currentEntry, props.currentSelection]);
+
     const gridAttributes = {
-        onKeyPress: (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                enterThenFocus();
-            }
-        },
+      onKeyPress: (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          enterThenFocus();
+        }
+      },
     }
-    //
-    // const decimalState = props.useDecimals
-    //                     ? (<div>decimals</div>)
-    //                     : (<div>fractions</div>);
-    // //
+
     const enterThenFocus = () => {
-        props.onEvaluate();
-        entryRef.current.focus();
-        entryRef.current.select();
+      props.onEvaluate();
+      entryRef.current.focus();
     }
 
     const handleClose = () => {
@@ -74,11 +75,11 @@ function Calculator (props) {
         </Container>
     );
 }
-// <button onClick={() => props.toggleDecimals()}/>
-// {decimalState}
+
 const mapStateToProps = state => {
     return {
         currentEntry: state.entryDisplay.entryVal,
+        currentSelection: state.entryDisplay.selection,
         currentDisplay: state.entryDisplay.displayRows,
         errorName: state.entryDisplay.errorName,
         errorMsg: state.entryDisplay.errorMsg,
