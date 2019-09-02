@@ -7,6 +7,7 @@ import Entry from '../../components/Entry/Entry';
 import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 import ErrorModal from '../../components/UI/ErrorModal';
+import InfoSnackbar from '../../components/UI/InfoSnackbar';
 import * as actions from '../../store/actions/index';
 import Auxy from '../../hoc/Auxy/Auxy';
 
@@ -84,6 +85,9 @@ function Calculator (props) {
                   {keyPane}
                 </Grid>
             </Grid>
+            <InfoSnackbar
+              showInfo={props.showSnackbar}
+              closeInfo={props.onCloseSnackbar}/>
         </Container>
     );
 }
@@ -97,6 +101,7 @@ const mapStateToProps = state => {
         errorMsg: state.entryDisplay.errorMsg,
         altState: state.keyPane.showAltButtons,
         useDecimals: state.entryDisplay.useDecimals,
+        showSnackbar: state.entryDisplay.showSnackbar,
     };
 }
 
@@ -109,6 +114,7 @@ const mapDispatchToProps = dispatch => {
         onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
         onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
         onSetSecondaryAction: (btnVal) => dispatch(actions.setSecondaryAction(btnVal)),
+        onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }

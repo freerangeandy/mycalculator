@@ -6,6 +6,7 @@ export {
     setError,
     setSecondaryAction,
     useDecimals,
+    closeSnackbar,
 } from './entryDisplay';
 export {
     setModifier,

@@ -48,3 +48,9 @@ export const useDecimals = () => {
     type: actionTypes.USE_DECIMALS,
   }
 };
+
+export const closeSnackbar = () => {
+  return {
+    type: actionTypes.CLOSE_SNACKBAR,
+  }
+};

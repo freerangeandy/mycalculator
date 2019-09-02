@@ -49,9 +49,12 @@ function SettingsDrawer(props) {
         </div>
     );
 
+    const openButton = null;
+     // <Button onClick={toggleDrawer(true)}>Open Left</Button>
+
     return (
         <div>
-            <Button onClick={toggleDrawer(true)}>Open Left</Button>
+            {openButton}
             <Drawer open={isVisible} onClose={toggleDrawer(false)}>
               {settingsList()}
             </Drawer>

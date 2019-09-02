@@ -6,3 +6,4 @@ export const SET_ERROR = 'SET_ERROR';
 export const SET_SECONDARY_ACTION = 'SET_SECONDARY_ACTION';
 export const SET_MODIFIER = 'SET_MODIFIER';
 export const USE_DECIMALS = 'USE_DECIMALS';
+export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';

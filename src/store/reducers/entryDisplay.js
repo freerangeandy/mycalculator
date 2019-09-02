@@ -10,6 +10,7 @@ const initialState = {
   errorName: '',
   errorMsg: '',
   useDecimals: false,
+  showSnackbar: false,
 };
 
 const buttonEntry = (state, action) => {
@@ -75,6 +76,13 @@ const setUseDecimals = (state, action) => {
   return updateObject(state, newState);
 }
 
+const closeSnackbar = (state, action) => {
+  const newState = {
+    showSnackbar: false,
+  }
+  return updateObject(state, newState);
+}
+
 const setSecondaryAction = (state, action) => {
   let newState;
   switch(action.buttonVal) {
@@ -100,14 +108,13 @@ const setSecondaryAction = (state, action) => {
       break;
     case KEYS.assign:
       newState = {
-        errorName: `${action.buttonVal} `,
-        errorMsg: 'stub',
+        showSnackbar: true,
       }
       break;
     case KEYS.clear:
       newState = {
-          entryVal: '',
-          selection: [0,0],
+        entryVal: '',
+        selection: [0,0],
       }
       break;
     default:
@@ -136,6 +143,8 @@ const reducer = (state = initialState, action) => {
       return setSecondaryAction(state, action);
     case actionTypes.USE_DECIMALS:
       return setUseDecimals(state, action);
+    case actionTypes.CLOSE_SNACKBAR:
+      return closeSnackbar(state, action);
     default:
       return state;
   }
