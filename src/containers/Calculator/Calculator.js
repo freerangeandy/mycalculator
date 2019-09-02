@@ -22,7 +22,7 @@ function Calculator (props) {
       const [start, end] = props.currentSelection;
       entryRef.current.focus();
       entryRef.current.setSelectionRange(start,end);
-    },[props.currentEntry, props.currentSelection]);
+    },[props.currentSelection]);
 
     const gridAttributes = {
       onKeyPress: (event) => {
