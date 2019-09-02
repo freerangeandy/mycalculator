@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { InlineMath } from 'react-katex';
 
 import { convertToLaTeXString } from '../../shared/interpreter';
-
+import { createData } from '../../shared/utility';
 import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
@@ -25,10 +25,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function createData(input, output) {
-  return { input, output };
-}
-
 function Display(props){
     const classes = useStyles();
     const displayRows = props.displayRows;
@@ -43,7 +39,7 @@ function Display(props){
 
     useEffect(scrollToBottom, [displayRows]);
 
-    const rows = displayRows.map(([input, output]) => {
+    const formattedRows = displayRows.map(([input, output]) => {
         const latexEntry = convertToLaTeXString(input);
         const latexResult = props.useDecimals
                         ? output.text('decimals')
@@ -51,12 +47,17 @@ function Display(props){
         return createData(latexEntry, latexResult);
     });
 
-    const tableRows = rows.map((row, idx, arr) => {
+    const headerRow = (
+      <TableRow className={tableClasses.headerRow}>
+        <TableCell className={tableClasses.head}>input</TableCell>
+        <TableCell className={tableClasses.head} align="right">output</TableCell>
+      </TableRow>
+    );
+
+    const tableRows = formattedRows.map((row, idx, arr) => {
       let tableRowAttribute = {};
       if (idx === arr.length - 1) {
-        tableRowAttribute = {
-          ref: tableEndRef,
-        };
+        tableRowAttribute = { ref: tableEndRef };
       }
       return (
         <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
@@ -65,14 +66,12 @@ function Display(props){
         </TableRow>
       )
     });
+
     return (
        <Paper className={classes.paper}>
          <Table size="small">
            <TableHead>
-             <TableRow className={tableClasses.headerRow}>
-               <TableCell className={tableClasses.head}>input</TableCell>
-               <TableCell className={tableClasses.head} align="right">output</TableCell>
-             </TableRow>
+             {headerRow}
            </TableHead>
            <TableBody>
              {tableRows}

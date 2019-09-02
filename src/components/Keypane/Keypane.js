@@ -7,9 +7,9 @@ import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
-// import ModifierPane from './ModifierPane/ModifierPane';
 import paneClasses from './KeyPane.css';
 import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
+import Auxy from '../../hoc/Auxy/Auxy';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -22,23 +22,35 @@ const useStyles = makeStyles(theme => ({
 export default function KeyPane (props) {
     const classes = useStyles();
 
+    const upperKeys = (
+      <Auxy>
+        <FunctionPane
+            buttonPressed={props.buttonPressed}
+            altState={props.altState} />
+        <ActionPane
+            actionModifier={props.actionModifier}
+            columnValues={MODIFIERS} />
+      </Auxy>
+    );
+    
+    const lowerKeys = (
+      <Auxy>
+        <ActionPane
+            actionModifier={props.secondaryAction}
+            columnValues={ACTIONS} />
+        <NumPad numberPressed={props.buttonPressed} />
+        <ArithmeticPane buttonPressed={props.buttonPressed} />
+      </Auxy>
+    );
+
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={0}>
                 <Grid item xs={6} sm={12} className={paneClasses.upperKeys}>
-                    <FunctionPane
-                        buttonPressed={props.buttonPressed}
-                        altState={props.altState} />
-                    <ActionPane
-                        actionModifier={props.actionModifier}
-                        columnValues={MODIFIERS} />
+                  {upperKeys}
                 </Grid>
                 <Grid item xs={6} sm={12} className={paneClasses.lowerKeys}>
-                    <ActionPane
-                        actionModifier={props.secondaryAction}
-                        columnValues={ACTIONS} />
-                    <NumPad numberPressed={props.buttonPressed} />
-                    <ArithmeticPane buttonPressed={props.buttonPressed} />
+                  {lowerKeys}
                 </Grid>
             </Grid>
         </Paper>

@@ -21,6 +21,10 @@ export const insertReplace = (insertVal, selection, targetStr) => {
       entryVal: newEntryVal,
       selection: newSelection,
     };
-    
+
     return newState;
+}
+
+export const createData = (input, output) => {
+  return { input, output };
 }

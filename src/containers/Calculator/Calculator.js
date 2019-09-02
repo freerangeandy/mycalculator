@@ -8,6 +8,7 @@ import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 import ErrorModal from '../../components/UI/ErrorModal';
 import * as actions from '../../store/actions/index';
+import Auxy from '../../hoc/Auxy/Auxy';
 
 function Calculator (props) {
     const entryRef = useRef();
@@ -42,31 +43,45 @@ function Calculator (props) {
       setErrorOpen(false);
     }
 
+    const errorModal = (
+      <ErrorModal
+        isOpen={errorOpen}
+        handleClose={handleClose}
+        errorName={props.errorName}
+        errorMsg={props.errorMsg}/>
+    );
+
+    const entryDisplayPane = (
+      <Auxy>
+        <Display
+            displayRows={props.currentDisplay}
+            useDecimals={props.useDecimals}/>
+        <Entry
+            entryRef={entryRef}
+            entryChanged={props.onTypedEntry}
+            enterPressed={enterThenFocus}
+            entryVal={props.currentEntry}
+            selectionChanged={props.onChangeSelection}/>
+      </Auxy>
+    );
+
+    const keyPane = (
+      <KeyPane
+          altState={props.altState}
+          buttonPressed={props.onButtonEntry}
+          actionModifier={props.onSetModifier}
+          secondaryAction={props.onSetSecondaryAction} />
+    );
+
     return (
         <Container>
-            <ErrorModal
-              isOpen={errorOpen}
-              handleClose={handleClose}
-              errorName={props.errorName}
-              errorMsg={props.errorMsg}/>
+            {errorModal}
             <Grid {...gridAttributes} container spacing={1}>
                 <Grid item xs={12} sm={8}>
-                    <Display
-                        displayRows={props.currentDisplay}
-                        useDecimals={props.useDecimals}/>
-                    <Entry
-                        entryRef={entryRef}
-                        entryChanged={props.onTypedEntry}
-                        enterPressed={enterThenFocus}
-                        entryVal={props.currentEntry}
-                        selectionChanged={props.onChangeSelection}/>
+                  {entryDisplayPane}
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <KeyPane
-                        altState={props.altState}
-                        buttonPressed={props.onButtonEntry}
-                        actionModifier={props.onSetModifier}
-                        secondaryAction={props.onSetSecondaryAction} />
+                  {keyPane}
                 </Grid>
             </Grid>
         </Container>

@@ -31,23 +31,31 @@ const useStyles = makeStyles({
 function Entry(props) {
     const classes = useStyles();
 
+    const inputField = (
+      <InputBase
+          inputRef={props.entryRef}
+          className={classes.input}
+          placeholder="evaluate this expression"
+          onChange={(event) => props.entryChanged(event.target.value)}
+          onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
+          value={props.entryVal}/>
+    );
+
+    const iconButton = (
+      <IconButton
+          color="primary"
+          className={classes.iconButton}
+          aria-label="directions"
+          onClick={() => props.enterPressed()} >
+        <ForwardIcon />
+      </IconButton>
+    );
+
     return (
         <Paper className={classes.root}>
-            <InputBase
-                inputRef={props.entryRef}
-                className={classes.input}
-                placeholder="evaluate this expression"
-                onChange={(event) => props.entryChanged(event.target.value)}
-                onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
-                value={props.entryVal}/>
+            {inputField}
             <Divider className={classes.divider} />
-            <IconButton
-                color="primary"
-                className={classes.iconButton}
-                aria-label="directions"
-                onClick={() => props.enterPressed()} >
-              <ForwardIcon />
-            </IconButton>
+            {iconButton}
         </Paper>
     )
 };
