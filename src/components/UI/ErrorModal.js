@@ -22,7 +22,7 @@ function ErrorModal(props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="primary">
-          Fix Error
+          Back
         </Button>
       </DialogActions>
     </Dialog>

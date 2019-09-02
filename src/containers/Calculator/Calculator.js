@@ -2,13 +2,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-// import Paper from '@material-ui/core/Paper';
 
 import Entry from '../../components/Entry/Entry';
 import Display from '../../components/Display/Display';
 import KeyPane from '../../components/KeyPane/KeyPane';
 import ErrorModal from '../../components/UI/ErrorModal';
-import SettingsDrawer from '../Settings/SettingsDrawer';
 import * as actions from '../../store/actions/index';
 
 function Calculator (props) {
@@ -70,7 +68,6 @@ function Calculator (props) {
                         actionModifier={props.onSetModifier}
                         secondaryAction={props.onSetSecondaryAction} />
                 </Grid>
-                <SettingsDrawer />
             </Grid>
         </Container>
     );
