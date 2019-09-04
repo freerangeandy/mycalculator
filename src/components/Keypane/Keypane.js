@@ -9,6 +9,7 @@ import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
 import paneClasses from './KeyPane.css';
 import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
+import PopperWrapper from '../UI/PopperWrapper';
 import Auxy from '../../hoc/Auxy/Auxy';
 
 const useStyles = makeStyles(theme => ({
@@ -32,12 +33,16 @@ export default function KeyPane (props) {
             columnValues={MODIFIERS} />
       </Auxy>
     );
-    
+    // <PopperWrapper
+    //     actionModifier={props.secondaryAction}
+    //     columnValues={ACTIONS}
+    //     placement="left" />
     const lowerKeys = (
       <Auxy>
-        <ActionPane
+        <PopperWrapper
             actionModifier={props.secondaryAction}
-            columnValues={ACTIONS} />
+            columnValues={ACTIONS}
+            placement="left" />
         <NumPad numberPressed={props.buttonPressed} />
         <ArithmeticPane buttonPressed={props.buttonPressed} />
       </Auxy>

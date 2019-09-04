@@ -64,7 +64,7 @@ const useStyles2 = makeStyles(theme => ({
   },
 }));
 
-export default function InfoSnackbar(props) {
+const InfoSnackbar = (props) => {
   const classes = useStyles2();
 
   function handleClose(event, reason) {
@@ -95,3 +95,5 @@ export default function InfoSnackbar(props) {
     </div>
   );
 }
+
+export default InfoSnackbar;
