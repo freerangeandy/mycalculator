@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     width: '50%',
+    backgroundColor: 'white',
     alignItems: 'right',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(0),
@@ -39,15 +40,23 @@ const SubmitButton = (props) => (
 
 const InputPopper = (props) => {
     const classes = useStyles();
+    const inputRef = useRef(null);
+
+    const submitAndClose = (varName) => {
+        props.closeHandler();
+        return props.submitHandler(varName);
+    }
+
     const submitVariable = (
         <SubmitButton
-            clickHandler={props.submitHandler}
+            clickHandler={() => submitAndClose(inputRef.current.value)}
             iconClass={classes.iconButton}/>
     );
 
     return (
         <div className={classes.root}>
             <OutlinedInput
+                inputRef={inputRef}
                 className={clsx(classes.textField, classes.dense)}
                 autoFocus={true}
                 defaultValue="x"

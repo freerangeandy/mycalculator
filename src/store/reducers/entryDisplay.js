@@ -11,6 +11,7 @@ const initialState = {
   errorMsg: '',
   useDecimals: false,
   showSnackbar: false,
+
 };
 
 const buttonEntry = (state, action) => {
@@ -106,11 +107,11 @@ const setSecondaryAction = (state, action) => {
         }
       } else newState = {...state};
       break;
-    case KEYS.assign:
-      newState = {
-        showSnackbar: true,
-      }
-      break;
+    // case KEYS.assign:
+    //   newState = {
+    //     showSnackbar: true,
+    //   }
+    //   break;
     case KEYS.clear:
       newState = {
         entryVal: '',
@@ -124,6 +125,15 @@ const setSecondaryAction = (state, action) => {
       }
   }
 
+  return updateObject(state, newState);
+}
+
+const assignVariable = (state, action) => {
+  const message = `${action.varName} assigned to value: ${state.entryVal}`;
+  const newState = {
+    showSnackbar: true,
+    snackbarMsg: message,
+  }
   return updateObject(state, newState);
 }
 
@@ -145,6 +155,8 @@ const reducer = (state = initialState, action) => {
       return setUseDecimals(state, action);
     case actionTypes.CLOSE_SNACKBAR:
       return closeSnackbar(state, action);
+    case actionTypes.ASSIGN_VARIABLE:
+      return assignVariable(state, action);
     default:
       return state;
   }

@@ -71,7 +71,8 @@ function Calculator (props) {
           altState={props.altState}
           buttonPressed={props.onButtonEntry}
           actionModifier={props.onSetModifier}
-          secondaryAction={props.onSetSecondaryAction} />
+          secondaryAction={props.onSetSecondaryAction}
+          assignVariable={props.onAssignVariable} />
     );
 
     return (
@@ -87,7 +88,8 @@ function Calculator (props) {
             </Grid>
             <InfoSnackbar
               showInfo={props.showSnackbar}
-              closeInfo={props.onCloseSnackbar}/>
+              closeInfo={props.onCloseSnackbar}
+              message={props.snackbarMsg}/>
         </Container>
     );
 }
@@ -102,6 +104,7 @@ const mapStateToProps = state => {
         altState: state.keyPane.showAltButtons,
         useDecimals: state.entryDisplay.useDecimals,
         showSnackbar: state.entryDisplay.showSnackbar,
+        snackbarMsg: state.entryDisplay.snackbarMsg,
     };
 }
 
@@ -115,6 +118,7 @@ const mapDispatchToProps = dispatch => {
         onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
         onSetSecondaryAction: (btnVal) => dispatch(actions.setSecondaryAction(btnVal)),
         onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
+        onAssignVariable: (varName) => dispatch(actions.assignVariable(varName)),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }

@@ -33,14 +33,11 @@ export default function KeyPane (props) {
             columnValues={MODIFIERS} />
       </Auxy>
     );
-    // <PopperWrapper
-    //     actionModifier={props.secondaryAction}
-    //     columnValues={ACTIONS}
-    //     placement="left" />
     const lowerKeys = (
       <Auxy>
         <PopperWrapper
-            actionModifier={props.secondaryAction}
+            assignVariable={props.assignVariable}
+            actionModifier={props.actionModifier}
             columnValues={ACTIONS}
             placement="left" />
         <NumPad numberPressed={props.buttonPressed} />

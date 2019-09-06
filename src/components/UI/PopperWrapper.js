@@ -34,9 +34,6 @@ export default function PopperWrapper(props) {
     const handleClick = val => event => {
         console.log('handleClick');
         setAnchorEl(event.currentTarget);
-        console.log(anchorEl);
-        console.log(open);
-
         setOpen(prev => !prev);
     };
 
@@ -81,7 +78,10 @@ export default function PopperWrapper(props) {
                 {({ TransitionProps }) => (
                     <ClickAwayListener onClickAway={handleClickAway}>
                         <Fade {...TransitionProps} timeout={350}>
-                            <InputPopper submitHandler={(event) => props.actionModifier(KEYS.assign)} />
+                            <InputPopper
+                                closeHandler={() => setOpen(prev => !prev)}
+                                submitHandler={props.assignVariable}
+                                />
                         </Fade>
                     </ClickAwayListener>
                  )}

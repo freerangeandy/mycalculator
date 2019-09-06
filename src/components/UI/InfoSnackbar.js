@@ -89,7 +89,7 @@ const InfoSnackbar = (props) => {
         onClose={handleClose}
         variant="info"
         className={classes.margin}
-        message="This is an information message!"
+        message={props.message}
       />
       </Snackbar>
     </div>

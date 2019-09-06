@@ -54,3 +54,10 @@ export const closeSnackbar = () => {
     type: actionTypes.CLOSE_SNACKBAR,
   }
 };
+
+export const assignVariable = (varName) => {
+  return {
+    type: actionTypes.ASSIGN_VARIABLE,
+    varName: varName,
+  }
+};
