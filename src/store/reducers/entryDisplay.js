@@ -11,7 +11,7 @@ const initialState = {
   errorMsg: '',
   useDecimals: false,
   showSnackbar: false,
-
+  snackbarMsg: '',
 };
 
 const buttonEntry = (state, action) => {
@@ -107,11 +107,6 @@ const setSecondaryAction = (state, action) => {
         }
       } else newState = {...state};
       break;
-    // case KEYS.assign:
-    //   newState = {
-    //     showSnackbar: true,
-    //   }
-    //   break;
     case KEYS.clear:
       newState = {
         entryVal: '',

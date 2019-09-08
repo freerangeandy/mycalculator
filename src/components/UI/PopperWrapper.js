@@ -46,7 +46,7 @@ export default function PopperWrapper(props) {
         const displayVal = val in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[val]: val;
         const clickAction = val === KEYS.assign
             ? handleClick(val)
-            : (event) => props.actionModifier(val);
+            : (event) => props.secondaryAction(val);
 
         return (
             <ActionButton key={val} onClick={clickAction}>

@@ -41,7 +41,7 @@ export const setSecondaryAction = (btnVal) => {
     type: actionTypes.SET_SECONDARY_ACTION,
     buttonVal: btnVal,
   }
-}
+};
 
 export const useDecimals = () => {
   return {

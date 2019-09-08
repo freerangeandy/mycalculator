@@ -70,7 +70,6 @@ function Calculator (props) {
       <KeyPane
           altState={props.altState}
           buttonPressed={props.onButtonEntry}
-          actionModifier={props.onSetModifier}
           secondaryAction={props.onSetSecondaryAction}
           assignVariable={props.onAssignVariable} />
     );

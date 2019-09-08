@@ -37,7 +37,7 @@ export default function KeyPane (props) {
       <Auxy>
         <PopperWrapper
             assignVariable={props.assignVariable}
-            actionModifier={props.actionModifier}
+            secondaryAction={props.secondaryAction}
             columnValues={ACTIONS}
             placement="left" />
         <NumPad numberPressed={props.buttonPressed} />
