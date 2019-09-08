@@ -9,7 +9,7 @@ import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
 import paneClasses from './KeyPane.css';
 import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
-import PopperWrapper from '../UI/PopperWrapper';
+import { KEYS } from '../../shared/symbols';
 import Auxy from '../../hoc/Auxy/Auxy';
 
 const useStyles = makeStyles(theme => ({
@@ -23,28 +23,33 @@ const useStyles = makeStyles(theme => ({
 export default function KeyPane (props) {
     const classes = useStyles();
 
+    const popperObj = {
+        action: KEYS.assign,
+        submitHandler: props.assignVariable,
+        placement: 'left',
+    };
+
     const upperKeys = (
       <Auxy>
         <FunctionPane
             buttonPressed={props.buttonPressed}
             altState={props.altState} />
         <ActionPane
-            actionModifier={props.actionModifier}
+            buttonPressed={props.actionModifier}
             columnValues={MODIFIERS} />
       </Auxy>
     );
+
     const lowerKeys = (
       <Auxy>
-        <PopperWrapper
-            assignVariable={props.assignVariable}
-            secondaryAction={props.secondaryAction}
+        <ActionPane
+            buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
-            placement="left" />
+            poppers={popperObj} />
         <NumPad numberPressed={props.buttonPressed} />
         <ArithmeticPane buttonPressed={props.buttonPressed} />
       </Auxy>
     );
-
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={0}>
