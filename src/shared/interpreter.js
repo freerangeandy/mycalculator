@@ -19,3 +19,10 @@ export const evalExpression = (expression) => {
 export const convertToLaTeXString = (expression) => {
     return nerdamer.convertToLaTeX(expression).toString();
 }
+
+export const setVariable = (varName, varValue) => {
+    if (nerdamer.validVarName(varName)) {
+        nerdamer.setVar(varName, varValue);
+        return true;
+    } else return false;
+}

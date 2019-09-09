@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertReplace } from '../../shared/utility';
-import { evalExpression } from '../../shared/interpreter';
+import { evalExpression, setVariable } from '../../shared/interpreter';
 import { CONVERTED_SYMBOL, KEYS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
   useDecimals: false,
   showSnackbar: false,
   snackbarMsg: '',
+  savedVars: {},
 };
 
 const buttonEntry = (state, action) => {
@@ -124,11 +125,15 @@ const setSecondaryAction = (state, action) => {
 }
 
 const assignVariable = (state, action) => {
-  const message = `${action.varName} assigned to value: ${state.entryVal}`;
-  const newState = {
-    showSnackbar: true,
-    snackbarMsg: message,
-  }
+  const assignmentSuccess = setVariable(action.varName, state.entryVal);
+  const newState = assignmentSuccess
+    ? {
+      showSnackbar: true,
+      snackbarMsg: `${action.varName} assigned to value: ${state.entryVal}`,
+    } : {
+      errorName: 'setVarError',
+      errorMsg: `${action.varName} is not a valid variable name`,
+    }
   return updateObject(state, newState);
 }
 
