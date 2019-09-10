@@ -3,7 +3,7 @@ import { updateObject } from '../../shared/utility';
 import { KEYS } from '../../shared/symbols.js';
 
 const initialState = {
-  showAltButtons: 'false',
+  showAltButtons: false,
 };
 
 const setModifier = (state, action) => {
