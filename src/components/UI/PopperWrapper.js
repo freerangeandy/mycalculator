@@ -35,10 +35,12 @@ export default function PopperWrapper(props) {
                 {({ TransitionProps }) => (
                     <ClickAwayListener onClickAway={handleClickAway}>
                         <Fade {...TransitionProps} timeout={350}>
-                            <InputPopper
-                                closeHandler={() => setOpen(prev => !prev)}
-                                submitHandler={props.submitHandler}
-                                />
+                            <div>
+                                <InputPopper
+                                    closeHandler={() => setOpen(prev => !prev)}
+                                    submitHandler={props.submitHandler}
+                                    />
+                            </div>
                         </Fade>
                     </ClickAwayListener>
                  )}
