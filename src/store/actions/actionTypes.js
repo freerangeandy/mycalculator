@@ -1,3 +1,4 @@
+export const INIT_CONSTANTS = 'INIT_CONSTANTS';
 export const BUTTON_ENTRY = 'BUTTON_ENTRY';
 export const TYPED_ENTRY = 'TYPED_ENTRY';
 export const EVALUATE = 'EVALUATE';

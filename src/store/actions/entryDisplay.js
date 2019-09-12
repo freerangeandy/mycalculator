@@ -1,5 +1,11 @@
 import * as actionTypes from './actionTypes';
 
+export const initConstants = () => {
+  return {
+    type: actionTypes.INIT_CONSTANTS,
+  }
+};
+
 export const buttonEntry = (btnObj) => {
   return {
     type: actionTypes.BUTTON_ENTRY,

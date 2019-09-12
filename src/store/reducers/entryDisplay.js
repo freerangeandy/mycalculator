@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertReplace } from '../../shared/utility';
-import { evalExpression, setVariable } from '../../shared/interpreter';
+import { evalExpression, setVariable, setConstant } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -14,6 +14,12 @@ const initialState = {
   snackbarMsg: '',
   savedVars: {},
 };
+
+const initConstants = (state, action) => {
+    // setConstant('π', Math.PI);
+    // setConstant('e', Math.E);
+    return state;
+}
 
 const buttonEntry = (state, action) => {
   const buttonObj = action.buttonObj;
@@ -140,6 +146,8 @@ const assignVariable = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.INIT_CONSTANTS:
+      return initConstants(state, action);
     case actionTypes.BUTTON_ENTRY:
       return buttonEntry(state, action);
     case actionTypes.TYPED_ENTRY:
