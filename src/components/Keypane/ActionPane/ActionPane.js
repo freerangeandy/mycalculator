@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ActionButton from './ActionButton';
 import PopperWrapper from '../../UI/PopperWrapper';
-import { SYMBOLS } from '../../../shared/symbols.js';
+// import { SYMBOLS } from '../../../shared/symbols.js';
 
 export default function ActionPane (props) {
     const actionButton = (obj) => {
@@ -20,7 +20,7 @@ export default function ActionPane (props) {
     };
 
     const actionGroup = props.columnValues.map((obj) => (
-        <Grid key={obj.key}
+        <Grid key={`${obj.key}_grid`}
             container
             spacing={0}
             direction="column"

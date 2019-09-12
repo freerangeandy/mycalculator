@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { ARITHMETIC_OPERATORS } from '../../../shared/interpreter';
-import { SYMBOLS } from '../../../shared/symbols.js';
+// import { SYMBOLS } from '../../../shared/symbols.js';
 
 const borderColor = '#4c885a';
 const backgroundColor = green[500];
@@ -35,7 +35,7 @@ export default function ArithmeticPane (props) {
     };
 
     const arithmeticGroup = ARITHMETIC_OPERATORS.map((obj) => (
-        <Grid key={obj.key}
+        <Grid key={`${obj.key}_grid`}
             container
             spacing={0}
             direction="column"

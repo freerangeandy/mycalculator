@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { FUNCTIONS, ALTERNATES } from '../../../shared/interpreter';
-import { SYMBOLS } from '../../../shared/symbols.js';
+// import { SYMBOLS } from '../../../shared/symbols.js';
 
 const FunctionButton = withStyles(theme => ({
   root: {
@@ -32,7 +32,7 @@ export default function FunctionPane (props) {
     }
 
     const functionGrid = FUNCTIONS.map((row) => (
-        <Grid key={row[0]}
+        <Grid key={`${row[0].key}_grid`}
             container
             spacing={0}
             direction="column"
