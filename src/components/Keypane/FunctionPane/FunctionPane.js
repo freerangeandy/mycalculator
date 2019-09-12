@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { FUNCTIONS, ALTERNATES } from '../../../shared/interpreter';
-import { DISPLAY_SYMBOL } from '../../../shared/symbols.js';
+import { SYMBOLS } from '../../../shared/symbols.js';
 
 const FunctionButton = withStyles(theme => ({
   root: {
@@ -15,19 +15,17 @@ const FunctionButton = withStyles(theme => ({
 }))(CalcButton);
 
 export default function FunctionPane (props) {
-    const functionButtonRows = (array) => array.map((val) => functionButton(val));
+    const functionButtonRows = (array) => array.map((obj) => functionButton(obj));
 
     const bgColor = props.altState ? "secondary" : "primary";
-    const functionButton = (val) => {
-        const funcVal = props.altState
-                        ? (val in ALTERNATES
-                            ? ALTERNATES[val]
-                            : val)
-                        : val;
-        const displayVal = funcVal in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[funcVal] : val;
+    const functionButton = (obj) => {
+        const funcObj = props.altState
+                        ? (ALTERNATES[obj.key] || obj)
+                        : obj;
+        const displayVal = funcObj.display || funcObj.key;
 
         return (
-            <FunctionButton color={bgColor} key={funcVal} onClick={(event) => props.buttonPressed(funcVal)}>
+            <FunctionButton color={bgColor} key={funcObj.key} onClick={(event) => props.buttonPressed(funcObj)}>
                 {displayVal}
             </FunctionButton>
         )

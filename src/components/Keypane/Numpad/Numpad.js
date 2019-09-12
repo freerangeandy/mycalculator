@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { NUM_PAD } from '../../../shared/interpreter';
-import { DISPLAY_SYMBOL } from '../../../shared/symbols.js';
+import { SYMBOLS } from '../../../shared/symbols.js';
 
 const NumButton = withStyles(theme => ({
   root: {
@@ -22,11 +22,11 @@ const NumButton = withStyles(theme => ({
 }))(CalcButton);
 
 export default function NumPad (props) {
-    const numButtonRows = (array) => array.map((val) => numButton(val));
-    const numButton = (val) => {
-        const displayVal = val in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[val]: val;
+    const numButtonRows = (array) => array.map((obj) => numButton(obj));
+    const numButton = (obj) => {
+        const displayVal = obj.display || obj.key;
         return (
-            <NumButton key={val} onClick={(event) => props.numberPressed(val)}>
+            <NumButton key={obj.key} onClick={(event) => props.numberPressed(obj)}>
                 {displayVal}
             </NumButton>
         )

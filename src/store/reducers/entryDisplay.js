@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertReplace } from '../../shared/utility';
 import { evalExpression, setVariable } from '../../shared/interpreter';
-import { CONVERTED_SYMBOL, KEYS } from '../../shared/symbols.js';
+import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
   entryVal: '',
@@ -16,8 +16,9 @@ const initialState = {
 };
 
 const buttonEntry = (state, action) => {
-  const buttonVal = action.buttonVal;
-  const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
+  const buttonObj = action.buttonObj;
+  const insertVal = buttonObj.converted || buttonObj.key;
+  // const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
   const newState = insertReplace(insertVal, state.selection, state.entryVal);
   return updateObject(state, newState);
 }
@@ -88,7 +89,7 @@ const closeSnackbar = (state, action) => {
 const setSecondaryAction = (state, action) => {
   let newState;
   switch(action.buttonVal) {
-    case KEYS.delete:
+    case SYMBOLS.delete:
       let curSelection = state.selection;
       const curSelectionWidth = curSelection[1] - curSelection[0];
       if (curSelectionWidth === 0 && curSelection[0] > 0) {
@@ -96,7 +97,7 @@ const setSecondaryAction = (state, action) => {
       }
       newState = insertReplace("", curSelection, state.entryVal);
       break;
-    case KEYS.answer:
+    case SYMBOLS.answer:
       if (state.displayRows.length > 0) {
         const prevAnswerObj = state.displayRows.slice(-1)[0][1];
         const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
@@ -108,7 +109,7 @@ const setSecondaryAction = (state, action) => {
         }
       } else newState = {...state};
       break;
-    case KEYS.clear:
+    case SYMBOLS.clear:
       newState = {
         entryVal: '',
         selection: [0,0],

@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const buttonEntry = (btnVal) => {
+export const buttonEntry = (btnObj) => {
   return {
     type: actionTypes.BUTTON_ENTRY,
-    buttonVal: btnVal,
+    buttonObj: btnObj,
   }
 };
 

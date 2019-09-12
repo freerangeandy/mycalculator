@@ -4,23 +4,23 @@ import Grid from '@material-ui/core/Grid';
 
 import ActionButton from './ActionButton';
 import PopperWrapper from '../../UI/PopperWrapper';
-import { DISPLAY_SYMBOL } from '../../../shared/symbols.js';
+import { SYMBOLS } from '../../../shared/symbols.js';
 
 export default function ActionPane (props) {
-    const actionButton = (val) => {
-        const displayVal = val in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[val]: val;
-        const actionComponent = props.poppers && val === props.poppers.action
+    const actionButton = (obj) => {
+        const displayVal = obj.display || obj.key;
+        const actionComponent = props.poppers && obj.key === props.poppers.action.key
             ?   (<PopperWrapper {...props.poppers} buttonType={ActionButton}>
                     {displayVal}
                 </PopperWrapper>)
-            :   (<ActionButton key={val} onClick={(event) => props.buttonPressed(val)}>
+            :   (<ActionButton key={obj.key} onClick={(event) => props.buttonPressed(obj)}>
                     {displayVal}
                 </ActionButton>);
         return actionComponent;
     };
 
-    const actionGroup = props.columnValues.map((val) => (
-        <Grid key={val}
+    const actionGroup = props.columnValues.map((obj) => (
+        <Grid key={obj.key}
             container
             spacing={0}
             direction="column"
@@ -30,7 +30,7 @@ export default function ActionPane (props) {
                 variant="contained"
                 size="small"
                 aria-label="small contained button group">
-              {actionButton(val)}
+              {actionButton(obj)}
             </ButtonGroup>
           </Grid>
         </Grid>

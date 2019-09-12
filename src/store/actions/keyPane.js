@@ -1,8 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const setModifier = (btnVal) => {
+export const setModifier = (btnObj) => {
   return {
     type: actionTypes.SET_MODIFIER,
-    buttonVal: btnVal,
+    buttonObj: btnObj,
   }
 };

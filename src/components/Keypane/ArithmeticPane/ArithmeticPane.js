@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { ARITHMETIC_OPERATORS } from '../../../shared/interpreter';
-import { DISPLAY_SYMBOL } from '../../../shared/symbols.js';
+import { SYMBOLS } from '../../../shared/symbols.js';
 
 const borderColor = '#4c885a';
 const backgroundColor = green[500];
@@ -25,17 +25,17 @@ const ArithmeticButton = withStyles(theme => ({
 }))(CalcButton);
 
 export default function ArithmeticPane (props) {
-    const arithmeticButton = (val) => {
-        const displayVal = val in DISPLAY_SYMBOL ? DISPLAY_SYMBOL[val]: val;
+    const arithmeticButton = (obj) => {
+        const displayVal = obj.display || obj.key;
         return (
-            <ArithmeticButton key={val} onClick={(event) => props.buttonPressed(val)}>
+            <ArithmeticButton key={obj.key} onClick={(event) => props.buttonPressed(obj)}>
                 {displayVal}
             </ArithmeticButton>
         )
     };
 
-    const arithmeticGroup = ARITHMETIC_OPERATORS.map((val) => (
-        <Grid key={val}
+    const arithmeticGroup = ARITHMETIC_OPERATORS.map((obj) => (
+        <Grid key={obj.key}
             container
             spacing={0}
             direction="column"
@@ -45,7 +45,7 @@ export default function ArithmeticPane (props) {
                 variant="contained"
                 size="small"
                 aria-label="small contained button group">
-              {arithmeticButton(val)}
+              {arithmeticButton(obj)}
             </ButtonGroup>
           </Grid>
         </Grid>

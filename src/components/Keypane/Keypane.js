@@ -9,7 +9,7 @@ import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
 import paneClasses from './KeyPane.css';
 import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
-import { KEYS } from '../../shared/symbols';
+import { SYMBOLS } from '../../shared/symbols';
 import Auxy from '../../hoc/Auxy/Auxy';
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ export default function KeyPane (props) {
     const classes = useStyles();
 
     const popperObj = {
-        action: KEYS.assign,
+        action: SYMBOLS.assign,
         submitHandler: props.assignVariable,
         placement: 'left',
     };

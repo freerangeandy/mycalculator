@@ -1,55 +1,55 @@
-import { KEYS } from './symbols';
+import { SYMBOLS } from './symbols';
 
 export const ARITHMETIC_OPERATORS = [
-    KEYS.divide,
-    KEYS.multiply,
-    KEYS.subtract,
-    KEYS.add,
+    SYMBOLS.divide,
+    SYMBOLS.multiply,
+    SYMBOLS.subtract,
+    SYMBOLS.add,
 ]; // ['∕', '*', '—', '+'];
 
 export const NUM_PAD = [
-    [7, 8, 9],          // [7, 8, 9],
-    [4, 5, 6],          // [4, 5, 6],
-    [1, 2, 3],          // [1, 2, 3],
-    [0, KEYS.point, KEYS.negate], // [0, '.', '( − )'],
+    [SYMBOLS[7], SYMBOLS[8], SYMBOLS[9]],          // [7, 8, 9],
+    [SYMBOLS[4], SYMBOLS[5], SYMBOLS[6]],          // [4, 5, 6],
+    [SYMBOLS[1], SYMBOLS[2], SYMBOLS[3]],          // [1, 2, 3],
+    [SYMBOLS[0], SYMBOLS.point, SYMBOLS.negate], // [0, '.', '( − )'],
 ];
 
 export const FUNCTIONS = [
-    [KEYS.sum, KEYS.integrate, KEYS.diff, KEYS.limit],  // ['∑', '∫', '∂', 'lim'],
-    [KEYS.sin, KEYS.cos, KEYS.tan, KEYS.naturalLog],     // ['sin', 'cos', 'tan', 'ln'],
-    [KEYS.equals, KEYS.greaterThan, KEYS.lessThan, KEYS.sqRoot], // ['=','>','<', '√'],
-    [KEYS.lParen, KEYS.rParen, KEYS.pi, KEYS.exponent],  // ['(',')', ',', '^'],
+    [SYMBOLS.sum, SYMBOLS.integrate, SYMBOLS.diff, SYMBOLS.limit],  // ['∑', '∫', '∂', 'lim'],
+    [SYMBOLS.sin, SYMBOLS.cos, SYMBOLS.tan, SYMBOLS.naturalLog],     // ['sin', 'cos', 'tan', 'ln'],
+    [SYMBOLS.equals, SYMBOLS.greaterThan, SYMBOLS.lessThan, SYMBOLS.sqRoot], // ['=','>','<', '√'],
+    [SYMBOLS.lParen, SYMBOLS.rParen, SYMBOLS.pi, SYMBOLS.exponent],  // ['(',')', ',', '^'],
 ];
 
 export const MODIFIERS = [
-    KEYS.secondFunc,
-    'mode',
-    'stat',
-    'mat',
+    SYMBOLS.secondFunc,
+    SYMBOLS.mode,
+    SYMBOLS.stat,
+    SYMBOLS.mat,
 ];
 
 export const ACTIONS = [
-    KEYS.delete,
-    KEYS.answer,
-    KEYS.assign,
-    KEYS.clear,
+    SYMBOLS.delete,
+    SYMBOLS.answer,
+    SYMBOLS.assign,
+    SYMBOLS.clear,
 ];
 
 export const ALTERNATES = {
-    [KEYS.sum]: KEYS.sum, //same
-    [KEYS.integrate]: KEYS.integrate, //same
-    [KEYS.diff]: KEYS.diff, //same
-    [KEYS.limit]: KEYS.limit, //same
-    [KEYS.sqRoot]: KEYS.factorial,
-    [KEYS.equals]: KEYS.modulo,
-    [KEYS.sin]: KEYS.asin,
-    [KEYS.cos]: KEYS.acos,
-    [KEYS.tan]: KEYS.atan,
-    [KEYS.lParen]: KEYS.lBracket,
-    [KEYS.rParen]: KEYS.rBracket,
-    [KEYS.greaterThan]: KEYS.gtEqual,
-    [KEYS.lessThan]: KEYS.ltEqual,
-    [KEYS.naturalLog]: KEYS.logarithm,
-    [KEYS.exponent]: KEYS.sciNotation,
-    [KEYS.pi]: KEYS.comma,
+    [SYMBOLS.sum.key]: SYMBOLS.sum, //same
+    [SYMBOLS.integrate.key]: SYMBOLS.integrate, //same
+    [SYMBOLS.diff.key]: SYMBOLS.diff, //same
+    [SYMBOLS.limit.key]: SYMBOLS.limit, //same
+    [SYMBOLS.sqRoot.key]: SYMBOLS.factorial,
+    [SYMBOLS.equals.key]: SYMBOLS.modulo,
+    [SYMBOLS.sin.key]: SYMBOLS.asin,
+    [SYMBOLS.cos.key]: SYMBOLS.acos,
+    [SYMBOLS.tan.key]: SYMBOLS.atan,
+    [SYMBOLS.lParen.key]: SYMBOLS.lBracket,
+    [SYMBOLS.rParen.key]: SYMBOLS.rBracket,
+    [SYMBOLS.greaterThan.key]: SYMBOLS.gtEqual,
+    [SYMBOLS.lessThan.key]: SYMBOLS.ltEqual,
+    [SYMBOLS.naturalLog.key]: SYMBOLS.logarithm,
+    [SYMBOLS.exponent.key]: SYMBOLS.sciNotation,
+    [SYMBOLS.pi.key]: SYMBOLS.comma,
 }

@@ -110,13 +110,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onButtonEntry: (btnVal) => dispatch(actions.buttonEntry(btnVal)),
+        onButtonEntry: (btnObj) => dispatch(actions.buttonEntry(btnObj)),
         onTypedEntry: (newEntry) => dispatch(actions.typedEntry(newEntry)),
         onEvaluate: () => dispatch(actions.evaluate()),
         onChangeSelection: (start, end) => dispatch(actions.changeSelection(start, end)),
         onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
-        onSetModifier: (btnVal) => dispatch(actions.setModifier(btnVal)),
-        onSetSecondaryAction: (btnVal) => dispatch(actions.setSecondaryAction(btnVal)),
+        onSetModifier: (btnObj) => dispatch(actions.setModifier(btnObj)),
+        onSetSecondaryAction: (btnObj) => dispatch(actions.setSecondaryAction(btnObj)),
         onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
         onAssignVariable: (varName) => dispatch(actions.assignVariable(varName)),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
