@@ -16,19 +16,32 @@ export const SYMBOLS = {
     add: {key: 'add', display: '+', converted: '+'},
     comma: {key: 'comma', display: ',', converted: ','},
     point: {key: 'point', display: '.', converted: '.'},
-    sum: {key: 'sum', display: '∑', converted: 'sum('},
-    integrate: {key: 'integrate', display: '∫', converted: 'integrate('},
-    diff: {key: 'diff', display: '∂', converted: 'diff('},
-    limit: {key: 'limit', display: 'lim', converted: 'limit('},
-    sqRoot: {key: 'sqRoot', display: '√', converted: 'sqrt('},
-    sin: {key: 'sin', display: 'sin', converted: 'sin('},
-    cos: {key: 'cos', display: 'cos', converted: 'cos('},
-    tan: {key: 'tan', display: 'tan', converted: 'tan('},
-    asin: {key: 'asin', display: 'sin⁻¹', converted: 'asin('},
-    acos: {key: 'acos', display: 'cos⁻¹', converted: 'acos('},
-    atan: {key: 'atan', display: 'tan⁻¹', converted: 'atan('},
-    naturalLog: {key: 'naturalLog', display: 'ln', converted: 'log('},
-    logarithm: {key: 'logarithm', display: 'log', converted: 'log10('},
+    sum: {
+        key: 'sum', display: '∑', converted: 'sum(', prefix: '*'},
+    integrate: {
+        key: 'integrate', display: '∫', converted: 'integrate(', prefix: '*'},
+    diff: {
+        key: 'diff', display: '∂', converted: 'diff(', prefix: '*'},
+    limit: {
+        key: 'limit', display: 'lim', converted: 'limit(', prefix: '*'},
+    sqRoot: {
+        key: 'sqRoot', display: '√', converted: 'sqrt(', prefix: '*'},
+    sin: {
+        key: 'sin', display: 'sin', converted: 'sin(', prefix: '*'},
+    cos: {
+        key: 'cos', display: 'cos', converted: 'cos(', prefix: '*'},
+    tan: {
+        key: 'tan', display: 'tan', converted: 'tan(', prefix: '*'},
+    asin: {
+        key: 'asin', display: 'sin⁻¹', converted: 'asin(', prefix: '*'},
+    acos: {
+        key: 'acos', display: 'cos⁻¹', converted: 'acos(', prefix: '*'},
+    atan: {
+        key: 'atan', display: 'tan⁻¹', converted: 'atan(', prefix: '*'},
+    naturalLog: {
+        key: 'naturalLog', display: 'ln', converted: 'log(', prefix: '*'},
+    logarithm: {
+        key: 'logarithm', display: 'log', converted: 'log10(', prefix: '*'},
     lParen: {key: 'lParen', display: '(', converted: '('},
     rParen: {key: 'rParen', display: ')', converted: ')'},
     lBracket: {key: 'lBracket', display: '[', converted: '['},

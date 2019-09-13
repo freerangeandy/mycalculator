@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject, insertReplace } from '../../shared/utility';
-import { evalExpression, setVariable, setConstant } from '../../shared/interpreter';
+import { updateObject, insertReplace, charIsDigit } from '../../shared/utility';
+import { evalExpression, setVariable } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -22,10 +22,13 @@ const initConstants = (state, action) => {
 }
 
 const buttonEntry = (state, action) => {
-  const buttonObj = action.buttonObj;
+  const {entryVal, selection} = state;
+  const {buttonObj} = action;
   const insertVal = buttonObj.converted || buttonObj.key;
-  // const insertVal = buttonVal in CONVERTED_SYMBOL ? CONVERTED_SYMBOL[buttonVal] : buttonVal;
-  const newState = insertReplace(insertVal, state.selection, state.entryVal);
+  const prefix = buttonObj.prefix && charIsDigit(entryVal, selection[0])
+      ? buttonObj.prefix 
+      : '';
+  const newState = insertReplace(prefix+insertVal, selection, entryVal);
   return updateObject(state, newState);
 }
 
