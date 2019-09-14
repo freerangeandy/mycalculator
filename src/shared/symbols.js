@@ -1,3 +1,5 @@
+import { updateObject, insertReplace } from './utility';
+
 export const SYMBOLS = {
     0: {key: '0', display: '0'},
     1: {key: '1', display: '1'},
@@ -51,22 +53,16 @@ export const SYMBOLS = {
     lessThan: {key: 'lessThan', display: '<', converted: '<'},
     gtEqual: {key: 'gtEqual', display: '≥', converted: '≥'},
     ltEqual: {key: 'ltEqual', display: '≤', converted: '≤'},
-    clear: {key: 'clear', display: 'C'},
-    delete: {key: 'delete', display: '⌫'},
-    assign: {key: 'assign', display: '↦'},
     exponent: {key: 'exponent', display: '^', converted: '^'},
     secondFunc: {key: 'secondFunc', display: '2nd'},
     mode: {key: 'mode', display: 'mode'},
     stat: {key: 'stat', display: 'stat'},
     mat: {key: 'mat', display: 'mat'},
-    answer: {key: 'answer', display: 'ans'},
     sciNotation: {key: 'sciNotation', display: 'EE', converted: '*10^('},
-    pi: {key: 'pi',
-        display: 'π',
-        converted: 'π'},
-    euler: {key: 'euler',
-        display: 'ℯ',
-        converted: 'e'},
+    pi:
+        {key: 'pi', display: 'π', converted: 'π', prefix: '*'},
+    euler:
+        {key: 'euler', display: 'ℯ', converted: 'e', prefix: '*'},
     random: {key: 'random', display: 'rand', converted: 'rand('},
     modulo: {key: 'modulo', display: 'mod', converted: 'mod('},
     factorial: {key: 'factorial', display: '!', converted: 'fact('},
@@ -79,4 +75,41 @@ export const SYMBOLS = {
     transpose: {key: 'transpose', display: 'ᵀ', converted: 'transpose('},
     determinant: {key: 'determinant', display: 'det', converted: 'determinant('},
     inverse: {key: 'inverse', display: '⁻¹', converted: 'invert('},
+    delete:
+        {key: 'delete', display: '⌫', action:
+            (state, action) => {
+                let curSelection = state.selection;
+                const curSelectionWidth = curSelection[1] - curSelection[0];
+                if (curSelectionWidth === 0 && curSelection[0] > 0) {
+                    curSelection[0] -= 1; // select previous character (to delete)
+                }
+                return insertReplace("", curSelection, state.entryVal);
+            }},
+    answer:
+        {key: 'answer', display: 'ans', action:
+            (state, action) => {
+                if (state.displayRows.length > 0) {
+                  const prevAnswerObj = state.displayRows.slice(-1)[0][1];
+                  const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
+                                                       : prevAnswerObj.text('fraction');
+                  const ansLength = prevAnswer.length;
+                  return {
+                    entryVal: prevAnswer,
+                    selection: [ansLength,ansLength],
+                  }
+              } else return {...state};
+            }},
+    assign:
+        {key: 'assign', display: '↦', action:
+            (state, action) => {
+                return;
+            }},
+    clear:
+        {key: 'clear', display: 'C', action:
+            (state, action) => {
+                return {
+                  entryVal: '',
+                  selection: [0,0],
+                }
+            }},
 }

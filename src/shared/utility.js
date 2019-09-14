@@ -29,6 +29,6 @@ export const createData = (input, output) => {
   return { input, output };
 }
 
-export const charIsDigit = (str, idx) => {
-  return idx === 0 ? false : str.charAt(idx-1).match(/\d/);
+export const charIsDigit = (str, cursorPos) => {
+  return cursorPos === 0 ? false : str.charAt(cursorPos-1).match(/\d/);
 }

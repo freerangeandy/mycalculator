@@ -26,7 +26,7 @@ const buttonEntry = (state, action) => {
   const {buttonObj} = action;
   const insertVal = buttonObj.converted || buttonObj.key;
   const prefix = buttonObj.prefix && charIsDigit(entryVal, selection[0])
-      ? buttonObj.prefix 
+      ? buttonObj.prefix
       : '';
   const newState = insertReplace(prefix+insertVal, selection, entryVal);
   return updateObject(state, newState);
@@ -99,30 +99,13 @@ const setSecondaryAction = (state, action) => {
   let newState;
   switch(action.buttonVal) {
     case SYMBOLS.delete:
-      let curSelection = state.selection;
-      const curSelectionWidth = curSelection[1] - curSelection[0];
-      if (curSelectionWidth === 0 && curSelection[0] > 0) {
-          curSelection[0] -= 1; // select previous character (to delete)
-      }
-      newState = insertReplace("", curSelection, state.entryVal);
+      newState = SYMBOLS.delete.action(state, action);
       break;
     case SYMBOLS.answer:
-      if (state.displayRows.length > 0) {
-        const prevAnswerObj = state.displayRows.slice(-1)[0][1];
-        const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
-                                             : prevAnswerObj.text('fraction');
-        const ansLength = prevAnswer.length;
-        newState = {
-          entryVal: prevAnswer,
-          selection: [ansLength,ansLength],
-        }
-      } else newState = {...state};
+      newState = SYMBOLS.answer.action(state, action);
       break;
     case SYMBOLS.clear:
-      newState = {
-        entryVal: '',
-        selection: [0,0],
-      }
+      newState = SYMBOLS.clear.action(state, action);
       break;
     default:
       newState = {
