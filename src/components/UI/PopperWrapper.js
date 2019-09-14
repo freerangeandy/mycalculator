@@ -45,7 +45,7 @@ export default function PopperWrapper(props) {
                     </ClickAwayListener>
                  )}
             </Popper>
-            {popperButton(props.action)}
+            {popperButton(props.actionKey)}
         </div>
     )
 }

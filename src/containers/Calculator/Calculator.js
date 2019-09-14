@@ -71,8 +71,7 @@ function Calculator (props) {
           altState={props.altState}
           buttonPressed={props.onButtonEntry}
           actionModifier={props.onSetModifier}
-          secondaryAction={props.onSetSecondaryAction}
-          assignVariable={props.onAssignVariable} />
+          secondaryAction={props.onSetSecondaryAction} />
     );
 
     return (
@@ -116,9 +115,8 @@ const mapDispatchToProps = dispatch => {
         onChangeSelection: (start, end) => dispatch(actions.changeSelection(start, end)),
         onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
         onSetModifier: (btnObj) => dispatch(actions.setModifier(btnObj)),
-        onSetSecondaryAction: (btnObj) => dispatch(actions.setSecondaryAction(btnObj)),
+        onSetSecondaryAction: (btnObj, payload) => dispatch(actions.setSecondaryAction(btnObj, payload)),
         onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
-        onAssignVariable: (varName) => dispatch(actions.assignVariable(varName)),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
     }
 }

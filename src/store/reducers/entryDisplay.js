@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
-import { evalExpression, setVariable } from '../../shared/interpreter';
 import { updateObject, insertReplace, charIsDigit, handleError } from '../../shared/utility';
+import { evalExpression } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -90,13 +90,16 @@ const closeSnackbar = (state, action) => {
 const setSecondaryAction = (state, action) => {
   let newState;
   switch(action.buttonVal) {
-    case SYMBOLS.delete:
+    case SYMBOLS.delete.key:
       newState = SYMBOLS.delete.action(state, action);
       break;
-    case SYMBOLS.answer:
+    case SYMBOLS.answer.key:
       newState = SYMBOLS.answer.action(state, action);
       break;
-    case SYMBOLS.clear:
+    case SYMBOLS.assign.key:
+      newState = SYMBOLS.assign.action(state, action);
+      break;
+    case SYMBOLS.clear.key:
       newState = SYMBOLS.clear.action(state, action);
       break;
     default:
@@ -106,19 +109,6 @@ const setSecondaryAction = (state, action) => {
       }
   }
 
-  return updateObject(state, newState);
-}
-
-const assignVariable = (state, action) => {
-  const assignmentSuccess = setVariable(action.varName, state.entryVal);
-  const newState = assignmentSuccess
-    ? {
-      showSnackbar: true,
-      snackbarMsg: `${action.varName} assigned to value: ${state.entryVal}`,
-    } : {
-      errorName: 'setVarError',
-      errorMsg: `${action.varName} is not a valid variable name`,
-    }
   return updateObject(state, newState);
 }
 
@@ -142,8 +132,6 @@ const reducer = (state = initialState, action) => {
       return setUseDecimals(state, action);
     case actionTypes.CLOSE_SNACKBAR:
       return closeSnackbar(state, action);
-    case actionTypes.ASSIGN_VARIABLE:
-      return assignVariable(state, action);
     default:
       return state;
   }

@@ -24,8 +24,8 @@ export default function KeyPane (props) {
     const classes = useStyles();
 
     const popperObj = {
-        action: SYMBOLS.assign,
-        submitHandler: props.assignVariable,
+        actionKey: SYMBOLS.assign.key,
+        submitHandler: (varName) => props.secondaryAction(SYMBOLS.assign.key, varName),
         placement: 'left',
     };
 

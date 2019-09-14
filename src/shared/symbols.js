@@ -1,4 +1,5 @@
 import { updateObject, insertReplace } from './utility';
+import { setVariable } from './interpreter';
 
 export const SYMBOLS = {
     0: {key: '0', display: '0'},
@@ -102,7 +103,15 @@ export const SYMBOLS = {
     assign:
         {key: 'assign', display: '↦', action:
             (state, action) => {
-                return;
+                const assignmentSuccess = setVariable(action.payload, state.entryVal);
+                return assignmentSuccess
+                  ? {
+                    showSnackbar: true,
+                    snackbarMsg: `${action.payload} assigned to value: ${state.entryVal}`,
+                  } : {
+                    errorName: 'setVarError',
+                    errorMsg: `${action.payload} is not a valid variable name`,
+                };
             }},
     clear:
         {key: 'clear', display: 'C', action:

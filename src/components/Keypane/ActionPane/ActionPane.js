@@ -9,11 +9,11 @@ import PopperWrapper from '../../UI/PopperWrapper';
 export default function ActionPane (props) {
     const actionButton = (obj) => {
         const displayVal = obj.display || obj.key;
-        const actionComponent = props.poppers && obj.key === props.poppers.action.key
+        const actionComponent = props.poppers && obj.key === props.poppers.actionKey
             ?   (<PopperWrapper {...props.poppers} buttonType={ActionButton}>
                     {displayVal}
                 </PopperWrapper>)
-            :   (<ActionButton key={obj.key} onClick={(event) => props.buttonPressed(obj)}>
+            :   (<ActionButton key={obj.key} onClick={(event) => props.buttonPressed(obj.key)}>
                     {displayVal}
                 </ActionButton>);
         return actionComponent;

@@ -42,10 +42,11 @@ export const setError = (errName, errMsg) => {
   }
 };
 
-export const setSecondaryAction = (btnVal) => {
+export const setSecondaryAction = (btnVal, payload) => {
   return {
     type: actionTypes.SET_SECONDARY_ACTION,
     buttonVal: btnVal,
+    payload: payload,
   }
 };
 
@@ -58,12 +59,5 @@ export const useDecimals = () => {
 export const closeSnackbar = () => {
   return {
     type: actionTypes.CLOSE_SNACKBAR,
-  }
-};
-
-export const assignVariable = (varName) => {
-  return {
-    type: actionTypes.ASSIGN_VARIABLE,
-    varName: varName,
   }
 };
