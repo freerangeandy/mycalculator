@@ -32,3 +32,13 @@ export const createData = (input, output) => {
 export const charIsDigit = (str, cursorPos) => {
   return cursorPos === 0 ? false : str.charAt(cursorPos-1).match(/\d/);
 }
+
+export const handleError = (e) => {
+    const errorName = e.name;
+    const errorMsg = e.message;
+    console.log(errorName, errorMsg);
+    return {
+      errorName: errorName,
+      errorMsg: errorMsg,
+  };
+}

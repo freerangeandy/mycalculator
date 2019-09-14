@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject, insertReplace, charIsDigit } from '../../shared/utility';
 import { evalExpression, setVariable } from '../../shared/interpreter';
+import { updateObject, insertReplace, charIsDigit, handleError } from '../../shared/utility';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -53,15 +53,7 @@ const evaluate = (state, action) => {
     }
     return updateObject(state, newState);
   } catch (e) {
-    const errorName = e.name;
-    const errorMsg = e.message;
-    console.log(errorName, errorMsg);
-    const newState = {
-      entryVal: currentEntry,
-      // selection: newSelection,
-      errorName: errorName,
-      errorMsg: errorMsg,
-    }
+    const newState = handleError(e)
     return updateObject(state, newState);
   }
 }
