@@ -2,7 +2,7 @@ import React from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 
-import ActionButton from './ActionButton';
+import ActionButton from './ActionButton/ActionButton';
 import PopperWrapper from '../../UI/PopperWrapper';
 // import { SYMBOLS } from '../../../shared/symbols.js';
 
