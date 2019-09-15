@@ -7,18 +7,14 @@ const initialState = {
 };
 
 const setModifier = (state, action) => {
-  let newState;
-  if (action.buttonObj.key === SYMBOLS.secondFunc.key) {
-      newState = {
-          showAltButtons: !state.showAltButtons,
-      }
-  } else {
-      newState = {
-          errorName: `${action.buttonObj.key} `,
-          errorMsg: 'not working',
-      }
-  }
-
+  let newState = action.buttonKey === SYMBOLS.secondFunc.key
+    ? {
+      showAltButtons: !state.showAltButtons,
+    }
+    : {
+      errorName: `${action.buttonObj.key}`,
+      errorMsg: 'not working',
+    };
   return updateObject(state, newState);
 }
 

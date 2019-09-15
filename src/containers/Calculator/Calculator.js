@@ -114,8 +114,8 @@ const mapDispatchToProps = dispatch => {
         onEvaluate: () => dispatch(actions.evaluate()),
         onChangeSelection: (start, end) => dispatch(actions.changeSelection(start, end)),
         onSetError: (name, msg) => dispatch(actions.setError(name, msg)),
-        onSetModifier: (btnObj) => dispatch(actions.setModifier(btnObj)),
-        onSetSecondaryAction: (btnObj, payload) => dispatch(actions.setSecondaryAction(btnObj, payload)),
+        onSetModifier: (btnKey) => dispatch(actions.setModifier(btnKey)),
+        onSetSecondaryAction: (btnKey, payload) => dispatch(actions.setSecondaryAction(btnKey, payload)),
         onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
         // toggleDecimals: () => dispatch(actions.useDecimals()),
     }

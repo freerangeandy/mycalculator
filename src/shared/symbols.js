@@ -1,4 +1,4 @@
-import { updateObject, insertReplace } from './utility';
+import { insertReplace } from './utility';
 import { setVariable } from './interpreter';
 
 export const SYMBOLS = {

@@ -42,10 +42,10 @@ export const setError = (errName, errMsg) => {
   }
 };
 
-export const setSecondaryAction = (btnVal, payload) => {
+export const setSecondaryAction = (btnKey, payload) => {
   return {
     type: actionTypes.SET_SECONDARY_ACTION,
-    buttonVal: btnVal,
+    buttonKey: btnKey,
     payload: payload,
   }
 };

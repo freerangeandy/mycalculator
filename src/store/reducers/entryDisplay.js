@@ -89,7 +89,7 @@ const closeSnackbar = (state, action) => {
 
 const setSecondaryAction = (state, action) => {
   let newState;
-  switch(action.buttonVal) {
+  switch(action.buttonKey) {
     case SYMBOLS.delete.key:
       newState = SYMBOLS.delete.action(state, action);
       break;
