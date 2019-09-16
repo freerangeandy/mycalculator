@@ -12,7 +12,7 @@ const setModifier = (state, action) => {
       showAltButtons: !state.showAltButtons,
     }
     : {
-      errorName: `${action.buttonObj.key}`,
+      errorName: `${action.buttonKey.key}`,
       errorMsg: 'not working',
     };
   return updateObject(state, newState);

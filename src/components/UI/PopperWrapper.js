@@ -3,8 +3,6 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import InputPopper from './InputPopper';
-
 export default function PopperWrapper(props) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
@@ -29,6 +27,8 @@ export default function PopperWrapper(props) {
         )
     };
 
+    const popperContent = props.component(() => setOpen(prev => !prev));
+
     return (
         <div>
             <Popper open={open} anchorEl={anchorEl} placement={props.placement} transition>
@@ -36,10 +36,7 @@ export default function PopperWrapper(props) {
                     <ClickAwayListener onClickAway={handleClickAway}>
                         <Fade {...TransitionProps} timeout={350}>
                             <div>
-                                <InputPopper
-                                    closeHandler={() => setOpen(prev => !prev)}
-                                    submitHandler={props.submitHandler}
-                                    />
+                                {popperContent}
                             </div>
                         </Fade>
                     </ClickAwayListener>

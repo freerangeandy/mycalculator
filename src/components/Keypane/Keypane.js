@@ -11,6 +11,8 @@ import paneClasses from './KeyPane.css';
 import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols';
 import Auxy from '../../hoc/Auxy/Auxy';
+import InputPopper from '../UI/InputPopper';
+import SwitchPopper from '../UI/SwitchPopper';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -25,8 +27,25 @@ export default function KeyPane (props) {
 
     const popperObj = {
         actionKey: SYMBOLS.assign.key,
-        submitHandler: (varName) => props.secondaryAction(SYMBOLS.assign.key, varName),
+        component: (closeHandler) => (
+            <InputPopper
+                closeHandler={closeHandler}
+                submitHandler={(varName) => props.secondaryAction(SYMBOLS.assign.key, varName)}
+            />
+        ),
         placement: 'left',
+    };
+
+    const popperObj2 = {
+        actionKey: SYMBOLS.mode.key,
+        component: (closeHandler) => (
+            <SwitchPopper
+                closeHandler={closeHandler}
+                toggleDecimals={props.toggleDecimals}
+                useDecimals={props.useDecimals}
+            />
+        ),
+        placement: 'right',
     };
 
     const upperKeys = (
@@ -36,7 +55,8 @@ export default function KeyPane (props) {
             altState={props.altState} />
         <ActionPane
             buttonPressed={props.actionModifier}
-            columnValues={MODIFIERS} />
+            columnValues={MODIFIERS}
+            poppers={popperObj2}/>
       </Auxy>
     );
 

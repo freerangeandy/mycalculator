@@ -77,6 +77,7 @@ const setUseDecimals = (state, action) => {
   const newState = {
     useDecimals: !state.useDecimals,
   }
+  console.log(`new mode: ${newState.useDecimals}`);
   return updateObject(state, newState);
 }
 
