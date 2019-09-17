@@ -5,24 +5,28 @@ export const updateObject = (oldObject, updatedProps) => {
     };
 };
 
-export const insertReplace = (insertVal, selection, targetStr) => {
-    const currentEntryVal = targetStr;
-    const [selectStart, selectEnd] = selection;
+export const insertSymbol = (curState, symbolObj) => {
+  const { selection, entryVal } = curState;
+  const [selectStart, selectEnd] = selection;
 
-    const selectWidth = selectEnd - selectStart;
-    const selectionShift = insertVal.toString().length - selectWidth;
-    const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
+  const insertVal = symbolObj.converted || symbolObj.key;
+  const prefix = symbolObj.prefix && charIsDigit(entryVal, selection[0]) ? symbolObj.prefix : '';
+  const suffix = symbolObj.suffix || '';
 
-    const preInsert = selectStart > 0 ? currentEntryVal.slice(0, selectStart) : '';
-    const postInsert = selectEnd < currentEntryVal.length ? currentEntryVal.slice(selectEnd) : '';
-    const newEntryVal =  preInsert + insertVal + postInsert;
+  const selectWidth = selectEnd - selectStart;
+  const selectionShift = prefix.length + insertVal.toString().length - selectWidth;
+  const newSelection = [selectEnd + selectionShift, selectEnd + selectionShift];
 
-    const newState = {
-      entryVal: newEntryVal,
-      selection: newSelection,
-    };
+  const preInsert = selectStart > 0 ? entryVal.slice(0, selectStart) : '';
+  const postInsert = selectEnd < entryVal.length ? entryVal.slice(selectEnd) : '';
+  const newEntryVal =  preInsert + prefix + insertVal + suffix + postInsert;
 
-    return newState;
+  const newState = {
+    entryVal: newEntryVal,
+    selection: newSelection,
+  };
+
+  return newState;
 }
 
 export const createData = (input, output) => {

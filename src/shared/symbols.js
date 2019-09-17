@@ -1,4 +1,4 @@
-import { insertReplace } from './utility';
+import { insertSymbol } from './utility';
 import { setVariable } from './interpreter';
 
 export const SYMBOLS = {
@@ -20,31 +20,31 @@ export const SYMBOLS = {
     comma: {key: 'comma', display: ',', converted: ','},
     point: {key: 'point', display: '.', converted: '.'},
     sum: {
-        key: 'sum', display: '∑', converted: 'sum(', prefix: '*'},
+        key: 'sum', display: '∑', converted: 'sum(', prefix: '*', suffix: ',i,1,n)'},
     integrate: {
-        key: 'integrate', display: '∫', converted: 'integrate(', prefix: '*'},
+        key: 'integrate', display: '∫', converted: 'integrate(', prefix: '*', suffix: ',x)'},
     diff: {
-        key: 'diff', display: '∂', converted: 'diff(', prefix: '*'},
+        key: 'diff', display: '∂', converted: 'diff(', prefix: '*', suffix: ',x,1)'},
     limit: {
-        key: 'limit', display: 'lim', converted: 'limit(', prefix: '*'},
+        key: 'limit', display: 'lim', converted: 'limit(', prefix: '*', suffix: ',x,0)'},
     sqRoot: {
-        key: 'sqRoot', display: '√', converted: 'sqrt(', prefix: '*'},
+        key: 'sqRoot', display: '√', converted: 'sqrt(', prefix: '*', suffix: ')'},
     sin: {
-        key: 'sin', display: 'sin', converted: 'sin(', prefix: '*'},
+        key: 'sin', display: 'sin', converted: 'sin(', prefix: '*', suffix: ')'},
     cos: {
-        key: 'cos', display: 'cos', converted: 'cos(', prefix: '*'},
+        key: 'cos', display: 'cos', converted: 'cos(', prefix: '*', suffix: ')'},
     tan: {
-        key: 'tan', display: 'tan', converted: 'tan(', prefix: '*'},
+        key: 'tan', display: 'tan', converted: 'tan(', prefix: '*', suffix: ')'},
     asin: {
-        key: 'asin', display: 'sin⁻¹', converted: 'asin(', prefix: '*'},
+        key: 'asin', display: 'sin⁻¹', converted: 'asin(', prefix: '*', suffix: ')'},
     acos: {
-        key: 'acos', display: 'cos⁻¹', converted: 'acos(', prefix: '*'},
+        key: 'acos', display: 'cos⁻¹', converted: 'acos(', prefix: '*', suffix: ')'},
     atan: {
-        key: 'atan', display: 'tan⁻¹', converted: 'atan(', prefix: '*'},
+        key: 'atan', display: 'tan⁻¹', converted: 'atan(', prefix: '*', suffix: ')'},
     naturalLog: {
-        key: 'naturalLog', display: 'ln', converted: 'log(', prefix: '*'},
+        key: 'naturalLog', display: 'ln', converted: 'log(', prefix: '*', suffix: ')'},
     logarithm: {
-        key: 'logarithm', display: 'log', converted: 'log10(', prefix: '*'},
+        key: 'logarithm', display: 'log', converted: 'log10(', prefix: '*', suffix: ')'},
     lParen: {key: 'lParen', display: '(', converted: '('},
     rParen: {key: 'rParen', display: ')', converted: ')'},
     lBracket: {key: 'lBracket', display: '[', converted: '['},
@@ -84,7 +84,7 @@ export const SYMBOLS = {
                 if (curSelectionWidth === 0 && curSelection[0] > 0) {
                     curSelection[0] -= 1; // select previous character (to delete)
                 }
-                return insertReplace("", curSelection, state.entryVal);
+                return insertSymbol(state, {key: ''});
             }},
     answer:
         {key: 'answer', display: 'ans', action:
