@@ -4,15 +4,6 @@ import 'nerdamer/Calculus';
 
 import { SYMBOLS } from './symbols';
 
-export {
-    ARITHMETIC_OPERATORS,
-    NUM_PAD,
-    FUNCTIONS,
-    MODIFIERS,
-    ACTIONS,
-    ALTERNATES,
-} from './buttonLayout';
-
 export const setConstant = (symbol, val) => {
     nerdamer.setConstant(symbol, val);
     const test = nerdamer(`${symbol}`).toString();

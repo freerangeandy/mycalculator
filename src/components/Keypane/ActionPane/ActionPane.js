@@ -4,13 +4,12 @@ import Grid from '@material-ui/core/Grid';
 
 import ActionButton from './ActionButton/ActionButton';
 import PopperWrapper from '../../UI/PopperWrapper';
-// import { SYMBOLS } from '../../../shared/symbols.js';
 
 export default function ActionPane (props) {
     const actionButton = (obj) => {
         const displayVal = obj.display || obj.key;
-        const actionComponent = props.poppers && obj.key === props.poppers.actionKey
-            ?   (<PopperWrapper {...props.poppers} buttonType={ActionButton}>
+        const actionComponent = props.poppers && obj.key in props.poppers
+            ?   (<PopperWrapper {...props.poppers[obj.key]} buttonType={ActionButton}>
                     {displayVal}
                 </PopperWrapper>)
             :   (<ActionButton key={obj.key} onClick={(event) => props.buttonPressed(obj.key)}>

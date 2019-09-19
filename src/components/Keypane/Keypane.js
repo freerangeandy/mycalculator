@@ -8,7 +8,7 @@ import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
 import paneClasses from './KeyPane.css';
-import { MODIFIERS, ACTIONS } from '../../shared/interpreter';
+import { FUNCTIONS, MODIFIERS, ACTIONS, STAT_POP, MAT_POP } from '../../shared/buttonLayout';
 import { SYMBOLS } from '../../shared/symbols';
 import Auxy from '../../hoc/Auxy/Auxy';
 import InputPopper from '../UI/InputPopper';
@@ -25,8 +25,7 @@ const useStyles = makeStyles(theme => ({
 export default function KeyPane (props) {
     const classes = useStyles();
 
-    const popperObj = {
-        actionKey: SYMBOLS.assign.key,
+    const assignPopper = {
         component: (closeHandler) => (
             <InputPopper
                 closeHandler={closeHandler}
@@ -36,8 +35,7 @@ export default function KeyPane (props) {
         placement: 'left',
     };
 
-    const popperObj2 = {
-        actionKey: SYMBOLS.mode.key,
+    const modePopper = {
         component: (closeHandler) => (
             <SwitchPopper
                 closeHandler={closeHandler}
@@ -48,15 +46,43 @@ export default function KeyPane (props) {
         placement: 'right',
     };
 
+    const statPopper = {
+        component: (closeHandler) => (
+            <FunctionPane
+                buttonPressed={props.buttonPressed}
+                gridValues={STAT_POP}
+            />
+        ),
+        placement: 'right',
+    };
+
+    const matPopper = {
+        component: (closeHandler) => (
+            <FunctionPane
+                buttonPressed={props.buttonPressed}
+                gridValues={MAT_POP}
+            />
+        ),
+        placement: 'right',
+    };
+
+    const allPoppers = {
+        [SYMBOLS.assign.key]: assignPopper,
+        [SYMBOLS.mode.key]: modePopper,
+        [SYMBOLS.stat.key]: statPopper,
+        [SYMBOLS.mat.key]: matPopper,
+    };
+
     const upperKeys = (
       <Auxy>
         <FunctionPane
             buttonPressed={props.buttonPressed}
-            altState={props.altState} />
+            altState={props.altState}
+            gridValues={FUNCTIONS}/>
         <ActionPane
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}
-            poppers={popperObj2}/>
+            poppers={allPoppers}/>
       </Auxy>
     );
 
@@ -65,7 +91,7 @@ export default function KeyPane (props) {
         <ActionPane
             buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
-            poppers={popperObj} />
+            poppers={allPoppers} />
         <NumPad numberPressed={props.buttonPressed} />
         <ArithmeticPane buttonPressed={props.buttonPressed} />
       </Auxy>

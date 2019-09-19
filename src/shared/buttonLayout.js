@@ -52,4 +52,15 @@ export const ALTERNATES = {
     [SYMBOLS.naturalLog.key]: SYMBOLS.logarithm,
     [SYMBOLS.exponent.key]: SYMBOLS.sciNotation,
     [SYMBOLS.pi.key]: SYMBOLS.comma,
-}
+};
+
+export const STAT_POP = [
+    [SYMBOLS.mean, SYMBOLS.median],
+    [SYMBOLS.stdDev, SYMBOLS.variance],
+];
+
+export const MAT_POP = [
+    [SYMBOLS.crossProd, SYMBOLS.dotProd],
+    [SYMBOLS.inverse, SYMBOLS.transpose],
+    [SYMBOLS.determinant, SYMBOLS.random],
+];

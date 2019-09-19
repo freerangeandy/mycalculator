@@ -4,8 +4,7 @@ import { withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { FUNCTIONS, ALTERNATES } from '../../../shared/interpreter';
-// import { SYMBOLS } from '../../../shared/symbols.js';
+import { ALTERNATES } from '../../../shared/buttonLayout';
 
 const FunctionButton = withStyles(theme => ({
   root: {
@@ -31,7 +30,7 @@ export default function FunctionPane (props) {
         )
     }
 
-    const functionGrid = FUNCTIONS.map((row) => (
+    const functionGrid = props.gridValues.map((row) => (
         <Grid key={`${row[0].key}_grid`}
             container
             spacing={0}

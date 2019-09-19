@@ -4,8 +4,7 @@ import { withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { NUM_PAD } from '../../../shared/interpreter';
-// import { SYMBOLS } from '../../../shared/symbols.js';
+import { NUM_PAD } from '../../../shared/buttonLayout';
 
 const NumButton = withStyles(theme => ({
   root: {

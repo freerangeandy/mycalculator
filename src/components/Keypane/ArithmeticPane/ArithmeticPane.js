@@ -5,8 +5,7 @@ import green from '@material-ui/core/colors/green';
 import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
-import { ARITHMETIC_OPERATORS } from '../../../shared/interpreter';
-// import { SYMBOLS } from '../../../shared/symbols.js';
+import { ARITHMETIC_OPERATORS } from '../../../shared/buttonLayout';
 
 const borderColor = '#4c885a';
 const backgroundColor = green[500];
