@@ -1,6 +1,7 @@
 import nerdamer from 'nerdamer/nerdamer.core';
 import 'nerdamer/Algebra';
 import 'nerdamer/Calculus';
+import 'nerdamer/Extra';
 
 import { SYMBOLS } from './symbols';
 

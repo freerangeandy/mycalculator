@@ -55,27 +55,40 @@ export const SYMBOLS = {
     gtEqual: {key: 'gtEqual', display: '≥', converted: '≥'},
     ltEqual: {key: 'ltEqual', display: '≤', converted: '≤'},
     exponent: {key: 'exponent', display: '^', converted: '^'},
-    secondFunc: {key: 'secondFunc', display: '2nd'},
-    mode: {key: 'mode', display: 'mode'},
-    stat: {key: 'stat', display: 'stat'},
-    mat: {key: 'mat', display: 'mat'},
-    sciNotation: {key: 'sciNotation', display: 'EE', converted: '*10^('},
+    sciNotation:
+        {key: 'sciNotation', display: 'EE', converted: '*10^(', suffix: ')'},
+    random:
+        {key: 'random', display: 'rand', converted: 'rand(', suffix: ')'},
+    modulo:
+        {key: 'modulo', display: 'mod', converted: 'mod(', suffix: ')'},
+    factorial:
+        {key: 'factorial', display: '!', converted: 'fact(', suffix: ')'},
+    median:
+        {key: 'median', display: 'med', converted:  'median(', suffix: ')'},
+    mean:
+        {key: 'mean', display: 'x̄', converted: 'mean(', suffix: ')'},
+    stdDev:
+        {key: 'stdDev', display: '𝜎', converted: 'stdev(', suffix: ')'},
+    variance:
+        {key: 'variance', display: '𝜎²', converted: 'variance(', suffix: ')'},
+    crossProd:
+        {key: 'crossProd', display: '×', converted: 'cross(', suffix: ', )'},
+    dotProd:
+        {key: 'dotProd', display: '⋅', converted: 'dot(', suffix: ', )'},
+    transpose:
+        {key: 'transpose', display: 'ᵀ', converted: 'transpose(', suffix: ')'},
+    determinant:
+        {key: 'determinant', display: 'det', converted: 'determinant(', suffix: ')'},
+    inverse:
+        {key: 'inverse', display: '⁻¹', converted: 'invert(', suffix: ')'},
     pi:
         {key: 'pi', display: 'π', converted: 'π', prefix: '*'},
     euler:
         {key: 'euler', display: 'ℯ', converted: 'e', prefix: '*'},
-    random: {key: 'random', display: 'rand', converted: 'rand('},
-    modulo: {key: 'modulo', display: 'mod', converted: 'mod('},
-    factorial: {key: 'factorial', display: '!', converted: 'fact('},
-    median: {key: 'median', display: 'med', converted:  'median('},
-    mean: {key: 'mean', display: 'x̄', converted: 'mean('},
-    stdDev: {key: 'stdDev', display: '𝜎', converted: 'stdev('},
-    variance: {key: 'variance', display: '𝜎²', converted: 'variance('},
-    crossProd: {key: 'crossProd', display: '×', converted: 'cross('},
-    dotProd: {key: 'dotProd', display: '⋅', converted: 'dot('},
-    transpose: {key: 'transpose', display: 'ᵀ', converted: 'transpose('},
-    determinant: {key: 'determinant', display: 'det', converted: 'determinant('},
-    inverse: {key: 'inverse', display: '⁻¹', converted: 'invert('},
+    secondFunc: {key: 'secondFunc', display: '2nd'},
+    mode: {key: 'mode', display: 'mode'},
+    stat: {key: 'stat', display: 'stat'},
+    mat: {key: 'mat', display: 'mat'},
     delete:
         {key: 'delete', display: '⌫', action:
             (state, action) => {
