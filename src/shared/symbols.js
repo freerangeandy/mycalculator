@@ -21,6 +21,8 @@ export const SYMBOLS = {
     point: {key: 'point', display: '.', converted: '.'},
     sum: {
         key: 'sum', display: '∑', converted: 'sum(', prefix: '*', suffix: ',i,1,n)'},
+    product: {
+        key: 'product', display: 'Π', converted: 'product(', prefix: '*', suffix: ',i,1,n)'},
     integrate: {
         key: 'integrate', display: '∫', converted: 'integrate(', prefix: '*', suffix: ',x)'},
     diff: {
@@ -81,6 +83,8 @@ export const SYMBOLS = {
         {key: 'determinant', display: 'det', converted: 'determinant(', suffix: ')'},
     inverse:
         {key: 'inverse', display: '⁻¹', converted: 'invert(', suffix: ')'},
+    identity:
+        {key: 'identity', display: '𝐼', converted: 'imatrix(', suffix: ')'},
     pi:
         {key: 'pi', display: 'π', converted: 'π', prefix: '*'},
     euler:

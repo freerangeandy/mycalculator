@@ -36,7 +36,7 @@ export const ACTIONS = [
 ];
 
 export const ALTERNATES = {
-    [SYMBOLS.sum.key]: SYMBOLS.sum, //same
+    [SYMBOLS.sum.key]: SYMBOLS.product,
     [SYMBOLS.integrate.key]: SYMBOLS.integrate, //same
     [SYMBOLS.diff.key]: SYMBOLS.diff, //same
     [SYMBOLS.limit.key]: SYMBOLS.limit, //same
@@ -62,5 +62,5 @@ export const STAT_POP = [
 export const MAT_POP = [
     [SYMBOLS.crossProd, SYMBOLS.dotProd],
     [SYMBOLS.inverse, SYMBOLS.transpose],
-    [SYMBOLS.determinant, SYMBOLS.random],
+    [SYMBOLS.determinant, SYMBOLS.identity],
 ];
