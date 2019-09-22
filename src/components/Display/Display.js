@@ -44,7 +44,7 @@ function Display(props){
         const latexResult = props.useDecimals
                         ? output.text('decimals')
                         : convertToLaTeXString(output.toString());
-        return createData(latexEntry, latexResult);
+        return createData(input.toString(), latexResult);
     });
 
     const headerRow = (

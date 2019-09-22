@@ -11,13 +11,14 @@ export const setConstant = (symbol, val) => {
     console.log(test);
 }
 
-export const evalExpression = (expression) => {
-    const out = nerdamer(expression).evaluate();
-    return out;
+export const evalExpression = (expression, evaluate=false) => {
+    const out = nerdamer(expression);
+    if (evaluate) return out.evaluate();
+    else return out.toString();
 };
 
 export const convertToLaTeXString = (expression) => {
-    return nerdamer.convertToLaTeX(expression).toString();
+    return nerdamer(expression).toTeX();
 }
 
 export const setVariable = (varName, varValue) => {
