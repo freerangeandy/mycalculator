@@ -17,8 +17,12 @@ export const evalExpression = (expression, evaluate=false) => {
     else return out.toString();
 };
 
-export const convertToLaTeXString = (expression) => {
-    return nerdamer(expression).toTeX();
+export const convertToLaTeXString = (expression, evaluate=true) => {
+    if (evaluate) {
+        return nerdamer(expression).toTeX();
+    } else {
+        return nerdamer.convertToLaTeX(expression);
+    }
 }
 
 export const setVariable = (varName, varValue) => {
@@ -28,4 +32,14 @@ export const setVariable = (varName, varValue) => {
         nerdamer.setVar(varName, varValue);
         return true;
     } else return false;
+}
+
+export const containsMatrix = (expression) => {
+    const regex = new RegExp(/^[^(]*matrix\(.*\)[^)]*$/g);
+    return expression.match(regex) != null;
+}
+
+export const containsVector = (expression) => {
+    const regex = new RegExp(/^[^(]*vector\(.*\)[^)]*$/g);
+    return expression.match(regex) != null;
 }
