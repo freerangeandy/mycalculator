@@ -8,14 +8,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InlineMath } from 'react-katex';
 
-import { convertToLaTeXString } from '../../shared/interpreter';
 import { createData } from '../../shared/utility';
 import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
-  // root: {
-  //   width: '100%',
-  // },
   paper: {
     marginTop: theme.spacing(3),
     width: '100%',
@@ -27,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function Display(props){
     const classes = useStyles();
-    const displayRows = props.displayRows;
+    const {displayRows} = props;
     const tableEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -39,13 +35,7 @@ function Display(props){
 
     useEffect(scrollToBottom, [displayRows]);
 
-    const formattedRows = displayRows.map(([input, output]) => {
-        const latexEntry = convertToLaTeXString(input);
-        const latexResult = props.useDecimals
-                        ? output.text('decimals')
-                        : convertToLaTeXString(output.toString());
-        return createData(input.toString(), latexResult);
-    });
+    const formattedRows = displayRows.map(([input, output]) => createData(input, output));
 
     const headerRow = (
       <TableRow className={tableClasses.headerRow}>
@@ -55,10 +45,7 @@ function Display(props){
     );
 
     const tableRows = formattedRows.map((row, idx, arr) => {
-      let tableRowAttribute = {};
-      if (idx === arr.length - 1) {
-        tableRowAttribute = { ref: tableEndRef };
-      }
+      const tableRowAttribute = (idx === arr.length - 1) ? { ref: tableEndRef } : {};
       return (
         <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
           <TableCell className={tableClasses.cell} align="left"><InlineMath math={row.input}/></TableCell>
