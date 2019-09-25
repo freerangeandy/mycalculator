@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import blue from '@material-ui/core/colors/blue';
 
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
@@ -13,6 +14,16 @@ import { SYMBOLS } from '../../shared/symbols';
 import Auxy from '../../hoc/Auxy/Auxy';
 import InputPopper from '../UI/InputPopper';
 import SwitchPopper from '../UI/SwitchPopper';
+
+const popBgColor = blue[600];
+const popHoverColor = blue[700];
+
+const colorOverride = {
+    backgroundColor: popBgColor,
+    '&:hover': {
+      backgroundColor: popHoverColor,
+    }
+};
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -51,6 +62,7 @@ export default function KeyPane (props) {
             <FunctionPane
                 buttonPressed={props.buttonPressed}
                 gridValues={STAT_POP}
+                colorOverride={colorOverride}
             />
         ),
         placement: 'right',
@@ -61,6 +73,7 @@ export default function KeyPane (props) {
             <FunctionPane
                 buttonPressed={props.buttonPressed}
                 gridValues={MAT_POP}
+                colorOverride={colorOverride}
             />
         ),
         placement: 'right',

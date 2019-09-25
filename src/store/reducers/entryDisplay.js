@@ -40,11 +40,11 @@ const evaluate = (state, action) => {
   try {
     const result = evalExpression(currentEntry);
     const latexEntry = convertToLaTeXString(currentEntry, false);
+    console.log(`input string:${currentEntry.toString()} latexEntry:${latexEntry}`);
     const latexResult = state.useDecimals
                   ? result.text('decimals')
                   : convertToLaTeXString(result.toString());
-    console.log(`result: ${result}`);
-    // console.log(`input string:${input.toString()} latexEntry:${latexEntry}`);
+    console.log(`result string: ${result} latexResult:${latexResult}`);
     const updatedRows = [...state.displayRows, [latexEntry, latexResult]];
     const newState = {
       entryVal: '',

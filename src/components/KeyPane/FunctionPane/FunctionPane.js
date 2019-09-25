@@ -7,10 +7,11 @@ import CalcButton from '../../UI/CalcButton';
 import { ALTERNATES } from '../../../shared/buttonLayout';
 
 const FunctionButton = withStyles(theme => ({
-  root: {
+  root: props => ({
     // width: '25%',
     minWidth: 48,
-  },
+    ...props.colorOverride,
+  })
 }))(CalcButton);
 
 export default function FunctionPane (props) {
@@ -24,7 +25,7 @@ export default function FunctionPane (props) {
         const displayVal = funcObj.display || funcObj.key;
 
         return (
-            <FunctionButton color={bgColor} key={funcObj.key} onClick={(event) => props.buttonPressed(funcObj)}>
+            <FunctionButton color={bgColor} colorOverride={{...props.colorOverride}} key={funcObj.key} onClick={(event) => props.buttonPressed(funcObj)}>
                 {displayVal}
             </FunctionButton>
         )

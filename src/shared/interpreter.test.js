@@ -41,6 +41,13 @@ describe('convertToLaTeXString', () => {
         expect(convertToLaTeXString(inputString, evalBeforeLaTeX)).toEqual(outputLaTeX);
     });
 
+    it(`should match desired LaTeX string given input of 'cross([1,2,3], [4,5,6])'`, () => {
+        const inputString = 'cross([1,2,3], [4,5,6])';
+        const outputLaTeX = '[1, 2, 3]\\times[4, 5, 6]';
+        const evalBeforeLaTeX = false;
+        expect(convertToLaTeXString(inputString, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
     it(`should match desired LaTeX output with input of 'integrate(3*x^2,x)'`, () => {
         const inputString = 'integrate(3*x^2,x)';
         const outputLaTeX = '\\int {3 \\cdot {x}^{2}}\\, dx';
@@ -53,26 +60,38 @@ describe('convertToLaTeXString', () => {
 describe('evalExpression', () => {
     it(`should match desired output string given input of '2 + 2'`, () => {
         const inputString = '2 + 2';
-        const outputLaTeX = '4';
-        expect(evalExpression(inputString)).toEqual(outputLaTeX);
+        const outputString = '4';
+        const evalInput = false;
+        expect(evalExpression(inputString, evalInput)).toEqual(outputString);
     });
 
     it(`should match desired output string given input of 'cos(pi)'`, () => {
         const inputString = 'cos(pi)';
-        const outputLaTeX = '-1';
-        expect(evalExpression(inputString)).toEqual(outputLaTeX);
+        const outputString = '-1';
+        const evalInput = false;
+        expect(evalExpression(inputString, evalInput)).toEqual(outputString);
     });
 
     it(`should match desired output string given input of 'matrix([1,0],[2,2])'`, () => {
         const inputString = 'matrix([1,0],[2,2])';
-        const outputLaTeX = 'matrix([1,0],[2,2])';
-        expect(evalExpression(inputString)).toEqual(outputLaTeX);
+        const outputString = 'matrix([1,0],[2,2])';
+        const evalInput = false;
+        expect(evalExpression(inputString, evalInput)).toEqual(outputString);
     });
 
+    it(`should match desired output string given input of 'cross([1,2,3], [4,5,6])'`, () => {
+        const inputString = 'cross([1,2,3], [4,5,6])';
+        const outputString = '[-3,6,-3]';
+        const evalInput = false;
+        expect(evalExpression(inputString, evalInput)).toEqual(outputString);
+    });
+
+    //cross([1,2,3], [4,5,6])
     it(`should match desired output string given input of 'invert(matrix([1,0],[2,2]))'`, () => {
         const inputString = 'invert(matrix([1,0],[2,2]))';
-        const outputLaTeX = 'matrix([1,0],[-1,1/2])';
-        expect(evalExpression(inputString)).toEqual(outputLaTeX);
+        const outputString = 'matrix([1,0],[-1,1/2])';
+        const evalInput = false;
+        expect(evalExpression(inputString, evalInput)).toEqual(outputString);
     });
 });
 
