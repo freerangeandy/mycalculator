@@ -116,9 +116,7 @@ export const SYMBOLS = {
         {key: 'answer', display: 'ans', action:
             (state, action) => {
                 if (state.displayRows.length > 0) {
-                  const prevAnswerObj = state.displayRows.slice(-1)[0][1];
-                  const prevAnswer = state.useDecimals ? prevAnswerObj.text('decimals')
-                                                       : prevAnswerObj.text('fraction');
+                  const prevAnswer = state.displayRows.slice(-1)[0][1];
                   const ansLength = prevAnswer.length;
                   return {
                     entryVal: prevAnswer,

@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { InlineMath } from 'react-katex';
 
 import { createData } from '../../shared/utility';
+import { convertToLaTeXString } from '../../shared/interpreter'
 import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +36,14 @@ function Display(props){
 
     useEffect(scrollToBottom, [displayRows]);
 
-    const formattedRows = displayRows.map(([input, output]) => createData(input, output));
+    // const formattedRows = displayRows.map(([input, output]) => createData(input, output));
+    const formattedRows = displayRows.map(([input, output]) => {
+      const latexEntry = convertToLaTeXString(input, false);
+      //console.log(`input string:${input} latexEntry:${latexEntry}`);
+      const latexResult = props.useDecimals ? output : convertToLaTeXString(output);
+      //console.log(`result string: ${output} latexResult:${latexResult}`);
+      return createData(latexEntry, latexResult);
+    });
 
     const headerRow = (
       <TableRow className={tableClasses.headerRow}>

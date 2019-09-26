@@ -39,13 +39,7 @@ const evaluate = (state, action) => {
   //const currentUseDecimals = state.useDecimals;
   try {
     const result = evalExpression(currentEntry);
-    const latexEntry = convertToLaTeXString(currentEntry, false);
-    console.log(`input string:${currentEntry.toString()} latexEntry:${latexEntry}`);
-    const latexResult = state.useDecimals
-                  ? result.text('decimals')
-                  : convertToLaTeXString(result.toString());
-    console.log(`result string: ${result} latexResult:${latexResult}`);
-    const updatedRows = [...state.displayRows, [latexEntry, latexResult]];
+    const updatedRows = [...state.displayRows, [currentEntry, result]];
     const newState = {
       entryVal: '',
       displayRows: updatedRows,
