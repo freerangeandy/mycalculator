@@ -15,7 +15,7 @@ export const NUM_PAD = [
 ];
 
 export const FUNCTIONS = [
-    [SYMBOLS.sum, SYMBOLS.integrate, SYMBOLS.diff, SYMBOLS.limit],  // ['∑', '∫', '∂', 'lim'],
+    [SYMBOLS.sum, SYMBOLS.integrate, SYMBOLS.diff, SYMBOLS.euler],  // ['∑', '∫', 'd/dx', 'e'],
     [SYMBOLS.sin, SYMBOLS.cos, SYMBOLS.tan, SYMBOLS.naturalLog],     // ['sin', 'cos', 'tan', 'ln'],
     [SYMBOLS.equals, SYMBOLS.greaterThan, SYMBOLS.lessThan, SYMBOLS.sqRoot], // ['=','>','<', '√'],
     [SYMBOLS.lParen, SYMBOLS.rParen, SYMBOLS.pi, SYMBOLS.exponent],  // ['(',')', ',', '^'],
@@ -37,9 +37,9 @@ export const ACTIONS = [
 
 export const ALTERNATES = {
     [SYMBOLS.sum.key]: SYMBOLS.product,
-    [SYMBOLS.integrate.key]: SYMBOLS.integrate, //same
-    [SYMBOLS.diff.key]: SYMBOLS.diff, //same
-    [SYMBOLS.limit.key]: SYMBOLS.limit, //same
+    [SYMBOLS.integrate.key]: SYMBOLS.defint,
+    [SYMBOLS.diff.key]: SYMBOLS.limit,
+    [SYMBOLS.euler.key]: SYMBOLS.imaginary,
     [SYMBOLS.sqRoot.key]: SYMBOLS.factorial,
     [SYMBOLS.equals.key]: SYMBOLS.modulo,
     [SYMBOLS.sin.key]: SYMBOLS.asin,

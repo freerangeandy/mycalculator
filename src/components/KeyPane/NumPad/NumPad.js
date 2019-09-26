@@ -11,7 +11,7 @@ const NumButton = withStyles(theme => ({
     // width: '30%',
     minWidth: 48,
     fontSize: '110%',
-    lineHeight: '135%',
+    lineHeight: '150%',
     borderColor: '#bdbdbd',
     backgroundColor: '#e0e0e0',
     '&:hover': {

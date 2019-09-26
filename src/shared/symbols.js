@@ -1,5 +1,10 @@
+import React from 'react';
+import { InlineMath } from 'react-katex';
+
 import { insertSymbol } from './utility';
 import { setVariable } from './interpreter';
+
+const laTeXWrapper = (laTeX) => (<InlineMath math={laTeX}/>);
 
 export const SYMBOLS = {
     0: {key: '0', display: '0'},
@@ -20,13 +25,15 @@ export const SYMBOLS = {
     comma: {key: 'comma', display: ',', converted: ','},
     point: {key: 'point', display: '.', converted: '.'},
     sum: {
-        key: 'sum', display: '∑', converted: 'sum(', prefix: '*', suffix: ',i,1,n)'},
+        key: 'sum', display: laTeXWrapper('\\sum'), converted: 'sum(', prefix: '*', suffix: ',i,1,n)'},
     product: {
-        key: 'product', display: 'Π', converted: 'product(', prefix: '*', suffix: ',i,1,n)'},
+        key: 'product', display: laTeXWrapper('\\prod'), converted: 'product(', prefix: '*', suffix: ',i,1,n)'},
     integrate: {
-        key: 'integrate', display: '∫', converted: 'integrate(', prefix: '*', suffix: ',x)'},
+        key: 'integrate', display: laTeXWrapper('\\int'), converted: 'integrate(', prefix: '*', suffix: ',x)'},
+    defint: {
+        key: 'defint', display: laTeXWrapper('\\int_a^b'), converted: 'defint(', prefix: '*', suffix: 'a,b,x)'},
     diff: {
-        key: 'diff', display: '∂', converted: 'diff(', prefix: '*', suffix: ',x,1)'},
+        key: 'diff', display: laTeXWrapper('\\frac{d}{dx}'), converted: 'diff(', prefix: '*', suffix: ',x,1)'},
     limit: {
         key: 'limit', display: 'lim', converted: 'limit(', prefix: '*', suffix: ',x,0)'},
     sqRoot: {
@@ -86,9 +93,11 @@ export const SYMBOLS = {
     identity:
         {key: 'identity', display: '𝐼', converted: 'imatrix(', suffix: ')'},
     pi:
-        {key: 'pi', display: 'π', converted: 'π', prefix: '*'},
+        {key: 'pi', display: laTeXWrapper('\\pi'), converted: 'π', prefix: '*'}, //'π'
     euler:
         {key: 'euler', display: 'ℯ', converted: 'e', prefix: '*'},
+    imaginary:
+        {key: 'imaginary', display: laTeXWrapper('i'), converted: 'i', prefix: '*'},
     secondFunc: {key: 'secondFunc', display: '2nd'},
     mode: {key: 'mode', display: 'mode'},
     stat: {key: 'stat', display: 'stat'},

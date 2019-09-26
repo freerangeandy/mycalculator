@@ -10,7 +10,7 @@ const FunctionButton = withStyles(theme => ({
   root: props => ({
     // width: '25%',
     minWidth: 48,
-    ...props.colorOverride,
+    ...props.coloroverride,
   })
 }))(CalcButton);
 
@@ -25,7 +25,7 @@ export default function FunctionPane (props) {
         const displayVal = funcObj.display || funcObj.key;
 
         return (
-            <FunctionButton color={bgColor} colorOverride={{...props.colorOverride}} key={funcObj.key} onClick={(event) => props.buttonPressed(funcObj)}>
+            <FunctionButton color={bgColor} coloroverride={{...props.colorOverride}} key={obj.key} onClick={(event) => props.buttonPressed(funcObj)}>
                 {displayVal}
             </FunctionButton>
         )

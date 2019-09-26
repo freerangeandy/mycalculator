@@ -28,7 +28,7 @@ const colorOverride = {
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
-    width: '100%',
+    width: '125%',
     marginBottom: theme.spacing(2),
   },
 }));
