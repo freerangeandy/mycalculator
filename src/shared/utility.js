@@ -37,6 +37,12 @@ export const charIsDigit = (str, cursorPos) => {
   return cursorPos === 0 ? false : str.charAt(cursorPos-1).match(/\d/);
 }
 
+export const clearUndefined = (obj) => {
+    let clearedObj = {};
+    for(let key in obj) clearedObj[key] = obj[key] || '';
+    return clearedObj;
+}
+
 export const handleError = (e) => {
     const errorName = e.name;
     const errorMsg = e.message;

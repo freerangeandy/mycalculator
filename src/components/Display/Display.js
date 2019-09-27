@@ -38,7 +38,7 @@ function Display(props){
 
     // const formattedRows = displayRows.map(([input, output]) => createData(input, output));
     const formattedRows = displayRows.map(([input, output]) => {
-      const latexEntry = convertToLaTeXString(input, false);
+      const latexEntry = convertToLaTeXString(input);
       //console.log(`input string:${input} latexEntry:${latexEntry}`);
       const latexResult = props.useDecimals ? output : convertToLaTeXString(output);
       //console.log(`result string: ${output} latexResult:${latexResult}`);
