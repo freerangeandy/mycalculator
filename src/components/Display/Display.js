@@ -36,12 +36,11 @@ function Display(props){
 
     useEffect(scrollToBottom, [displayRows]);
 
-    // const formattedRows = displayRows.map(([input, output]) => createData(input, output));
     const formattedRows = displayRows.map(([input, output]) => {
       const latexEntry = convertToLaTeXString(input);
-      //console.log(`input string:${input} latexEntry:${latexEntry}`);
+      console.log(`input string:${input} latexEntry:${latexEntry}`);
       const latexResult = props.useDecimals ? output : convertToLaTeXString(output);
-      //console.log(`result string: ${output} latexResult:${latexResult}`);
+      console.log(`result string: ${output} latexResult:${latexResult}`);
       return createData(latexEntry, latexResult);
     });
 

@@ -6,6 +6,7 @@ import { evalExpression,
     containsMatrix,
     containsVector,
     containsVectorFunction,
+    isVector
 } from './interpreter.js';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -45,14 +46,22 @@ describe('convertToLaTeXString', () => {
         const evalBeforeLaTeX = true;
         expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
     });
-/*     MUST CONVERT CROSS(A, B) -> AxB manually
+
+    it(`should match desired LaTeX output with input of 'determinant(matrix([1,0],[2,2]))'`, () => {
+        const inputString = 'determinant(matrix([1,0],[2,2]))';
+        const outputLaTeX = 'determinant(\\begin{vmatrix}1 & 0 \\cr 2 & 2\\end{vmatrix})';
+        const evalBeforeLaTeX = true;
+        expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
+    });
+    //vector functions (dot, cross) with '[...]' as arguments crash the laTeX conversion
+    //MUST CONVERT CROSS(A, B) -> AxB manually
     it(`should match desired LaTeX string given input of 'cross([1,2,3], [4,5,6])'`, () => {
         const inputString = 'cross([1,2,3], [4,5,6])';
         const outputLaTeX = '[1, 2, 3]\\times[4, 5, 6]';
         const evalBeforeLaTeX = false;
         expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
     });
-*/
+
     it(`should match desired LaTeX output with input of 'integrate(3*x^2,x)'`, () => {
         const inputString = 'integrate(3*x^2,x)';
         const outputLaTeX = '\\int {3 \\cdot {x}^{2}}\\, dx';
@@ -60,6 +69,20 @@ describe('convertToLaTeXString', () => {
         expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
     });
 
+    it(`should match desired LaTeX output with input of '[1,3,-2]'`, () => {
+        const inputString = '[1,3,-2]';
+        const outputLaTeX = '[1,3,-2]';
+        const evalBeforeLaTeX = false;
+        expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
+    });
+
+    it(`should match desired LaTeX output with input of 'cross(vector(3,-2,0), vector(2,2,0))'`, () => {
+        const inputString = 'cross(vector(3,-2,0), vector(2,2,0))';
+        const outputLaTeX = '\\mathrm{cross}\\left(\\mathrm{vector}\\left(3,-2,0\\right),\\mathrm{vector}\\left(2,2,0\\right)\\right)';
+        // const outputLaTeX = 'cross([3,-2,0], [2,2,0])';
+        const evalBeforeLaTeX = false;
+        expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
+    });
 });
 
 describe('evalExpression', () => {
@@ -87,7 +110,12 @@ describe('evalExpression', () => {
         expect(evalExpression(inputString)).toEqual(outputString);
     });
 
-    //cross([1,2,3], [4,5,6])
+    it(`should match desired output string given input of 'vector(1,3,-2)'`, () => {
+        const inputString = 'vector(1,3,-2)';
+        const outputString = '[1,3,-2]';
+        expect(evalExpression(inputString)).toEqual(outputString);
+    });
+
     it(`should match desired output string given input of 'invert(matrix([1,0],[2,2]))'`, () => {
         const inputString = 'invert(matrix([1,0],[2,2]))';
         const outputString = 'matrix([1,0],[-1,1/2])';
@@ -142,6 +170,40 @@ describe('containsMatrix()', () => {
         expect(containsMatrix(expression).match).toEqual(expectedMatch);
         expect(containsMatrix(expression).after).toEqual(expectedAfter);
     });
+
+    it('should return false if imatrix i.e. matrix not standalone word', () => {
+        const expression = 'imatrix(3)';
+        expect(containsMatrix(expression)).toEqual(false);
+    });
+
+});
+
+describe('isVector()', () => {
+    it('should return true if empty vector', () => {
+        const expression = '[]';
+        expect(isVector(expression)).toEqual(true);
+    });
+
+    it('should return true if length 1 vector', () => {
+        const expression = '[1.2]';
+        expect(isVector(expression)).toEqual(true);
+    });
+
+    it('should return true if length 2 vector', () => {
+        const expression = '[1,-1]';
+        expect(isVector(expression)).toEqual(true);
+    });
+
+    it('should return false if vector is argument', () => {
+        const expression = 'dot([1,2,3], [4,5,6])';
+        expect(isVector(expression)).toEqual(false);
+    });
+
+    it('should return false if matrix', () => {
+        const expression = '[[3,2],[2,2]]';
+        expect(isVector(expression)).toEqual(false);
+    });
+
 });
 
 describe('containsVector()', () => {
@@ -160,20 +222,39 @@ describe('containsVector()', () => {
         expect(containsVector(expression)).toEqual(true);
     });
 
-    it('should return false if vector is argument of cross', () => {
+    xit('should return false if vector is argument of cross', () => {
         const expression = 'cross(vector(1,1))';
         expect(containsVector(expression)).toEqual(false);
     });
 
-    it('should return false if vector is argument of dot', () => {
-        const expression = 'dot(vector(1,1))';
+    xit('should return false if vector is argument of dot', () => {
+        const expression = 'dot(vector(1,2), vector(3,5))';
         expect(containsVector(expression)).toEqual(false);
     });
 });
 
 describe('containsVectorFunction()', () => {
-    it('should return true if empty vector', () => {
+    it('should return match if cross product of vectors (bracketed)', () => {
         const expression = 'cross([1,2,3], [4,5,6])';
-        expect(containsVectorFunction(expression)).toEqual(true);
+        const expectedFunction = 'cross';
+        const expectedArgs = '[1,2,3], [4,5,6]';
+        expect(containsVectorFunction(expression).func).toEqual(expectedFunction);
+        expect(containsVectorFunction(expression).args).toEqual(expectedArgs);
+    });
+
+    it('should return match if cross product of vectors (constructor)', () => {
+        const expression = 'cross(vector(1,2),vector(3,5))';
+        const expectedFunction = 'cross';
+        const expectedArgs = 'vector(1,2),vector(3,5)';
+        expect(containsVectorFunction(expression).func).toEqual(expectedFunction);
+        expect(containsVectorFunction(expression).args).toEqual(expectedArgs);
+    });
+
+    it('should return match if dot product of vectors', () => {
+        const expression = 'dot([1,2,3], [4,5,6])';
+        const expectedFunction = 'dot';
+        const expectedArgs = '[1,2,3], [4,5,6]';
+        expect(containsVectorFunction(expression).func).toEqual(expectedFunction);
+        expect(containsVectorFunction(expression).args).toEqual(expectedArgs);
     });
 });

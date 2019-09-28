@@ -20,6 +20,7 @@ export const overrideEval = (expression) => {
 
 export const evalExpression = (expression) => {
     const out = nerdamer(expression);
+    // matrices turn into single column of entries when evaluated
     const noEval = containsMatrix(expression);
     if (noEval) {
         return out.toString();
@@ -30,9 +31,14 @@ export const evalExpression = (expression) => {
 
 export const convertToLaTeXString = (expression) => {
     const matrixFound = containsMatrix(expression);
+    const vectorFound = isVector(expression);
+    // const vectorFound = containsVector(expression);
     if (matrixFound) {
-        const finalTeX = matrixFound.before + nerdamer(matrixFound.match).toTeX() + matrixFound.after;
+        const {before, match, after} = matrixFound;
+        const finalTeX = before + nerdamer(match).toTeX() + after;
         return finalTeX;
+    } else if (vectorFound) {
+        return expression;
     } else {
         return nerdamer.convertToLaTeX(expression);
     }
@@ -48,8 +54,7 @@ export const setVariable = (varName, varValue) => {
 }
 
 export const containsMatrix = (expression) => {
-    // const regex = new RegExp(/^[^(]*(matrix\(.*\))[^)]*$/g);
-    const regex = new RegExp(/^(.*\W?)?(matrix\([^()]*\))(.*)?$/);
+    const regex = new RegExp(/^(.*\W)?(matrix\([^()]*\))(.*)?$/);
     const match = expression.match(regex);
     if (!match) return false;
     else {
@@ -58,17 +63,29 @@ export const containsMatrix = (expression) => {
             match: match[2],
             after: match[3],
         });
-
         return matchObj;
     }
 }
 
+export const isVector = (expression) => {
+    const regex = new RegExp(/^\[[^[\]]*\]$/);
+    return expression.match(regex) != null;
+}
+
 export const containsVector = (expression) => {
-    const regex = new RegExp(/^[^(]*vector\(.*\)[^)]*$/g);
+    const regex = new RegExp(/^(.*\W)?(vector\([^()]*\))(.*)?$/);
     return expression.match(regex) != null;
 }
 
 export const containsVectorFunction = (expression) => {
-    const regex = new RegExp(/^[^(]*cross\(.*\)[^)]*$/g);
-    return expression.match(regex) != null;
+    const regex = new RegExp(/^[^(]*\b(cross|dot)\((.*)\)[^)]*$/);
+    const match = expression.match(regex);
+    if (!match) return false;
+    else {
+        const matchObj = clearUndefined({
+            func: match[1],
+            args: match[2],
+        });
+        return matchObj;
+    }
 }
