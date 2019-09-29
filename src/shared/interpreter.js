@@ -18,9 +18,9 @@ export const setConstant = (symbol, val) => {
 //     return shouldOverride;
 // }
 
-    const noEval = containsMatrix(expression);
 export const evalExpression = (expression, useDecimals=false) => {
     const evalObj = nerdamer(expression);
+    const noEval = containsMatrix(expression) || trigExactResult(expression);
     const outObject = noEval ? evalObj : evalObj.evaluate();
     const outString = useDecimals ? outObject.text('decimals') : outObject.text('fractions');
     return outString;
@@ -87,4 +87,17 @@ export const containsVectorFunction = (expression) => {
         });
         return matchObj;
     }
+}
+
+export const trigExactResult = (expression) => {
+  const regex = RegExp(/^\b(sin|cos|tan)\((.*(?=pi|π).*)\)$/);
+  const match = expression.match(regex);
+  if (!match) return false;
+  else {
+    const matchObj = clearUndefined({
+        trig: match[1],
+        arg: match[2],
+    });
+    return matchObj;
+  }
 }
