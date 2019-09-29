@@ -12,32 +12,31 @@ export const setConstant = (symbol, val) => {
     console.log(test);
 }
 
-export const overrideEval = (expression) => {
-    let shouldOverride = false;
-    //shouldOverride = shouldOverride || containsMatrix(expression);
-    return shouldOverride;
-}
+// export const overrideEval = (expression) => {
+//     let shouldOverride = false;
+//     //shouldOverride = shouldOverride || containsMatrix(expression);
+//     return shouldOverride;
+// }
 
-export const evalExpression = (expression) => {
-    const out = nerdamer(expression);
-    // matrices turn into single column of entries when evaluated
     const noEval = containsMatrix(expression);
-    if (noEval) {
-        return out.toString();
-    } else {
-        return out.evaluate().toString();
-    }
+export const evalExpression = (expression, useDecimals=false) => {
+    const evalObj = nerdamer(expression);
+    const outObject = noEval ? evalObj : evalObj.evaluate();
+    const outString = useDecimals ? outObject.text('decimals') : outObject.text('fractions');
+    return outString;
 };
 
 export const convertToLaTeXString = (expression) => {
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
-    // const vectorFound = containsVector(expression);
+    const vectorFunctionFound = containsVectorFunction(expression);
     if (matrixFound) {
         const {before, match, after} = matrixFound;
         const finalTeX = before + nerdamer(match).toTeX() + after;
         return finalTeX;
-    } else if (vectorFound) {
+    } else //if (vectorFunctionFound) {
+        //return expression;
+    if (vectorFound) {
         return expression;
     } else {
         return nerdamer.convertToLaTeX(expression);

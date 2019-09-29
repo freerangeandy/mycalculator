@@ -36,10 +36,10 @@ const typedEntry = (state, action) => {
 
 const evaluate = (state, action) => {
   const currentEntry = state.entryVal;
-  //const currentUseDecimals = state.useDecimals;
+  const currentUseDecimals = state.useDecimals;
   try {
-    const result = evalExpression(currentEntry);
-    const updatedRows = [...state.displayRows, [currentEntry, result]];
+    const result = evalExpression(currentEntry, currentUseDecimals);
+    const updatedRows = [...state.displayRows, [currentEntry, result, currentUseDecimals]];
     const newState = {
       entryVal: '',
       displayRows: updatedRows,
