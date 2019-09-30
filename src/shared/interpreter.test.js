@@ -84,6 +84,13 @@ describe('convertToLaTeXString', () => {
         const evalBeforeLaTeX = false;
         expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
     });
+    it(`should match desired LaTeX output with input of 'sqrt(3)^(-1)'`, () => {
+        const inputString = 'sqrt(3)^(-1)';
+        const outputLaTeX = '\\frac{1}{\\sqrt{3}}';
+        const evalBeforeLaTeX = true;
+        expect(convertToLaTeXString(inputString, false)).toEqual(outputLaTeX);
+    });
+
 });
 
 describe('evalExpression', () => {

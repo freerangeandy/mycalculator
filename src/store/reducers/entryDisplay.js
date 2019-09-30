@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertSymbol, handleError } from '../../shared/utility';
-import { evalExpression } from '../../shared/interpreter';
+import { evalExpression, preventEvalOutputPreLaTeX } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -39,7 +39,12 @@ const evaluate = (state, action) => {
   const currentUseDecimals = state.useDecimals;
   try {
     const result = evalExpression(currentEntry, currentUseDecimals);
-    const updatedRows = [...state.displayRows, [currentEntry, result, currentUseDecimals]];
+    const evalOutputPreLaTeX = !preventEvalOutputPreLaTeX(currentEntry);
+    const formatConfig = {
+        useDecimals: currentUseDecimals,
+        evalOutputPreLaTeX: evalOutputPreLaTeX,
+    };
+    const updatedRows = [...state.displayRows, [currentEntry, result, formatConfig]];
     const newState = {
       entryVal: '',
       displayRows: updatedRows,

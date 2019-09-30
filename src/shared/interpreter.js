@@ -20,23 +20,26 @@ export const setConstant = (symbol, val) => {
 
 export const evalExpression = (expression, useDecimals=false) => {
     const evalObj = nerdamer(expression);
-    const noEval = containsMatrix(expression) || trigExactResult(expression);
+    const noEval = containsMatrix(expression) || trigExactResult(expression, useDecimals);
     const outObject = noEval ? evalObj : evalObj.evaluate();
     const outString = useDecimals ? outObject.text('decimals') : outObject.text('fractions');
     return outString;
 };
 
-export const convertToLaTeXString = (expression) => {
+export const preventEvalOutputPreLaTeX = (expression) => {
+    return trigExactResult(expression);
+}
+
+export const convertToLaTeXString = (expression, evalBeforeConversion=true) => {
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
-    const vectorFunctionFound = containsVectorFunction(expression);
-    if (matrixFound) {
+    if (!evalBeforeConversion) {
+        return nerdamer(expression).toTeX();
+    } else if (matrixFound) {
         const {before, match, after} = matrixFound;
         const finalTeX = before + nerdamer(match).toTeX() + after;
         return finalTeX;
-    } else //if (vectorFunctionFound) {
-        //return expression;
-    if (vectorFound) {
+    } else if (vectorFound) {
         return expression;
     } else {
         return nerdamer.convertToLaTeX(expression);
@@ -89,10 +92,10 @@ export const containsVectorFunction = (expression) => {
     }
 }
 
-export const trigExactResult = (expression) => {
+export const trigExactResult = (expression, decimals) => {
   const regex = RegExp(/^\b(sin|cos|tan)\((.*(?=pi|π).*)\)$/);
   const match = expression.match(regex);
-  if (!match) return false;
+  if (decimals || !match) return false;
   else {
     const matchObj = clearUndefined({
         trig: match[1],
