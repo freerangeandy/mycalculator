@@ -12,12 +12,6 @@ export const setConstant = (symbol, val) => {
     console.log(test);
 }
 
-// export const overrideEval = (expression) => {
-//     let shouldOverride = false;
-//     //shouldOverride = shouldOverride || containsMatrix(expression);
-//     return shouldOverride;
-// }
-
 export const evalExpression = (expression, useDecimals=false) => {
     const evalObj = nerdamer(expression);
     const noEval = containsMatrix(expression) || trigExactResult(expression, useDecimals);
@@ -26,19 +20,23 @@ export const evalExpression = (expression, useDecimals=false) => {
     return outString;
 };
 
-export const preventEvalOutputPreLaTeX = (expression) => {
-    return trigExactResult(expression);
-}
+export const preventEvalOutputPreLaTeX = (expression) => trigExactResult(expression);
 
 export const convertToLaTeXString = (expression, evalBeforeConversion=true) => {
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
+    const diffFound = containsDerivative(expression);
     if (!evalBeforeConversion) {
         return nerdamer(expression).toTeX();
     } else if (matrixFound) {
         const {before, match, after} = matrixFound;
         const finalTeX = before + nerdamer(match).toTeX() + after;
         return finalTeX;
+    } else if (diffFound) {
+        const tempTeX = nerdamer.convertToLaTeX(expression);
+        const finalTeX = processDerivative(tempTeX);
+        return finalTeX;
+        // return nerdamer.convertToLaTeX(expression);
     } else if (vectorFound) {
         return expression;
     } else {
@@ -75,7 +73,7 @@ export const isVector = (expression) => {
 }
 
 export const containsVector = (expression) => {
-    const regex = new RegExp(/^(.*\W)?(vector\([^()]*\))(.*)?$/);
+    const regex = new RegExp(/^(.*)\b(vector\([^()]*\))(.*)?$/);
     return expression.match(regex) != null;
 }
 
@@ -93,7 +91,7 @@ export const containsVectorFunction = (expression) => {
 }
 
 export const trigExactResult = (expression, decimals) => {
-  const regex = RegExp(/^\b(sin|cos|tan)\((.*(?=pi|π).*)\)$/);
+  const regex = RegExp(/\b(sin|cos|tan)\((.*(?=pi|π).*)\)$/);
   const match = expression.match(regex);
   if (decimals || !match) return false;
   else {
@@ -104,3 +102,15 @@ export const trigExactResult = (expression, decimals) => {
     return matchObj;
   }
 }
+
+export const containsDerivative = (expression) => {
+    const regex = new RegExp(/^(.*)?\b(diff)(\(.*\).*?)$/);
+    return expression.match(regex);
+}
+
+export const processDerivative = (laTeXExpression) => {
+    return laTeXExpression.replace(DIFFERENTIAL_BAD, DIFFERENTIAL_GOOD);
+}
+
+const DIFFERENTIAL_BAD = '\\frac{d^{1}}{d x^{1}}';
+const DIFFERENTIAL_GOOD = '\\frac{d}{d x}';
