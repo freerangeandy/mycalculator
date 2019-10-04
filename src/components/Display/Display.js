@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
 import { InlineMath } from 'react-katex';
 
 import { createData } from '../../shared/utility';
@@ -57,11 +58,17 @@ function Display(props){
     );
 
     const tableRows = formattedRows.map((row, idx, arr) => {
-      const tableRowAttribute = (idx === arr.length - 1) ? { ref: tableEndRef } : {};
+      const isNewRow = idx === arr.length - 1;
+      const tableRowAttribute = isNewRow ? { ref: tableEndRef } : {};
+      const inlineInput = (<div><InlineMath math={row.input}/></div>);
+      const inlineOutput = (<div><InlineMath math={row.output}/></div>);
+      const inlineFadInput = isNewRow ? (<Fade in={true} timeout={200}>{inlineInput}</Fade>) : inlineInput;
+      const inlineFadOutput = isNewRow ? (<Fade in={true} timeout={200}>{inlineOutput}</Fade>) : inlineOutput;
+
       return (
         <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
-          <TableCell className={tableClasses.cell} align="left"><InlineMath math={row.input}/></TableCell>
-          <TableCell className={tableClasses.cell} align="right"><InlineMath math={row.output}/></TableCell>
+          <TableCell className={tableClasses.cell} align="left">{inlineFadInput}</TableCell>
+          <TableCell className={tableClasses.cell} align="right">{inlineFadOutput}</TableCell>
         </TableRow>
       )
     });
