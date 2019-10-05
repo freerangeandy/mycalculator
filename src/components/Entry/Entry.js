@@ -30,12 +30,13 @@ const useStyles = makeStyles({
 
 function Entry(props) {
     const classes = useStyles();
-
+    const useDecimalStatement = props.useDecimals ? '(output as decimals)' : '(output as fractions)';
+    const dynamicPlaceholder = `evaluate this expression ${useDecimalStatement}`;
     const inputField = (
       <InputBase
           inputRef={props.entryRef}
           className={classes.input}
-          placeholder="evaluate this expression"
+          placeholder={dynamicPlaceholder}
           onChange={(event) => props.entryChanged(event.target.value)}
           onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
           value={props.entryVal}/>
