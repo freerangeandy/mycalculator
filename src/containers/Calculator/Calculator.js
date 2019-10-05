@@ -35,7 +35,7 @@ function Calculator (props) {
     }
 
     const enterThenFocus = () => {
-      props.onEvaluate();
+      if (props.currentEntry.length > 0) props.onEvaluate();
       entryRef.current.focus();
     }
 

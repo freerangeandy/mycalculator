@@ -6,8 +6,6 @@ import 'nerdamer/Extra';
 import { SYMBOLS } from './symbols';
 import { containsMatrix,
     isVector,
-    containsVector,
-    containsVectorFunction,
     trigExactResult,
     containsDerivative,
 } from './patternMatch';
