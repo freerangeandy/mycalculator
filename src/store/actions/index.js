@@ -6,7 +6,8 @@ export {
     changeSelection,
     setError,
     setSecondaryAction,
-    useDecimals,
+    setUseDecimals,
+    setUseDegrees,
     closeSnackbar,
 } from './entryDisplay';
 export {

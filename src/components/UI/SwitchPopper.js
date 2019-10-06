@@ -40,15 +40,15 @@ const SwitchPopper = (props) => {
               <Grid item>dec</Grid>
             </Grid>
             <Grid component="label" container alignItems="center" spacing={0}>
-              <Grid item>deg</Grid>
+              <Grid item>rad</Grid>
               <Grid item>
                 <Switch
                     size="small"
-                    checked={state.checkedB}
-                    onChange={handleChange('checkedB')}
+                    checked={props.useDegrees}
+                    onChange={props.toggleDegrees}
                     value="checkedC"    />
               </Grid>
-              <Grid item>rad</Grid>
+              <Grid item>deg</Grid>
             </Grid>
         </Paper>
     );

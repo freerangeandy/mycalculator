@@ -50,9 +50,15 @@ export const setSecondaryAction = (btnKey, payload) => {
   }
 };
 
-export const useDecimals = () => {
+export const setUseDecimals = () => {
   return {
-    type: actionTypes.USE_DECIMALS,
+    type: actionTypes.SET_USE_DECIMALS,
+  }
+};
+
+export const setUseDegrees = () => {
+  return {
+    type: actionTypes.SET_USE_DEGREES,
   }
 };
 

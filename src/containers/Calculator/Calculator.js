@@ -74,7 +74,9 @@ function Calculator (props) {
           actionModifier={props.onSetModifier}
           secondaryAction={props.onSetSecondaryAction}
           useDecimals={props.useDecimals}
-          toggleDecimals={props.toggleDecimals}/>
+          toggleDecimals={props.toggleDecimals}
+          useDegrees={props.useDegrees}
+          toggleDegrees={props.toggleDegrees}/>
     );
 
     return (
@@ -105,6 +107,7 @@ const mapStateToProps = state => {
         errorMsg: state.entryDisplay.errorMsg,
         altState: state.keyPane.showAltButtons,
         useDecimals: state.entryDisplay.useDecimals,
+        useDegrees: state.entryDisplay.useDegrees,
         showSnackbar: state.entryDisplay.showSnackbar,
         snackbarMsg: state.entryDisplay.snackbarMsg,
     };
@@ -120,7 +123,8 @@ const mapDispatchToProps = dispatch => {
         onSetModifier: (btnKey) => dispatch(actions.setModifier(btnKey)),
         onSetSecondaryAction: (btnKey, payload) => dispatch(actions.setSecondaryAction(btnKey, payload)),
         onCloseSnackbar: () => dispatch(actions.closeSnackbar()),
-        toggleDecimals: () => dispatch(actions.useDecimals()),
+        toggleDecimals: () => dispatch(actions.setUseDecimals()),
+        toggleDegrees: () => dispatch(actions.setUseDegrees()),
     }
 }
 

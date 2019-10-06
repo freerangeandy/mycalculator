@@ -10,6 +10,7 @@ const initialState = {
   errorName: '',
   errorMsg: '',
   useDecimals: false,
+  useDegrees: false,
   showSnackbar: false,
   snackbarMsg: '',
   savedVars: {},
@@ -76,7 +77,15 @@ const setUseDecimals = (state, action) => {
   const newState = {
     useDecimals: !state.useDecimals,
   }
-  console.log(`new mode: ${newState.useDecimals}`);
+  console.log(`decimal mode: ${newState.useDecimals}`);
+  return updateObject(state, newState);
+}
+
+const setUseDegrees = (state, action) => {
+  const newState = {
+    useDegrees: !state.useDegrees,
+  }
+  console.log(`degree mode: ${newState.useDegrees}`);
   return updateObject(state, newState);
 }
 
@@ -128,8 +137,10 @@ const reducer = (state = initialState, action) => {
       return setError(state, action);
     case actionTypes.SET_SECONDARY_ACTION:
       return setSecondaryAction(state, action);
-    case actionTypes.USE_DECIMALS:
+    case actionTypes.SET_USE_DECIMALS:
       return setUseDecimals(state, action);
+    case actionTypes.SET_USE_DEGREES:
+      return setUseDegrees(state, action);
     case actionTypes.CLOSE_SNACKBAR:
       return closeSnackbar(state, action);
     default:

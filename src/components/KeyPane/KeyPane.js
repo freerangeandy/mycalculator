@@ -52,6 +52,8 @@ export default function KeyPane (props) {
                 closeHandler={closeHandler}
                 toggleDecimals={props.toggleDecimals}
                 useDecimals={props.useDecimals}
+                toggleDegrees={props.toggleDegrees}
+                useDegrees={props.useDegrees}
             />
         ),
         placement: 'right',
