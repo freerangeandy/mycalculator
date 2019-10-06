@@ -1,11 +1,15 @@
 import Adapter from 'enzyme-adapter-react-16';
 import {configure} from 'enzyme';
 
-import { evalExpression, convertToLaTeXString } from './interpreter.js';
+import { evalExpression,
+        convertToLaTeXString,
+        convertDegToRad,
+        convertRadToDeg
+} from './interpreter.js';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
 
-describe('convertToLaTeXString', () => {
+xdescribe('convertToLaTeXString', () => {
     it(`should match desired LaTeX output with input of '2+2'`, () => {
         const inputString = '2+2';
         const outputLaTeX = '2 + 2';
@@ -101,7 +105,7 @@ describe('convertToLaTeXString', () => {
 
 });
 
-describe('evalExpression', () => {
+xdescribe('evalExpression', () => {
     it(`should match desired output string given input of '2 + 2'`, () => {
         const inputString = '2 + 2';
         const outputString = '4';
@@ -136,5 +140,94 @@ describe('evalExpression', () => {
         const inputString = 'invert(matrix([1,0],[2,2]))';
         const outputString = 'matrix([1,0],[-1,1/2])';
         expect(evalExpression(inputString)).toEqual(outputString);
+    });
+});
+
+describe('convertDegToRad', () => {
+    it(`should convert 0 degrees to 0 radians`, () => {
+        const inputString = '0';
+        const outputString = '0';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 360 degrees to 2pi radians`, () => {
+        const inputString = '360';
+        const outputString = '2 * pi';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 90 degrees to pi/2 radians`, () => {
+        const inputString = '90';
+        const outputString = '1/2 * pi';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 30 degrees to pi/6 radians`, () => {
+        const inputString = '30';
+        const outputString = '1/6 * pi';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert -45 degrees to -pi/4 radians`, () => {
+        const inputString = '-45';
+        const outputString = '-1/4 * pi';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert (non-standard) 155 degrees`, () => {
+        const inputString = '155.21';
+        const outputString = '2.7089255320203987';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert (non-standard) -39 degrees`, () => {
+        const inputString = '-39.81';
+        const outputString = '-0.6948155752189425';
+        expect(convertDegToRad(inputString)).toEqual(outputString);
+    });
+
+});
+
+describe('convertRadToDeg', () => {
+    it(`should convert 0 radians to 0 degrees`, () => {
+        const inputString = '0';
+        const outputString = '0';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 2pi radians to 360 degrees`, () => {
+        const inputString = '2 * pi';
+        const outputString = '360';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert pi/2 radians to 90 degrees`, () => {
+        const inputString = '1/2 * pi';
+        const outputString = '90';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert pi/6 radians to 30 degrees `, () => {
+        const inputString = '1/6 * pi';
+        const outputString = '30';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert -pi/4 radians to 45 degrees `, () => {
+        const inputString = '-1/4 * pi';
+        const outputString = '-45';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert (non-standard) 4 radians`, () => {
+        const inputString = '4';
+        const outputString = '229.18311805232932';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert (non-standard) -2 radians`, () => {
+        const inputString = '-2';
+        const outputString = '-114.59155902616466';
+        expect(convertRadToDeg(inputString)).toEqual(outputString);
     });
 });

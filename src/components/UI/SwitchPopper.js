@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
 
 const SwitchPopper = (props) => {
     const classes = useStyles();
-    const [state, setState] = useState({
-        checkedB: false,
-    });
-
-    const handleChange = name => event => {
-      setState({ ...state, [name]: event.target.checked });
-    };
+    // const [state, setState] = useState({
+    //     checkedB: false,
+    // });
+    //
+    // const handleChange = name => event => {
+    //   setState({ ...state, [name]: event.target.checked });
+    // };
 
     return (
         <Paper className={classes.root}>
@@ -45,8 +45,7 @@ const SwitchPopper = (props) => {
                 <Switch
                     size="small"
                     checked={props.useDegrees}
-                    onChange={props.toggleDegrees}
-                    value="checkedC"    />
+                    />
               </Grid>
               <Grid item>deg</Grid>
             </Grid>

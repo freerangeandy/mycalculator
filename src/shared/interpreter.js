@@ -62,3 +62,15 @@ export const processDerivative = (laTeXExpression) => {
 
 const DIFFERENTIAL_BAD = '\\frac{d^{1}}{d x^{1}}';
 const DIFFERENTIAL_GOOD = '\\frac{d}{d x}';
+
+export const convertRadToDeg = (rad) => nerdamer(`${rad} * 180 / pi`).evaluate().text('decimals');
+
+export const convertDegToRad = (deg) => {
+    if (deg % 1 == 0 && deg != 0) {
+        const piCoefficient = nerdamer(`${parseInt(deg)} / 180`);
+        return `${piCoefficient} * pi`;
+    } else {
+        const piCoefficient = nerdamer(`${parseFloat(deg)} * pi/ 180`).evaluate().text('decimals');
+        return `${piCoefficient}`;
+    }
+}
