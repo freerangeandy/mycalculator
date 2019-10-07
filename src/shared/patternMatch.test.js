@@ -7,6 +7,8 @@ import {
     containsVectorFunction,
     isVector,
     trigExactResult,
+    containsTrig,
+    containsInverseTrig,
 } from './patternMatch';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -187,4 +189,49 @@ describe('trigExactResult()', () => {
         expect(trigExactResult(expression)).toEqual(false);
     });
 
+});
+
+describe('containsTrig()', () => {
+    it('should return true if sin(pi)', () => {
+        const expression = 'sin(pi)';
+        expect(containsTrig(expression)).toEqual(true);
+    });
+
+    it('should return true if cos(pi)', () => {
+        const expression = 'cos(pi)';
+        expect(containsTrig(expression)).toEqual(true);
+    });
+
+    it('should return true if tan(pi / 2)', () => {
+        const expression = 'tan(pi / 2)';
+        expect(containsTrig(expression)).toEqual(true);
+    });
+
+    it('should return false if not trig function: cosh(2)', () => {
+        const expression = 'cosh(2)';
+        expect(containsTrig(expression)).toEqual(false);
+    });
+});
+
+
+describe('containsInverseTrig()', () => {
+    it('should return true if asin(1/sqrt(2))', () => {
+        const expression = 'asin(1/sqrt(2))';
+        expect(containsInverseTrig(expression)).toEqual(true);
+    });
+
+    it('should return true if acos(-0.5)', () => {
+        const expression = 'acos(-0.5)';
+        expect(containsInverseTrig(expression)).toEqual(true);
+    });
+
+    it('should return true if atan(3)', () => {
+        const expression = 'atan(3)';
+        expect(containsInverseTrig(expression)).toEqual(true);
+    });
+
+    it('should return false if not inverse trig function: ayyy(2)', () => {
+        const expression = 'ayyy(2)';
+        expect(containsInverseTrig(expression)).toEqual(false);
+    });
 });

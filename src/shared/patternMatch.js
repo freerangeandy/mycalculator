@@ -37,8 +37,18 @@ export const containsVectorFunction = (expression) => {
     }
 }
 
+export const containsTrig = (expression) => {
+    const regex = RegExp(/\b(sin|cos|tan)\(.+\)/);
+    return expression.match(regex) != null;
+}
+
+export const containsInverseTrig = (expression) => {
+    const regex = RegExp(/\b(asin|acos|atan)\(.+\)/);
+    return expression.match(regex) != null;
+}
+
 export const trigExactResult = (expression, decimals) => {
-  const regex = RegExp(/\b(sin|cos|tan)\(([^.]*(?=pi|π)[^.]*)\)$/);
+  const regex = RegExp(/\b(sin|cos|tan)\(([^.]*(?=pi|π)[^.]*)\)/);
   const match = expression.match(regex);
   if (decimals || !match) return false;
   else {
@@ -49,8 +59,8 @@ export const trigExactResult = (expression, decimals) => {
     return matchObj;
   }
 }
-
-export const containsDerivative = (expression) => {
-    const regex = new RegExp(/^(.*)?\b(diff)(\(.*\).*?)$/);
-    return expression.match(regex);
-}
+//
+// export const containsDerivative = (expression) => {
+//     const regex = new RegExp(/^(.*)?\b(diff)(\(.*\).*?)$/);
+//     return expression.match(regex);
+// }
