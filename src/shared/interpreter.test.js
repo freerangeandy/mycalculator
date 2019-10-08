@@ -4,7 +4,8 @@ import {configure} from 'enzyme';
 import { evalExpression,
         convertToLaTeXString,
         convertDegToRad,
-        convertRadToDeg
+        convertRadToDeg,
+        convertAnglesToRad,
 } from './interpreter.js';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -105,7 +106,7 @@ xdescribe('convertToLaTeXString', () => {
 
 });
 
-xdescribe('evalExpression', () => {
+describe('evalExpression', () => {
     it(`should match desired output string given input of '2 + 2'`, () => {
         const inputString = '2 + 2';
         const outputString = '4';
@@ -230,4 +231,35 @@ describe('convertRadToDeg', () => {
         const outputString = '-114.59155902616466';
         expect(convertRadToDeg(inputString)).toEqual(outputString);
     });
+});
+
+describe('convertAnglesToRad', () => {
+    it(`should let expression without trig functions pass through`, () => {
+        const inputString = '6*log(150) + 3/5 - diff(3*x, x)';
+        expect(convertAnglesToRad(inputString)).toEqual(inputString);
+    });
+
+    it(`should let expression with inverse trig functions pass through`, () => {
+        const inputString = 'atan(3) - 4 + acos(-0.)';
+        expect(convertAnglesToRad(inputString)).toEqual(inputString);
+    });
+
+    it(`should convert '6*sin(45) + 0.5' (degrees) to '6 * sin(1/4 * pi) + 0.5' (radians)`, () => {
+        const inputString = '6*sin(45) + 0.5';
+        const outputString = '6*sin(1/4 * pi) + 0.5';
+        expect(convertAnglesToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 'sin(30) / cos(60)' (degrees) to 'sin(1/6 * pi) / cos(1/3 * pi)' (radians)`, () => {
+        const inputString = 'sin(30) / cos(60)';
+        const outputString = 'sin(1/6 * pi) / cos(1/3 * pi)';
+        expect(convertAnglesToRad(inputString)).toEqual(outputString);
+    });
+
+    it(`should convert 'tan(135) - 8*cos(315)' (degrees) to 'tan(3/4 * pi) - 8*cos(5/3 * pi)' (radians)`, () => {
+        const inputString = 'tan(135) - 8*cos(300)';
+        const outputString = 'tan(3/4 * pi) - 8*cos(5/3 * pi)';
+        expect(convertAnglesToRad(inputString)).toEqual(outputString);
+    });
+
 });

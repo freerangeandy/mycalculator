@@ -8,6 +8,8 @@ import { containsMatrix,
     isVector,
     trigExactResult,
     containsDerivative,
+    containsTrig,
+    containsInverseTrig,
 } from './patternMatch';
 
 export const setConstant = (symbol, val) => {
@@ -55,6 +57,7 @@ export const setVariable = (varName, varValue) => {
 }
 
 export const preventEvalOutputPreLaTeX = (expression) => trigExactResult(expression);
+export const shouldConvertAnglesToRad = (expression, useDegrees) => useDegrees && containsTrig(expression);
 
 export const processDerivative = (laTeXExpression) => {
     return laTeXExpression.replace(DIFFERENTIAL_BAD, DIFFERENTIAL_GOOD);
@@ -73,4 +76,22 @@ export const convertDegToRad = (deg) => {
         const piCoefficient = nerdamer(`${parseFloat(deg)} * pi/ 180`).evaluate().text('decimals');
         return `${piCoefficient}`;
     }
+}
+
+export const convertTrigFunctionToRad = (trigFunction, regex) => {
+    const parsedFunction = trigFunction.match(RegExp(regex));
+    const angleDegrees = parsedFunction[1];
+    const angleRadians = convertDegToRad(angleDegrees);
+    return trigFunction.replace(angleDegrees, angleRadians);
+}
+
+export const convertAnglesToRad = (expression) => {
+    let convertedExpression = expression;
+    const regex = `\\b(?:sin|cos|tan)\\((.+?)\\)`;
+    const trigFunctionMatches = expression.match(RegExp(regex, 'g')) || [];
+    for (const trigFunction of trigFunctionMatches) {
+        const convertedTrig = convertTrigFunctionToRad(trigFunction, regex);
+        convertedExpression = convertedExpression.replace(trigFunction, convertedTrig);
+    }
+    return convertedExpression;
 }
