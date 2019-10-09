@@ -45,6 +45,8 @@ const SwitchPopper = (props) => {
                 <Switch
                     size="small"
                     checked={props.useDegrees}
+                    onChange={props.toggleDegrees}
+
                     />
               </Grid>
               <Grid item>deg</Grid>
