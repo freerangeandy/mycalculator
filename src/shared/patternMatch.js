@@ -59,8 +59,22 @@ export const trigExactResult = (expression, decimals) => {
     return matchObj;
   }
 }
-//
-// export const containsDerivative = (expression) => {
-//     const regex = new RegExp(/^(.*)?\b(diff)(\(.*\).*?)$/);
-//     return expression.match(regex);
-// }
+
+export const containsDerivative = (expression) => {
+    const regex = new RegExp(/^(.*)?\b(diff)(\(.*\).*?)$/);
+    return expression.match(regex);
+}
+
+export const containsSquareRoot = (expression) => {
+    const regex = new RegExp(/^(.*)?\b(sqrt)(\(.*\).*?)$/);
+    return expression.match(regex);
+}
+ // needs testing
+export const containsFunction = (funcName) => {
+  const containsThisFunction = (expression) => {
+      const regexString = `/^(.*)?\\b(${funcName})(\\(.*\\).*?)$/`
+      const regex = new RegExp(/^(.*)?\b(sqrt)(\(.*\).*?)$/);
+      return expression.match(regex);
+  }
+  return containsThisFunction;
+}

@@ -1,6 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertSymbol, handleError } from '../../shared/utility';
-import { evalExpression, preventEvalOutputPreLaTeX } from '../../shared/interpreter';
+import { evalExpression,
+        preventEvalOutputPreLaTeX,
+        convertAnglesToRad
+} from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols.js';
 
 const initialState = {
@@ -36,11 +39,15 @@ const typedEntry = (state, action) => {
 }
 
 const evaluate = (state, action) => {
-  const currentEntry = state.entryVal;
   const currentUseDecimals = state.useDecimals;
+  const currentUseDegrees = state.useDegrees;
   try {
-    const result = evalExpression(currentEntry, currentUseDecimals);
-    const evalOutputPreLaTeX = !preventEvalOutputPreLaTeX(currentEntry);
+    const currentEntry = state.entryVal;
+    const processedEntry = currentUseDegrees
+                        ? convertAnglesToRad(currentEntry)
+                        : currentEntry;
+    const result = evalExpression(processedEntry, currentUseDecimals);
+    const evalOutputPreLaTeX = !preventEvalOutputPreLaTeX(result);
     const formatConfig = {
         useDecimals: currentUseDecimals,
         evalOutputPreLaTeX: evalOutputPreLaTeX,

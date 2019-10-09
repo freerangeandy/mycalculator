@@ -10,6 +10,7 @@ import { containsMatrix,
     containsDerivative,
     containsTrig,
     containsInverseTrig,
+    containsSquareRoot,
 } from './patternMatch';
 
 export const setConstant = (symbol, val) => {
@@ -56,7 +57,7 @@ export const setVariable = (varName, varValue) => {
     } else return false;
 }
 
-export const preventEvalOutputPreLaTeX = (expression) => trigExactResult(expression);
+export const preventEvalOutputPreLaTeX = (expression) => containsSquareRoot(expression);
 export const shouldConvertAnglesToRad = (expression, useDegrees) => useDegrees && containsTrig(expression);
 
 export const processDerivative = (laTeXExpression) => {
@@ -69,12 +70,15 @@ const DIFFERENTIAL_GOOD = '\\frac{d}{d x}';
 export const convertRadToDeg = (rad) => nerdamer(`${rad} * 180 / pi`).evaluate().text('decimals');
 
 export const convertDegToRad = (deg) => {
-    if (deg % 1 == 0 && deg != 0) {
-        const piCoefficient = nerdamer(`${parseInt(deg)} / 180`);
+    const piLessDeg = deg.match(/(pi|π)/g)
+                      ? nerdamer(deg).evaluate().text('decimals')
+                      : deg;
+    if (piLessDeg % 1 === 0 && piLessDeg != 0) {
+        const piCoefficient = nerdamer(`${parseInt(piLessDeg)} / 180`);
         return `${piCoefficient} * pi`;
     } else {
-        const piCoefficient = nerdamer(`${parseFloat(deg)} * pi/ 180`).evaluate().text('decimals');
-        return `${piCoefficient}`;
+        const radians = nerdamer(`${parseFloat(piLessDeg)} * pi/ 180`).evaluate().text('decimals');
+        return `${radians}`;
     }
 }
 

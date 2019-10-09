@@ -262,4 +262,10 @@ describe('convertAnglesToRad', () => {
         expect(convertAnglesToRad(inputString)).toEqual(outputString);
     });
 
+    it(`should convert pi to 3.14159... before converting argument to radians`, () => {
+        const inputString = 'cos(pi/3)';
+        const outputString = 'cos(0.018277045187202502)';
+        expect(convertAnglesToRad(inputString)).toEqual(outputString);
+    });
+
 });
