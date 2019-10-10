@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function KeyPane (props) {
     const classes = useStyles();
-
+    // import these from another file
     const assignPopper = {
         component: (closeHandler) => (
             <InputPopper

@@ -9,7 +9,6 @@ import { containsMatrix,
     trigExactResult,
     containsDerivative,
     containsTrig,
-    containsInverseTrig,
     containsSquareRoot,
 } from './patternMatch';
 
@@ -18,7 +17,7 @@ export const setConstant = (symbol, val) => {
     const test = nerdamer(`${symbol}`).toString();
     console.log(test);
 }
-
+// S.R.P. refactor
 export const evalExpression = (expression, useDecimals=false) => {
     const evalObj = nerdamer(expression);
     const noEval = containsMatrix(expression) || trigExactResult(expression, useDecimals);

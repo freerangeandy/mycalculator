@@ -69,7 +69,7 @@ export const containsSquareRoot = (expression) => {
     const regex = new RegExp(/^(.*)?\b(sqrt)(\(.*\).*?)$/);
     return expression.match(regex);
 }
- // needs testing
+ // needs testing, is this even needed?
 export const containsFunction = (funcName) => {
   const containsThisFunction = (expression) => {
       const regexString = `/^(.*)?\\b(${funcName})(\\(.*\\).*?)$/`;
