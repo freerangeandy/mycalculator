@@ -30,8 +30,9 @@ const useStyles = makeStyles({
 
 function Entry(props) {
     const classes = useStyles();
-    const useDecimalStatement = props.useDecimals ? '(output as decimals)' : '(output as fractions)';
-    const dynamicPlaceholder = `evaluate this expression ${useDecimalStatement}`;
+    const useDecimalStatement = props.useDecimals ? 'output as decimals' : 'output as fractions';
+    const useDegreesStatement = props.useDegrees ? 'angles as degrees' : 'angles as radians';
+    const dynamicPlaceholder = `evaluate this expression (${useDegreesStatement}, ${useDecimalStatement})`;
     const inputField = (
       <InputBase
           inputRef={props.entryRef}

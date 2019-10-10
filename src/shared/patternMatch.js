@@ -72,8 +72,8 @@ export const containsSquareRoot = (expression) => {
  // needs testing
 export const containsFunction = (funcName) => {
   const containsThisFunction = (expression) => {
-      const regexString = `/^(.*)?\\b(${funcName})(\\(.*\\).*?)$/`
-      const regex = new RegExp(/^(.*)?\b(sqrt)(\(.*\).*?)$/);
+      const regexString = `/^(.*)?\\b(${funcName})(\\(.*\\).*?)$/`;
+      const regex = new RegExp(regexString);
       return expression.match(regex);
   }
   return containsThisFunction;

@@ -63,7 +63,8 @@ function Calculator (props) {
             enterPressed={enterThenFocus}
             entryVal={props.currentEntry}
             selectionChanged={props.onChangeSelection}
-            useDecimals={props.useDecimals}/>
+            useDecimals={props.useDecimals}
+            useDegrees={props.useDegrees}/>
       </Auxy>
     );
 
