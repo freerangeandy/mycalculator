@@ -18,10 +18,13 @@ export const setConstant = (symbol, val) => {
     console.log(test);
 }
 // S.R.P. refactor
-export const evalExpression = (expression, useDecimals=false) => {
-    const evalObj = nerdamer(expression);
-    const noEval = containsMatrix(expression) || trigExactResult(expression, useDecimals);
-    const outObject = noEval ? evalObj : evalObj.evaluate();
+export const evalExpression = (expression, useDecimals=false, useDegrees=false) => {
+    const processedExpression = shouldConvertAnglesToRad(expression, useDegrees)
+                          ? convertAnglesToRad(expression)
+                          : expression;
+    const evalObj = nerdamer(processedExpression);
+    const noFurtherEval = preventFurtherEval(processedExpression, useDecimals)
+    const outObject = noFurtherEval ? evalObj : evalObj.evaluate();
     const outString = useDecimals ? outObject.text('decimals') : outObject.text('fractions');
     return outString;
 };
@@ -56,6 +59,7 @@ export const setVariable = (varName, varValue) => {
     } else return false;
 }
 
+export const preventFurtherEval = (expression, useDecimals) => containsMatrix(expression) || trigExactResult(expression, useDecimals);
 export const preventEvalOutputPreLaTeX = (expression) => containsSquareRoot(expression);
 export const shouldConvertAnglesToRad = (expression, useDegrees) => useDegrees && containsTrig(expression);
 

@@ -2,8 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertSymbol, handleError } from '../../shared/utility';
 import { evalExpression,
         preventEvalOutputPreLaTeX,
-        shouldConvertAnglesToRad,
-        convertAnglesToRad,
 } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols';
 
@@ -40,19 +38,17 @@ const typedEntry = (state, action) => {
 }
 // S.R.P. refactor
 const evaluate = (state, action) => {
-  const currentUseDecimals = state.useDecimals;
-  const currentUseDegrees = state.useDegrees;
   try {
+    const currentUseDecimals = state.useDecimals;
+    const currentUseDegrees = state.useDegrees;
     const currentEntry = state.entryVal;
-    const processedEntry = shouldConvertAnglesToRad(currentEntry, currentUseDegrees)
-                        ? convertAnglesToRad(currentEntry)
-                        : currentEntry;
-    const result = evalExpression(processedEntry, currentUseDecimals);
+    const result = evalExpression(currentEntry, currentUseDecimals, currentUseDegrees);
     const formatConfig = {
         useDecimals: currentUseDecimals,
         evalOutputPreLaTeX: !preventEvalOutputPreLaTeX(result),
     };
-    const updatedRows = [...state.displayRows, [currentEntry, result, formatConfig]];
+    const newRow = [currentEntry, result, formatConfig]
+    const updatedRows = [...state.displayRows, newRow];
     const newState = {
       entryVal: '',
       displayRows: updatedRows,

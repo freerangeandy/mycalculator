@@ -10,7 +10,7 @@ import { evalExpression,
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
 
-xdescribe('convertToLaTeXString', () => {
+describe('convertToLaTeXString', () => {
     it(`should match desired LaTeX output with input of '2+2'`, () => {
         const inputString = '2+2';
         const outputLaTeX = '2 + 2';
