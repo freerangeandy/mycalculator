@@ -23,32 +23,47 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const createFormattedRowData = ([input, output, formatObj]) => {
+  try {
+      const latexEntry = convertToLaTeXString(input);
+      console.log(`input string:${input} latexEntry:${latexEntry}`);
+      const latexResult = formatObj.useDecimals ? output : convertToLaTeXString(output, formatObj.evalOutputPreLaTeX);
+      console.log(`result string: ${output} latexResult:${latexResult}`);
+      return createData(latexEntry, latexResult);
+  } catch (e) {
+    console.log(e);
+    return createData(input, output);
+  }
+}
+
+const createTableRowComponents = (lastRowRef) => (row, idx, arr) => {
+  const fadeTime = 200;
+  const isNewRow = idx === arr.length - 1;
+  const tableRowAttribute = isNewRow ? { ref: lastRowRef } : {};
+  const inlineInput = (<div><InlineMath math={row.input}/></div>);
+  const inlineOutput = (<div><InlineMath math={row.output}/></div>);
+  const inlineFadInput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineInput}</Fade>) : inlineInput;
+  const inlineFadOutput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineOutput}</Fade>) : inlineOutput;
+
+  return (
+    <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
+      <TableCell className={tableClasses.cell} align="left">{inlineFadInput}</TableCell>
+      <TableCell className={tableClasses.cell} align="right">{inlineFadOutput}</TableCell>
+    </TableRow>
+  )
+}
+
 function Display(props){
     const classes = useStyles();
     const {displayRows} = props;
     const tableEndRef = useRef(null);
-
     const scrollToBottom = () => {
       if (displayRows.length > 0) {
         tableEndRef.current.scrollIntoView({ behavior: "smooth" });
         console.log('scrolled');
       }
     };
-
     useEffect(scrollToBottom, [displayRows]);
-
-    const formattedRows = displayRows.map(([input, output, formatObj]) => {
-      try {
-          const latexEntry = convertToLaTeXString(input);
-          console.log(`input string:${input} latexEntry:${latexEntry}`);
-          const latexResult = formatObj.useDecimals ? output : convertToLaTeXString(output, formatObj.evalOutputPreLaTeX);
-          console.log(`result string: ${output} latexResult:${latexResult}`);
-          return createData(latexEntry, latexResult);
-      } catch (e) {
-        console.log(e);
-        return createData(input, output);
-      }
-    });
 
     const headerRow = (
       <TableRow className={tableClasses.headerRow}>
@@ -56,22 +71,8 @@ function Display(props){
         <TableCell className={tableClasses.head} align="right">output</TableCell>
       </TableRow>
     );
-
-    const tableRows = formattedRows.map((row, idx, arr) => {
-      const isNewRow = idx === arr.length - 1;
-      const tableRowAttribute = isNewRow ? { ref: tableEndRef } : {};
-      const inlineInput = (<div><InlineMath math={row.input}/></div>);
-      const inlineOutput = (<div><InlineMath math={row.output}/></div>);
-      const inlineFadInput = isNewRow ? (<Fade in={true} timeout={200}>{inlineInput}</Fade>) : inlineInput;
-      const inlineFadOutput = isNewRow ? (<Fade in={true} timeout={200}>{inlineOutput}</Fade>) : inlineOutput;
-
-      return (
-        <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
-          <TableCell className={tableClasses.cell} align="left">{inlineFadInput}</TableCell>
-          <TableCell className={tableClasses.cell} align="right">{inlineFadOutput}</TableCell>
-        </TableRow>
-      )
-    });
+    const formattedRows = displayRows.map(createFormattedRowData);
+    const tableRows = formattedRows.map(createTableRowComponents(tableEndRef));
 
     return (
        <Paper className={classes.paper}>

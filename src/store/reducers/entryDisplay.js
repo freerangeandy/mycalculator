@@ -1,8 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, insertSymbol, handleError } from '../../shared/utility';
-import { evalExpression,
-        preventEvalOutputPreLaTeX,
-} from '../../shared/interpreter';
+import { evalExpression, preventEvalOutputPreLaTeX } from '../../shared/interpreter';
 import { SYMBOLS } from '../../shared/symbols';
 
 const initialState = {
@@ -36,7 +34,7 @@ const typedEntry = (state, action) => {
   };
   return updateObject(state, newEntry);
 }
-// S.R.P. refactor
+
 const evaluate = (state, action) => {
   try {
     const currentUseDecimals = state.useDecimals;
@@ -47,11 +45,10 @@ const evaluate = (state, action) => {
         useDecimals: currentUseDecimals,
         evalOutputPreLaTeX: !preventEvalOutputPreLaTeX(result),
     };
-    const newRow = [currentEntry, result, formatConfig]
-    const updatedRows = [...state.displayRows, newRow];
+    const newRow = [currentEntry, result, formatConfig];
     const newState = {
       entryVal: '',
-      displayRows: updatedRows,
+      displayRows: [...state.displayRows, newRow],
       selection: [0,0],
     }
     return updateObject(state, newState);

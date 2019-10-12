@@ -17,16 +17,16 @@ export const setConstant = (symbol, val) => {
     const test = nerdamer(`${symbol}`).toString();
     console.log(test);
 }
-// S.R.P. refactor
+
 export const evalExpression = (expression, useDecimals=false, useDegrees=false) => {
-    const processedExpression = shouldConvertAnglesToRad(expression, useDegrees)
+    const preEvalExpression = shouldConvertAnglesToRad(expression, useDegrees)
                           ? convertAnglesToRad(expression)
                           : expression;
-    const evalObj = nerdamer(processedExpression);
-    const noFurtherEval = preventFurtherEval(processedExpression, useDecimals)
-    const outObject = noFurtherEval ? evalObj : evalObj.evaluate();
-    const outString = useDecimals ? outObject.text('decimals') : outObject.text('fractions');
-    return outString;
+    const postEvalObj = nerdamer(preEvalExpression);
+    const noFurtherEval = preventFurtherEval(preEvalExpression, useDecimals);
+    const resultObject = noFurtherEval ? postEvalObj : postEvalObj.evaluate();
+    const resultString = useDecimals ? resultObject.text('decimals') : resultObject.text('fractions');
+    return resultString;
 };
 
 export const convertToLaTeXString = (expression, evalBeforeConversion=true) => {
