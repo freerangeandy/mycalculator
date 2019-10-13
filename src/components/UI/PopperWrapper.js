@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
+import Auxy from '../../hoc/Auxy/Auxy';
 
 export default function PopperWrapper(props) {
+    const classes = props.styles ? props.styles() : null;
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
 
@@ -20,8 +24,9 @@ export default function PopperWrapper(props) {
 
     const popperButton = (val) => {
         const PopperButton = props.buttonType;
+        const btnStyle = classes ? classes.btn : null;
         return (
-            <PopperButton key={val} onClick={handleClick(val)}>
+            <PopperButton key={val} className={btnStyle} onClick={handleClick(val)}>
                 {props.children}
             </PopperButton>
         )
@@ -30,7 +35,7 @@ export default function PopperWrapper(props) {
     const popperContent = props.component(() => setOpen(prev => !prev));
 
     return (
-        <div>
+        <Auxy>
             <Popper open={open} anchorEl={anchorEl} placement={props.placement} transition>
                 {({ TransitionProps }) => (
                     <ClickAwayListener onClickAway={handleClickAway}>
@@ -42,7 +47,12 @@ export default function PopperWrapper(props) {
                     </ClickAwayListener>
                  )}
             </Popper>
-            {popperButton(props.actionKey)}
-        </div>
+            <ButtonGroup
+                variant="contained"
+                size="small"
+                aria-label="popper button group">
+                {popperButton(props.actionKey)}
+            </ButtonGroup>
+        </Auxy>
     )
 }

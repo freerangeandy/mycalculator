@@ -57,6 +57,12 @@ export default function KeyPane (props) {
             />
         ),
         placement: 'right',
+        styles: makeStyles(theme => ({
+          btn: {
+            fontSize: '75%',
+            lineHeight: '220%'
+          },
+        }))
     };
 
     const statPopper = {
