@@ -10,12 +10,12 @@
     font-weight: bold;
 }
 
-.upperKeys {
+.flexRow {
     display: flex;
     flex-direction: row;
 }
 
-.lowerKeys {
+.flexColumn {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }

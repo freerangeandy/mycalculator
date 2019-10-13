@@ -18,26 +18,26 @@ export default function ActionPane (props) {
         return actionComponent;
     };
 
+    const gridDirection = props.flexRow ? "row" : "column";
+
     const actionGroup = props.columnValues.map((obj) => (
-        <Grid key={`${obj.key}_grid`}
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center">
-          <Grid item>
-            <ButtonGroup
-                variant="contained"
-                size="small"
-                aria-label="small contained button group">
-              {actionButton(obj)}
-            </ButtonGroup>
-          </Grid>
+        <Grid key={`${obj.key}_grid`} item>
+          <ButtonGroup
+              variant="contained"
+              size="small"
+              aria-label="small contained button group">
+            {actionButton(obj)}
+          </ButtonGroup>
         </Grid>
     ));
 
     return (
-        <div>
-            {actionGroup}
-        </div>
+      <Grid container
+          wrap="nowrap"
+          spacing={0}
+          direction={gridDirection}
+          alignItems="center">
+          {actionGroup}
+      </Grid>
     );
 };

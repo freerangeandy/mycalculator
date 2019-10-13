@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import blue from '@material-ui/core/colors/blue';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
@@ -28,7 +30,7 @@ const colorOverride = {
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
-    width: '125%',
+    width: '100%',
     marginBottom: theme.spacing(2),
   },
 }));
@@ -95,6 +97,8 @@ const getAllPoppers = (props) => {
 
 export default function KeyPane (props) {
     const classes = useStyles();
+    const theme = useTheme();
+    const isBreakpointXS = useMediaQuery(theme.breakpoints.down('xs'));
     const allPoppers = getAllPoppers(props);
 
     const upperKeys = (
@@ -106,7 +110,8 @@ export default function KeyPane (props) {
         <ActionPane
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}
-            poppers={allPoppers}/>
+            poppers={allPoppers}
+            flexRow={isBreakpointXS}/>
       </Auxy>
     );
 
@@ -115,18 +120,25 @@ export default function KeyPane (props) {
         <ActionPane
             buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
-            poppers={allPoppers} />
-        <NumPad numberPressed={props.buttonPressed} />
-        <ArithmeticPane buttonPressed={props.buttonPressed} />
+            poppers={allPoppers}
+            flexRow={isBreakpointXS}/>
+        <Grid className={paneClasses.flexRow}>
+          <NumPad numberPressed={props.buttonPressed} />
+          <ArithmeticPane buttonPressed={props.buttonPressed} />
+        </Grid>
       </Auxy>
     );
+
+    const upperKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
+    const lowerKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
+
     return (
         <Paper className={classes.paper}>
             <Grid container spacing={0}>
-                <Grid item xs={6} sm={12} className={paneClasses.upperKeys}>
+                <Grid item xs={6} sm={12} className={upperKeysClass}>
                   {upperKeys}
                 </Grid>
-                <Grid item xs={6} sm={12} className={paneClasses.lowerKeys}>
+                <Grid item xs={6} sm={12} className={lowerKeysClass}>
                   {lowerKeys}
                 </Grid>
             </Grid>
