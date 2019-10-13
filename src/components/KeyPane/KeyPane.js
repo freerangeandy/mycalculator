@@ -33,66 +33,69 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const getAllPoppers = (props) => {
+  const assignPopper = {
+      component: (closeHandler) => (
+          <InputPopper
+              closeHandler={closeHandler}
+              submitHandler={(varName) => props.secondaryAction(SYMBOLS.assign.key, varName)}
+          />
+      ),
+      placement: 'left',
+  };
+
+  const modePopper = {
+      component: (closeHandler) => (
+          <SwitchPopper
+              closeHandler={closeHandler}
+              toggleDecimals={props.toggleDecimals}
+              useDecimals={props.useDecimals}
+              toggleDegrees={props.toggleDegrees}
+              useDegrees={props.useDegrees}
+          />
+      ),
+      placement: 'right',
+      styles: makeStyles(theme => ({
+        btn: {
+          fontSize: '75%',
+          lineHeight: '220%'
+        },
+      }))
+  };
+
+  const statPopper = {
+      component: (closeHandler) => (
+          <FunctionPane
+              buttonPressed={props.buttonPressed}
+              gridValues={STAT_POP}
+              colorOverride={colorOverride}
+          />
+      ),
+      placement: 'right',
+  };
+
+  const matPopper = {
+      component: (closeHandler) => (
+          <FunctionPane
+              buttonPressed={props.buttonPressed}
+              gridValues={MAT_POP}
+              colorOverride={colorOverride}
+          />
+      ),
+      placement: 'right',
+  };
+
+  return {
+      [SYMBOLS.assign.key]: assignPopper,
+      [SYMBOLS.mode.key]: modePopper,
+      [SYMBOLS.stat.key]: statPopper,
+      [SYMBOLS.mat.key]: matPopper,
+  };
+}
+
 export default function KeyPane (props) {
     const classes = useStyles();
-    // import these from another file
-    const assignPopper = {
-        component: (closeHandler) => (
-            <InputPopper
-                closeHandler={closeHandler}
-                submitHandler={(varName) => props.secondaryAction(SYMBOLS.assign.key, varName)}
-            />
-        ),
-        placement: 'left',
-    };
-
-    const modePopper = {
-        component: (closeHandler) => (
-            <SwitchPopper
-                closeHandler={closeHandler}
-                toggleDecimals={props.toggleDecimals}
-                useDecimals={props.useDecimals}
-                toggleDegrees={props.toggleDegrees}
-                useDegrees={props.useDegrees}
-            />
-        ),
-        placement: 'right',
-        styles: makeStyles(theme => ({
-          btn: {
-            fontSize: '75%',
-            lineHeight: '220%'
-          },
-        }))
-    };
-
-    const statPopper = {
-        component: (closeHandler) => (
-            <FunctionPane
-                buttonPressed={props.buttonPressed}
-                gridValues={STAT_POP}
-                colorOverride={colorOverride}
-            />
-        ),
-        placement: 'right',
-    };
-
-    const matPopper = {
-        component: (closeHandler) => (
-            <FunctionPane
-                buttonPressed={props.buttonPressed}
-                gridValues={MAT_POP}
-                colorOverride={colorOverride}
-            />
-        ),
-        placement: 'right',
-    };
-
-    const allPoppers = {
-        [SYMBOLS.assign.key]: assignPopper,
-        [SYMBOLS.mode.key]: modePopper,
-        [SYMBOLS.stat.key]: statPopper,
-        [SYMBOLS.mat.key]: matPopper,
-    };
+    const allPoppers = getAllPoppers(props);
 
     const upperKeys = (
       <Auxy>
