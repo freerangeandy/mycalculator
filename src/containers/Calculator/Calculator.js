@@ -84,10 +84,10 @@ function Calculator (props) {
         <Container>
             {errorModal}
             <Grid {...gridAttributes} container spacing={1}>
-                <Grid item xs={12} sm={9} md={10} lg={10}>
+                <Grid item xs={12} sm={12} md={8}>
                   {entryDisplayPane}
                 </Grid>
-                <Grid item xs={12} sm={3} md={2} lg={2}>
+                <Grid item xs={12} sm={12} md={4}>
                   {keyPane}
                 </Grid>
             </Grid>

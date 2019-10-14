@@ -98,7 +98,7 @@ const getAllPoppers = (props) => {
 export default function KeyPane (props) {
     const classes = useStyles();
     const theme = useTheme();
-    const isBreakpointXS = useMediaQuery(theme.breakpoints.down('xs'));
+    const isBreakpointSM = useMediaQuery(theme.breakpoints.down('sm'));
     const allPoppers = getAllPoppers(props);
 
     const upperKeys = (
@@ -111,7 +111,7 @@ export default function KeyPane (props) {
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}
             poppers={allPoppers}
-            flexRow={isBreakpointXS}/>
+            flexRow={isBreakpointSM}/>
       </Auxy>
     );
 
@@ -121,7 +121,7 @@ export default function KeyPane (props) {
             buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
             poppers={allPoppers}
-            flexRow={isBreakpointXS}/>
+            flexRow={isBreakpointSM}/>
         <Grid className={paneClasses.flexRow}>
           <NumPad numberPressed={props.buttonPressed} />
           <ArithmeticPane buttonPressed={props.buttonPressed} />
@@ -129,16 +129,16 @@ export default function KeyPane (props) {
       </Auxy>
     );
 
-    const upperKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
-    const lowerKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
+    const upperKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
+    const lowerKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
 
     return (
         <Paper className={classes.paper}>
-            <Grid container spacing={0}>
-                <Grid item xs={6} sm={12} className={upperKeysClass}>
+            <Grid container justify="center" spacing={0}>
+                <Grid item className={upperKeysClass}>
                   {upperKeys}
                 </Grid>
-                <Grid item xs={6} sm={12} className={lowerKeysClass}>
+                <Grid item className={lowerKeysClass}>
                   {lowerKeys}
                 </Grid>
             </Grid>

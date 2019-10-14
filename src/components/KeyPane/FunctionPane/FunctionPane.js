@@ -35,8 +35,7 @@ export default function FunctionPane (props) {
         <Grid key={`${row[0].key}_grid`}
             container
             spacing={0}
-            direction="column"
-            alignItems="center">
+            direction="column">
           <Grid item>
             <ButtonGroup
                 variant="contained"
