@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const getAllPoppers = (props) => {
+const getAllPoppers = (props, altPlacement) => {
   const assignPopper = {
       component: (closeHandler) => (
           <InputPopper
@@ -43,7 +43,7 @@ const getAllPoppers = (props) => {
               submitHandler={(varName) => props.secondaryAction(SYMBOLS.assign.key, varName)}
           />
       ),
-      placement: 'left',
+      placement: altPlacement ? 'top-end' : 'left',
   };
 
   const modePopper = {
@@ -56,7 +56,7 @@ const getAllPoppers = (props) => {
               useDegrees={props.useDegrees}
           />
       ),
-      placement: 'right',
+      placement: altPlacement ? 'down' : 'right',
       styles: makeStyles(theme => ({
         btn: {
           fontSize: '75%',
@@ -73,7 +73,7 @@ const getAllPoppers = (props) => {
               colorOverride={colorOverride}
           />
       ),
-      placement: 'right',
+      placement: altPlacement ? 'down' : 'right',
   };
 
   const matPopper = {
@@ -84,7 +84,7 @@ const getAllPoppers = (props) => {
               colorOverride={colorOverride}
           />
       ),
-      placement: 'right',
+      placement: altPlacement ? 'down' : 'right',
   };
 
   return {
@@ -99,7 +99,7 @@ export default function KeyPane (props) {
     const classes = useStyles();
     const theme = useTheme();
     const isBreakpointSM = useMediaQuery(theme.breakpoints.down('sm'));
-    const allPoppers = getAllPoppers(props);
+    const allPoppers = getAllPoppers(props, isBreakpointSM);
 
     const upperKeys = (
       <Auxy>

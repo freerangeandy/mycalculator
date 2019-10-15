@@ -76,7 +76,7 @@ export const convertDegToRad = (deg) => {
     const piLessDeg = deg.match(/(pi|π)/g)
                       ? nerdamer(deg).evaluate().text('decimals')
                       : deg;
-    if (piLessDeg % 1 === 0 && piLessDeg != 0) {
+    if (piLessDeg % 1 === 0 && piLessDeg !== '0') {
         const piCoefficient = nerdamer(`${parseInt(piLessDeg)} / 180`);
         return `${piCoefficient} * pi`;
     } else {

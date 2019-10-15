@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Calculator from '../../containers/Calculator/Calculator';
 import SettingsDrawer from '../../containers/Settings/SettingsDrawer';
