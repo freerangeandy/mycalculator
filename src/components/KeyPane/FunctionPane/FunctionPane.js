@@ -9,7 +9,6 @@ import { ALTERNATES } from '../../../shared/buttonLayout';
 const FunctionButton = withStyles(theme => ({
   root: props => ({
     // width: '25%',
-    minWidth: 48,
     ...props.coloroverride,
   })
 }))(CalcButton);

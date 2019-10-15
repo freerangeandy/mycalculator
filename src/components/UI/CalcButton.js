@@ -11,7 +11,7 @@ const CalcButton = withStyles(theme => ({
     padding: '3px',
     border: '1px solid',
     lineHeight: '185%',
-    width: '25%',
+    minWidth: 47,
     '&:hover': {
       boxShadow: 'none',
     },

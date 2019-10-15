@@ -56,7 +56,7 @@ const getAllPoppers = (props, altPlacement) => {
               useDegrees={props.useDegrees}
           />
       ),
-      placement: altPlacement ? 'down' : 'right',
+      placement: altPlacement ? 'bottom' : 'right',
       styles: makeStyles(theme => ({
         btn: {
           fontSize: '75%',
@@ -73,7 +73,7 @@ const getAllPoppers = (props, altPlacement) => {
               colorOverride={colorOverride}
           />
       ),
-      placement: altPlacement ? 'down' : 'right',
+      placement: altPlacement ? 'bottom' : 'right',
   };
 
   const matPopper = {
@@ -84,7 +84,7 @@ const getAllPoppers = (props, altPlacement) => {
               colorOverride={colorOverride}
           />
       ),
-      placement: altPlacement ? 'down' : 'right',
+      placement: altPlacement ? 'bottom' : 'right',
   };
 
   return {
@@ -131,7 +131,7 @@ export default function KeyPane (props) {
 
     const upperKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
     const lowerKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
-
+    // paper shadow only for test purposes, can replace with div using same class
     return (
         <Paper className={classes.paper}>
             <Grid container justify="center" spacing={0}>

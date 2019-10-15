@@ -9,7 +9,6 @@ import { NUM_PAD } from '../../../shared/buttonLayout';
 const NumButton = withStyles(theme => ({
   root: {
     // width: '30%',
-    minWidth: 48,
     fontSize: '110%',
     lineHeight: '150%',
     borderColor: '#bdbdbd',

@@ -14,7 +14,6 @@ const bgHoverColor = green[700];
 const ArithmeticButton = withStyles(theme => ({
   root: {
     fontWeight: 600,
-    minWidth: 48,
     borderColor: borderColor, //'#4c885a',
     backgroundColor: backgroundColor,//'#4caf50',
     '&:hover': {
