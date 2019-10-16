@@ -17,7 +17,7 @@ export const SYMBOLS = {
     7: {key: '7', display: '7'},
     8: {key: '8', display: '8'},
     9: {key: '9', display: '9'},
-    negate: {key: 'negate', display: '( − )', converted: '-'},
+    negate: {key: 'negate', display: '(−)', converted: '-'},
     divide: {key: 'divide', display: '∕', converted: '/'},
     multiply: {key: 'multiply', display: '*', converted: '*'},
     subtract: {key: 'subtract', display: '—', converted: '-'},

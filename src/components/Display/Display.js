@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     marginBottom: theme.spacing(1),
     overflowY: 'auto', // for scrolling
-    height: '30vh',  //  fixed height
+    height: '27vh',  //  fixed height
   },
 }));
 
