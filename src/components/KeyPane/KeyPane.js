@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import blue from '@material-ui/core/colors/blue';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -28,8 +28,8 @@ const colorOverride = {
 };
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(3),
+  root: {
+    marginTop: theme.spacing(1),
     width: '100%',
     marginBottom: theme.spacing(2),
   },
@@ -131,10 +131,11 @@ export default function KeyPane (props) {
 
     const upperKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
     const lowerKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
+    const containerJustify = isBreakpointSM ? "center" : "left";
     // paper shadow only for test purposes, can replace with div using same class
     return (
-        <Paper className={classes.paper}>
-            <Grid container justify="center" spacing={0}>
+        <div className={classes.root}>
+            <Grid container justify={containerJustify} spacing={0}>
                 <Grid item className={upperKeysClass}>
                   {upperKeys}
                 </Grid>
@@ -142,6 +143,6 @@ export default function KeyPane (props) {
                   {lowerKeys}
                 </Grid>
             </Grid>
-        </Paper>
+        </div>
     )
 }

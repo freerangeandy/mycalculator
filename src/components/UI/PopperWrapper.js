@@ -12,13 +12,13 @@ export default function PopperWrapper(props) {
     const [open, setOpen] = useState(false);
 
     const handleClick = val => event => {
-        console.log('handleClick');
+        // console.log('handleClick');
         setAnchorEl(event.currentTarget);
         setOpen(prev => !prev);
     };
 
     const handleClickAway = () => {
-        console.log('handleClickAway');
+        // console.log('handleClickAway');
         setOpen(false);
     };
 

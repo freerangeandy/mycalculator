@@ -15,9 +15,9 @@ import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     overflowY: 'auto', // for scrolling
     height: '30vh',  //  fixed height
   },
