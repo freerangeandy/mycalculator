@@ -10,8 +10,22 @@
   position: sticky;
   top: 0;
   background-color: #e0e0e0;
-  font-weight: 700;
+  font-weight: 800;
   z-index: 99;
+}
+
+.head span {
+  font-weight: 300;
+}
+
+.body {
+  height: 27vh;
+}
+
+@media screen and (orientation: landscape) {
+  .body {
+    height: 75%;
+  }
 }
 
 .headerRow {

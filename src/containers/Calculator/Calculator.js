@@ -56,15 +56,14 @@ function Calculator (props) {
       <Auxy>
         <Display
             displayRows={props.currentDisplay}
-            useDecimals={props.useDecimals}/>
+            useDecimals={props.useDecimals}
+            useDegrees={props.useDegrees}/>
         <Entry
             entryRef={entryRef}
             entryChanged={props.onTypedEntry}
             enterPressed={enterThenFocus}
             entryVal={props.currentEntry}
-            selectionChanged={props.onChangeSelection}
-            useDecimals={props.useDecimals}
-            useDegrees={props.useDegrees}/>
+            selectionChanged={props.onChangeSelection}/>
       </Auxy>
     );
 
@@ -84,10 +83,10 @@ function Calculator (props) {
         <Container>
             {errorModal}
             <Grid {...gridAttributes} container spacing={1}>
-                <Grid item xs={12} sm={12} md={8}>
+                <Grid item xs={12} sm={8} md={8}>
                   {entryDisplayPane}
                 </Grid>
-                <Grid item xs={12} sm={12} md={4}>
+                <Grid item xs={12} sm={4} md={4}>
                   {keyPane}
                 </Grid>
             </Grid>

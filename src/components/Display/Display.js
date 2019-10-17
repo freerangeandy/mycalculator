@@ -14,12 +14,13 @@ import { convertToLaTeXString } from '../../shared/interpreter'
 import tableClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
-  paper: {
+  root: {
     marginTop: theme.spacing(1),
     width: '100%',
     marginBottom: theme.spacing(1),
     overflowY: 'auto', // for scrolling
-    height: '27vh',  //  fixed height
+  //  height: '27vh',  //  fixed height
+    // height: '100%',
   },
 }));
 
@@ -65,17 +66,20 @@ function Display(props){
     };
     useEffect(scrollToBottom, [displayRows]);
 
+    const degreesMode = props.useDegrees ? 'degrees' : 'radians';
+    const decimalMode = props.useDecimals ? 'decimals' : 'fractions';
+
     const headerRow = (
       <TableRow className={tableClasses.headerRow}>
-        <TableCell className={tableClasses.head}>input</TableCell>
-        <TableCell className={tableClasses.head} align="right">output</TableCell>
+        <TableCell className={tableClasses.head}>input <span>({degreesMode})</span></TableCell>
+        <TableCell className={tableClasses.head} align="right"><span>({decimalMode})</span> output</TableCell>
       </TableRow>
     );
     const formattedRows = displayRows.map(createFormattedRowData);
     const tableRows = formattedRows.map(createTableRowComponents(tableEndRef));
 
     return (
-       <Paper className={classes.paper}>
+       <Paper className={`${classes.root} ${tableClasses.body}`}>
          <Table size="small">
            <TableHead>
              {headerRow}

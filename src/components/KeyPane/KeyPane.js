@@ -98,8 +98,8 @@ const getAllPoppers = (props, altPlacement) => {
 export default function KeyPane (props) {
     const classes = useStyles();
     const theme = useTheme();
-    const isBreakpointSM = useMediaQuery(theme.breakpoints.down('sm'));
-    const allPoppers = getAllPoppers(props, isBreakpointSM);
+    const isBreakpointXS = useMediaQuery(theme.breakpoints.down('xs'));
+    const allPoppers = getAllPoppers(props, isBreakpointXS);
 
     const upperKeys = (
       <Auxy>
@@ -111,7 +111,7 @@ export default function KeyPane (props) {
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}
             poppers={allPoppers}
-            flexRow={isBreakpointSM}/>
+            flexRow={isBreakpointXS}/>
       </Auxy>
     );
 
@@ -121,7 +121,7 @@ export default function KeyPane (props) {
             buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
             poppers={allPoppers}
-            flexRow={isBreakpointSM}/>
+            flexRow={isBreakpointXS}/>
         <Grid className={paneClasses.flexRow}>
           <NumPad numberPressed={props.buttonPressed} />
           <ArithmeticPane buttonPressed={props.buttonPressed} />
@@ -129,10 +129,10 @@ export default function KeyPane (props) {
       </Auxy>
     );
 
-    const upperKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
-    const lowerKeysClass = isBreakpointSM ? paneClasses.flexColumn : paneClasses.flexRow;
-    const containerJustify = isBreakpointSM ? "center" : "left";
-    // paper shadow only for test purposes, can replace with div using same class
+    const upperKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
+    const lowerKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
+    const containerJustify = isBreakpointXS ? "center" : "flex-start";
+
     return (
         <div className={classes.root}>
             <Grid container justify={containerJustify} spacing={0}>
