@@ -17,18 +17,21 @@ export const setConstant = (symbol, val) => {
     const test = nerdamer(`${symbol}`).toString();
     console.log(test);
 }
-
+// make full evaluation tests: input -> latex, input -> result, result -> latex
 export const evalExpression = (expression, useDecimals=false, useDegrees=false) => {
     const preEvalExpression = shouldConvertAnglesToRad(expression, useDegrees)
                           ? convertAnglesToRad(expression)
                           : expression;
     const postEvalObj = nerdamer(preEvalExpression);
-    const noFurtherEval = preventFurtherEval(preEvalExpression, useDecimals);
+    console.log('postEvalObj: ' + postEvalObj);
+    console.log(postEvalObj);
+    const noFurtherEval = preventFurtherEval(postEvalObj, useDecimals);
     const resultObject = noFurtherEval ? postEvalObj : postEvalObj.evaluate();
     const resultString = useDecimals ? resultObject.text('decimals') : resultObject.text('fractions');
     return resultString;
 };
 
+// perhaps need to add argument for input vs. output
 export const convertToLaTeXString = (expression, evalBeforeConversion=true) => {
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
@@ -59,7 +62,12 @@ export const setVariable = (varName, varValue) => {
     } else return false;
 }
 
-export const preventFurtherEval = (expression, useDecimals) => containsMatrix(expression) || trigExactResult(expression, useDecimals);
+export const preventFurtherEval = (postEvalObj, useDecimals) => {
+  const matchesMatrix = postEvalObj.text().match(/^matrix\(/);
+  const matchesTrigExact = postEvalObj.text().match(/sqrt\(/);
+  return matchesMatrix || (matchesTrigExact && !useDecimals);
+}
+
 export const preventEvalOutputPreLaTeX = (expression) => containsSquareRoot(expression);
 export const shouldConvertAnglesToRad = (expression, useDegrees) => useDegrees && containsTrig(expression);
 
@@ -85,7 +93,7 @@ export const convertDegToRad = (deg) => {
     }
 }
 
-export const convertTrigFunctionToRad = (trigFunction, regex) => {
+export const convertTrigArgumentToRad = (trigFunction, regex) => {
     const parsedFunction = trigFunction.match(RegExp(regex));
     const angleDegrees = parsedFunction[1];
     const angleRadians = convertDegToRad(angleDegrees);
@@ -97,7 +105,7 @@ export const convertAnglesToRad = (expression) => {
     const regex = `\\b(?:sin|cos|tan)\\((.+?)\\)`;
     const trigFunctionMatches = expression.match(RegExp(regex, 'g')) || [];
     for (const trigFunction of trigFunctionMatches) {
-        const convertedTrig = convertTrigFunctionToRad(trigFunction, regex);
+        const convertedTrig = convertTrigArgumentToRad(trigFunction, regex);
         convertedExpression = convertedExpression.replace(trigFunction, convertedTrig);
     }
     return convertedExpression;
