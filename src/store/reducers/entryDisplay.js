@@ -37,9 +37,7 @@ const typedEntry = (state, action) => {
 
 const evaluate = (state, action) => {
   try {
-    const currentUseDecimals = state.useDecimals;
-    const currentUseDegrees = state.useDegrees;
-    const currentEntry = state.entryVal;
+    const {useDecimals: currentUseDecimals, useDegrees: currentUseDegrees, entryVal:currentEntry} = state;
     const result = evalExpression(currentEntry, currentUseDecimals, currentUseDegrees);
     const formatConfig = {
         useDecimals: currentUseDecimals,
