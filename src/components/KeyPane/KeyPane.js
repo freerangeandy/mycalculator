@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import blue from '@material-ui/core/colors/blue';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
@@ -97,9 +95,10 @@ const getAllPoppers = (props, altPlacement) => {
 
 export default function KeyPane (props) {
     const classes = useStyles();
-    const theme = useTheme();
-    const isBreakpointXS = useMediaQuery(theme.breakpoints.down('xs'));
-    const allPoppers = getAllPoppers(props, isBreakpointXS);
+    const {isBreakpointXS} = props.mediaQueries;
+    const flexRow = isBreakpointXS;
+    // const actionFlexRow = isBreakpointXS;
+    const allPoppers = getAllPoppers(props, flexRow);
 
     const upperKeys = (
       <Auxy>

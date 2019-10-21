@@ -10,10 +10,13 @@ import ErrorModal from '../../components/UI/ErrorModal';
 import InfoSnackbar from '../../components/UI/InfoSnackbar';
 import * as actions from '../../store/actions/index';
 import Auxy from '../../hoc/Auxy/Auxy';
+import useMediaLayout from '../../shared/useMediaLayout';
 
 function Calculator (props) {
     const entryRef = useRef();
     const [errorOpen, setErrorOpen] = useState(false);
+    const mediaQueries = useMediaLayout();
+    const {landscape} = mediaQueries;
 
     useEffect(() => {
       if (props.errorMsg) setErrorOpen(true);
@@ -76,17 +79,21 @@ function Calculator (props) {
           useDecimals={props.useDecimals}
           toggleDecimals={props.toggleDecimals}
           useDegrees={props.useDegrees}
-          toggleDegrees={props.toggleDegrees}/>
+          toggleDegrees={props.toggleDegrees}
+          mediaQueries={mediaQueries}/>
     );
+
+    const entryDisplayColsXS = landscape ? 8 : 12;
+    const keyPaneColsXS = landscape ? 4 : 12;
 
     return (
         <Container>
             {errorModal}
             <Grid {...gridAttributes} container spacing={1}>
-                <Grid item xs={12} sm={8} md={8}>
+                <Grid item xs={entryDisplayColsXS} sm={8} md={8}>
                   {entryDisplayPane}
                 </Grid>
-                <Grid item xs={12} sm={4} md={4}>
+                <Grid item xs={keyPaneColsXS} sm={4} md={4}>
                   {keyPane}
                 </Grid>
             </Grid>

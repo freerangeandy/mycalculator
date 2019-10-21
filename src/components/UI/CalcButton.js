@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import useMediaLayout from '../../shared/useMediaLayout';
 // dynamically size, for ipads, iphone5, galaxy s2
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'none',
     padding: '3px',
     border: '1px solid',
-    lineHeight: '185%',
     '&:hover': {
       boxShadow: 'none',
     },
@@ -21,27 +20,30 @@ const useStyles = makeStyles(theme => ({
       minWidth: 63,
       maxWidth: 63,
       minHeight: 54,
+    lineHeight: '185%',
   },
   phone: {
       fontSize: '90%',
       minWidth: 42,
       maxWidth: 42,
       minHeight: 36,
+    lineHeight: '185%',
   },
   tinyPhone: {
-      fontSize: '80%',
+      fontSize: '70%',
       minWidth: 36,
       maxWidth: 36,
       minHeight: 36,
+    lineHeight: '165%',
   },
 }));
 
 function CalcButton(props) {
     const classes = useStyles();
-    // const isIPad = useMediaQuery('(min-height: 1000px)');
-    // const isLandscape = useMediaQuery('(orientation: landscape)');
-    const isTinyPhone = useMediaQuery('(max-width: 350px)');
-    const mediaClass = isTinyPhone ? classes.tinyPhone : classes.phone;
+    const mediaQueries = useMediaLayout();
+    // const {tinyWidth} = mediaQueries;
+    const mediaClass = mediaQueries.tinyWidth
+                      ? classes.tinyPhone : classes.phone;
     return <Button {...props} className={`${classes.root} ${mediaClass}`} />;
 }
 
