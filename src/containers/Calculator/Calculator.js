@@ -16,7 +16,7 @@ function Calculator (props) {
     const entryRef = useRef();
     const [errorOpen, setErrorOpen] = useState(false);
     const mediaQueries = useMediaLayout();
-    const {landscape} = mediaQueries;
+    const {keyPadBelow} = mediaQueries;
 
     useEffect(() => {
       if (props.errorMsg) setErrorOpen(true);
@@ -83,8 +83,8 @@ function Calculator (props) {
           mediaQueries={mediaQueries}/>
     );
 
-    const entryDisplayColsXS = landscape ? 8 : 12;
-    const keyPaneColsXS = landscape ? 4 : 12;
+    const entryDisplayColsXS = keyPadBelow ? 12 : 8;
+    const keyPaneColsXS = keyPadBelow ? 12 : 4 ;
 
     return (
         <Container>

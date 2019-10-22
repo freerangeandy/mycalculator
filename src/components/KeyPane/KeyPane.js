@@ -95,10 +95,8 @@ const getAllPoppers = (props, altPlacement) => {
 
 export default function KeyPane (props) {
     const classes = useStyles();
-    const {isBreakpointXS} = props.mediaQueries;
-    const flexRow = isBreakpointXS;
-    // const actionFlexRow = isBreakpointXS;
-    const allPoppers = getAllPoppers(props, flexRow);
+    const {keyPadBelow} = props.mediaQueries;
+    const allPoppers = getAllPoppers(props, keyPadBelow);
 
     const upperKeys = (
       <Auxy>
@@ -110,7 +108,7 @@ export default function KeyPane (props) {
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}
             poppers={allPoppers}
-            flexRow={isBreakpointXS}/>
+            flexRow={keyPadBelow}/>
       </Auxy>
     );
 
@@ -120,7 +118,7 @@ export default function KeyPane (props) {
             buttonPressed={props.secondaryAction}
             columnValues={ACTIONS}
             poppers={allPoppers}
-            flexRow={isBreakpointXS}/>
+            flexRow={keyPadBelow}/>
         <Grid className={paneClasses.flexRow}>
           <NumPad numberPressed={props.buttonPressed} />
           <ArithmeticPane buttonPressed={props.buttonPressed} />
@@ -128,9 +126,9 @@ export default function KeyPane (props) {
       </Auxy>
     );
 
-    const upperKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
-    const lowerKeysClass = isBreakpointXS ? paneClasses.flexColumn : paneClasses.flexRow;
-    const containerJustify = isBreakpointXS ? "center" : "flex-start";
+    const upperKeysClass = keyPadBelow ? paneClasses.flexColumn : paneClasses.flexRow;
+    const lowerKeysClass = keyPadBelow ? paneClasses.flexColumn : paneClasses.flexRow;
+    const containerJustify = keyPadBelow ? "center" : "flex-start";
 
     return (
         <div className={classes.root}>

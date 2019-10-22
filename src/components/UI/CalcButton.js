@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
 function CalcButton(props) {
     const classes = useStyles();
     const mediaQueries = useMediaLayout();
-    // const {tinyWidth} = mediaQueries;
-    const mediaClass = mediaQueries.tinyWidth
-                      ? classes.tinyPhone : classes.phone;
+    const {tinyWidth, tinyHeight, landscape} = mediaQueries;
+    const needTinyButtons = tinyWidth || (tinyHeight && landscape);
+    const mediaClass = needTinyButtons ? classes.tinyPhone : classes.phone;
     return <Button {...props} className={`${classes.root} ${mediaClass}`} />;
 }
 
