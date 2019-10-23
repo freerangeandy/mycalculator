@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
       boxShadow: 'none',
     },
   },
-  iPad: {
-      fontSize: '90%',
+  tablet: {
+      fontSize: '110%',
       minWidth: 63,
       maxWidth: 63,
       minHeight: 54,
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '185%',
   },
   tinyPhone: {
-      fontSize: '70%',
+      fontSize: '80%',
       minWidth: 36,
       maxWidth: 36,
       minHeight: 36,
@@ -41,9 +41,14 @@ const useStyles = makeStyles(theme => ({
 function CalcButton(props) {
     const classes = useStyles();
     const mediaQueries = useMediaLayout();
-    const {tinyWidth, tinyHeight, landscape} = mediaQueries;
-    const needTinyButtons = tinyWidth || (tinyHeight && landscape);
-    const mediaClass = needTinyButtons ? classes.tinyPhone : classes.phone;
+    const {tinySize, tabletSize} = mediaQueries;
+    const needTinyButtons = tinySize;
+    const needBigButtons = tabletSize;
+    const mediaClass = needTinyButtons
+                        ? classes.tinyPhone
+                        : needBigButtons
+                          ? classes.tablet
+                          : classes.phone;
     return <Button {...props} className={`${classes.root} ${mediaClass}`} />;
 }
 

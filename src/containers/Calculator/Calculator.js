@@ -83,17 +83,17 @@ function Calculator (props) {
           mediaQueries={mediaQueries}/>
     );
 
-    const entryDisplayColsXS = keyPadBelow ? 12 : 8;
-    const keyPaneColsXS = keyPadBelow ? 12 : 4 ;
+    const entryDisplayCols = keyPadBelow ? 12 : 8;
+    const keyPaneCols = keyPadBelow ? 12 : 4 ;
 
     return (
         <Container>
             {errorModal}
             <Grid {...gridAttributes} container spacing={1}>
-                <Grid item xs={entryDisplayColsXS} sm={8} md={8}>
+                <Grid item xs={entryDisplayCols}>
                   {entryDisplayPane}
                 </Grid>
-                <Grid item xs={keyPaneColsXS} sm={4} md={4}>
+                <Grid item xs={keyPaneCols}>
                   {keyPane}
                 </Grid>
             </Grid>

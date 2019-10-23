@@ -56,7 +56,7 @@ const getAllPoppers = (props, altPlacement) => {
       ),
       placement: altPlacement ? 'bottom' : 'right',
       styles: makeStyles(theme => ({
-        btn: {
+        btn: { // broken! make work again
           fontSize: '75%',
           lineHeight: '220%'
         },

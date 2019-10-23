@@ -9,7 +9,7 @@ import { ALTERNATES } from '../../../shared/buttonLayout';
 const FunctionButton = withStyles(theme => ({
   root: props => ({
     // width: '25%',
-    fontSize: props.fontsizeoverride,
+    ...props.fontsizeoverride,
     ...props.coloroverride,
   })
 }))(CalcButton);
@@ -23,12 +23,13 @@ export default function FunctionPane (props) {
                         ? (ALTERNATES[obj.key] || obj)
                         : obj;
         const displayVal = funcObj.display || funcObj.key;
-        const fontSize = funcObj.fontSize || '90%';
+        const fontOverride = funcObj.fontSize ? {fontSize: funcObj.fontSize} : null;
+        if (fontOverride) console.log('fontOverride: ' + funcObj.key);
         return (
             <FunctionButton
                 color={bgColor}
                 coloroverride={{...props.colorOverride}}
-                fontsizeoverride={fontSize}
+                fontsizeoverride={{...fontOverride}}
                 key={obj.key}
                 onClick={(event) => props.buttonPressed(funcObj)}>
                 {displayVal}
