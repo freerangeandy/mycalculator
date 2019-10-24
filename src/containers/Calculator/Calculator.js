@@ -60,7 +60,8 @@ function Calculator (props) {
         <Display
             displayRows={props.currentDisplay}
             useDecimals={props.useDecimals}
-            useDegrees={props.useDegrees}/>
+            useDegrees={props.useDegrees}
+            mediaQueries={mediaQueries}/>
         <Entry
             entryRef={entryRef}
             entryChanged={props.onTypedEntry}

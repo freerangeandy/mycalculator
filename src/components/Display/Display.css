@@ -22,12 +22,6 @@
   height: 27vh;
 }
 
-@media screen and (orientation: landscape) {
-  .body {
-    height: 75%;
-  }
-}
-
 .headerRow {
     border-bottom: 1px solid black;
 }

@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: '90%',
       minWidth: 42,
       maxWidth: 42,
-      minHeight: 36,
+      minHeight: 38,
     lineHeight: '185%',
   },
   tinyPhone: {

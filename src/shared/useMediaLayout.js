@@ -9,7 +9,7 @@ export default function useMediaLayout() {
     // const theme = useTheme();
     const queries = {
       // isBreakpointXS: false,
-      // landscape: false,
+      landscape: false,
       // tinyWidth: false,
       // tinyHeight: false,
       // bigWidth: false,
@@ -24,13 +24,13 @@ export default function useMediaLayout() {
     const tinyHeight = useMediaQuery(`(max-height: ${tinyLength})`);
     const bigWidth = useMediaQuery(`(min-width: ${bigLength})`);
     const bigHeight = useMediaQuery(`(min-height: ${bigLength})`);
-    const landscape = useMediaQuery('(orientation: landscape)');
-    queries.tabletSize = bigHeight || (bigWidth && landscape);
-    queries.tinySize = tinyWidth || (tinyHeight && landscape);
+    queries.landscape = useMediaQuery('(orientation: landscape)');
+    queries.tabletSize = bigHeight || (bigWidth && queries.landscape);
+    queries.tinySize = tinyWidth || (tinyHeight && queries.landscape);
     queries.normalSize = !queries.tabletSize && !queries.tinySize;
     // queries.keyPadBelow = (isBreakpointXS && !(queries.tinyHeight && queries.landscape))
     //                 || (!isBreakpointXS && queries.tabletSize && !queries.landscape);
-    queries.keyPadBelow = !landscape;
+    queries.keyPadBelow = !queries.landscape;
     return queries;
 };
 

@@ -11,7 +11,7 @@ import { InlineMath } from 'react-katex';
 
 import { createData } from '../../shared/utility';
 import { convertToLaTeXString } from '../../shared/interpreter'
-import tableClasses from './Display.css';
+import staticClasses from './Display.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +21,12 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'auto', // for scrolling
   //  height: '27vh',  //  fixed height
     // height: '100%',
+  },
+  headTablet: {
+    fontSize: '110%',
+  },
+  bodyLandscape: {
+    height: '75%',
   },
 }));
 
@@ -47,9 +53,9 @@ const createTableRowComponents = (lastRowRef) => (row, idx, arr) => {
   const inlineFadOutput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineOutput}</Fade>) : inlineOutput;
 
   return (
-    <TableRow {...tableRowAttribute} className={tableClasses.row} key={idx}>
-      <TableCell className={tableClasses.cell} align="left">{inlineFadInput}</TableCell>
-      <TableCell className={tableClasses.cell} align="right">{inlineFadOutput}</TableCell>
+    <TableRow {...tableRowAttribute} className={staticClasses.row} key={idx}>
+      <TableCell className={staticClasses.cell} align="left">{inlineFadInput}</TableCell>
+      <TableCell className={staticClasses.cell} align="right">{inlineFadOutput}</TableCell>
     </TableRow>
   )
 }
@@ -58,6 +64,7 @@ function Display(props){
     const classes = useStyles();
     const {displayRows} = props;
     const tableEndRef = useRef(null);
+    const {landscape, normalSize, tabletSize} = props.mediaQueries;
     const scrollToBottom = () => {
       if (displayRows.length > 0) {
         tableEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -68,18 +75,19 @@ function Display(props){
 
     const degreesMode = props.useDegrees ? 'degrees' : 'radians';
     const decimalMode = props.useDecimals ? 'decimals' : 'fractions';
-
+    const tableHeaderClass = tabletSize ? `${staticClasses.head} ${classes.headTablet}` : staticClasses.head;
     const headerRow = (
-      <TableRow className={tableClasses.headerRow}>
-        <TableCell className={tableClasses.head}>input <span>({degreesMode})</span></TableCell>
-        <TableCell className={tableClasses.head} align="right"><span>({decimalMode})</span> output</TableCell>
+      <TableRow className={staticClasses.headerRow}>
+        <TableCell className={tableHeaderClass}>input <span>({degreesMode})</span></TableCell>
+        <TableCell className={tableHeaderClass} align="right"><span>({decimalMode})</span> output</TableCell>
       </TableRow>
     );
+
     const formattedRows = displayRows.map(createFormattedRowData);
     const tableRows = formattedRows.map(createTableRowComponents(tableEndRef));
-
+    const tableBodyClass = landscape ? classes.bodyLandscape : staticClasses.body;
     return (
-       <Paper className={`${classes.root} ${tableClasses.body}`}>
+       <Paper className={`${classes.root} ${tableBodyClass}`}>
          <Table size="small">
            <TableHead>
              {headerRow}
