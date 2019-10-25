@@ -95,7 +95,7 @@ export const SYMBOLS = {
     pi:
         {key: 'pi', display: laTeXWrapper('\\pi'), converted: 'π', prefix: '*'}, //'π'
     euler:
-        {key: 'euler', display: 'ℯ', converted: 'e', prefix: '*'},
+        {key: 'euler', display: laTeXWrapper('e'), converted: 'e', prefix: '*'},
     imaginary:
         {key: 'imaginary', display: laTeXWrapper('i'), converted: 'i', prefix: '*'},
     secondFunc: {key: 'secondFunc', display: '2nd'},

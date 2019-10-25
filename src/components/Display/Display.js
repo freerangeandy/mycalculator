@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
   headTablet: {
     fontSize: '110%',
+    paddingTop: '2%',
+    paddingBottom: '2%',
   },
   bodyLandscape: {
     height: '75%',

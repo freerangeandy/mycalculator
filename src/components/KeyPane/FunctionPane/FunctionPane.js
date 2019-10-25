@@ -24,7 +24,6 @@ export default function FunctionPane (props) {
                         : obj;
         const displayVal = funcObj.display || funcObj.key;
         const fontOverride = funcObj.fontSize ? {fontSize: funcObj.fontSize} : null;
-        if (fontOverride) console.log('fontOverride: ' + funcObj.key);
         return (
             <FunctionButton
                 color={bgColor}

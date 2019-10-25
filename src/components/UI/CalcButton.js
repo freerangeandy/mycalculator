@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
       maxWidth: 63,
       minHeight: 54,
     lineHeight: '185%',
+    '& span': {
+      fontSize: '103%',
+    }
   },
   phone: {
       fontSize: '90%',
