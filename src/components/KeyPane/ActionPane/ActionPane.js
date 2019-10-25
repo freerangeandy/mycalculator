@@ -9,7 +9,7 @@ export default function ActionPane (props) {
     const actionButton = (obj) => {
         const displayVal = obj.display || obj.key;
         const actionComponent = props.poppers && obj.key in props.poppers
-            ?   (<PopperWrapper {...props.poppers[obj.key]} buttonType={ActionButton}>
+            ?   (<PopperWrapper actionKey={obj.key} {...props.poppers[obj.key]} buttonType={ActionButton}>
                     {displayVal}
                 </PopperWrapper>)
             :   (<ActionButton key={obj.key} onClick={(event) => props.buttonPressed(obj.key)}>

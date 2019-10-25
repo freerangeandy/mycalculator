@@ -9,14 +9,15 @@ const backgroundColor = amber[200];
 const bgHoverColor = amber[500];
 
 const ActionButton = withStyles(theme => ({
-  root: {
+  root: props => ({
+    ...props.actionstyles,
     fontWeight: 600,
     borderColor: borderColor,// '#bdbdbd',
     backgroundColor: backgroundColor, //'#d9f253',
     '&:hover': {
       backgroundColor: bgHoverColor, //'#c6db4b',
     },
-  },
+  }),
 }))(CalcButton);
 
 export default ActionButton;

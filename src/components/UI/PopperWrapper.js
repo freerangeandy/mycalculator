@@ -7,7 +7,6 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Auxy from '../../hoc/Auxy/Auxy';
 
 export default function PopperWrapper(props) {
-    const classes = props.styles ? props.styles() : null;
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
 
@@ -24,9 +23,9 @@ export default function PopperWrapper(props) {
 
     const popperButton = (val) => {
         const PopperButton = props.buttonType;
-        const btnStyle = classes ? classes.btn : null;
+        const btnStyle = props.styles || null;
         return (
-            <PopperButton key={val} className={btnStyle} onClick={handleClick(val)}>
+            <PopperButton key={val} actionstyles={{...btnStyle}} onClick={handleClick(val)}>
                 {props.children}
             </PopperButton>
         )

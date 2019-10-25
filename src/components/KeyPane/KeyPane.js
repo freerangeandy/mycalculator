@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const getAllPoppers = (props, altPlacement) => {
+  const {tinySize, normalSize, tabletSize} = props.mediaQueries;
   const assignPopper = {
       component: (closeHandler) => (
           <InputPopper
@@ -55,12 +56,10 @@ const getAllPoppers = (props, altPlacement) => {
           />
       ),
       placement: altPlacement ? 'bottom' : 'right',
-      styles: makeStyles(theme => ({
-        btn: { // broken! make work again
-          fontSize: '75%',
-          lineHeight: '220%'
-        },
-      }))
+      styles: { // broken! make work again
+          fontSize: tinySize ? '68%' : normalSize ? '75%' : null,
+          paddingTop: tinySize ? '5px' : normalSize ? '3px' : null,
+      },
   };
 
   const statPopper = {
