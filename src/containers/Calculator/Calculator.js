@@ -67,7 +67,8 @@ function Calculator (props) {
             entryChanged={props.onTypedEntry}
             enterPressed={enterThenFocus}
             entryVal={props.currentEntry}
-            selectionChanged={props.onChangeSelection}/>
+            selectionChanged={props.onChangeSelection}
+            mediaQueries={mediaQueries}/>
       </Auxy>
     );
 

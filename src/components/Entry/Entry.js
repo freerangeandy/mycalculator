@@ -13,28 +13,39 @@ const useStyles = makeStyles({
     alignItems: 'center',
     margin: 'auto'
   },
+  iconButton: {
+    padding: 10,
+    transform: 'rotate(270deg)'
+  },
   input: {
     marginLeft: 8,
     flex: 1,
   },
-  iconButton: {
-    padding: 10,
-    transform: 'rotate(270deg)'
+  inputTablet: {
+    fontSize: '120%',
+    paddingTop: '2%',
+    paddingBottom: '2%',
   },
   divider: {
     width: 1,
     height: 28,
     margin: 4,
   },
+  dividerTablet: {
+    width: 2,
+    height: 42,
+  },
 });
 
 function Entry(props) {
     const classes = useStyles();
+    const { tabletSize } = props.mediaQueries;
     const entryPlaceholder = "evaluate this expression";
+    const inputClass = tabletSize ? `${classes.input} ${classes.inputTablet}` : classes.input ;
     const inputField = (
       <InputBase
           inputRef={props.entryRef}
-          className={classes.input}
+          className={inputClass}
           placeholder={entryPlaceholder}
           onChange={(event) => props.entryChanged(event.target.value)}
           onSelect={(event) => props.selectionChanged(event.target.selectionStart, event.target.selectionEnd)}
@@ -51,10 +62,11 @@ function Entry(props) {
       </IconButton>
     );
 
+    const dividerClass = tabletSize ? `${classes.divider} ${classes.dividerTablet}` : classes.divider;
     return (
         <Paper className={classes.root}>
             {inputField}
-            <Divider className={classes.divider} />
+            <Divider className={dividerClass} />
             {iconButton}
         </Paper>
     )
