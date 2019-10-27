@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import CalcButton from '../../UI/CalcButton';
 import { ALTERNATES } from '../../../shared/buttonLayout';
+import { getFontSize } from '../../../shared/utility';
 
 const FunctionButton = withStyles(theme => ({
   root: props => ({
@@ -23,7 +24,8 @@ export default function FunctionPane (props) {
                         ? (ALTERNATES[obj.key] || obj)
                         : obj;
         const displayVal = funcObj.display || funcObj.key;
-        const fontOverride = funcObj.fontSize ? {fontSize: funcObj.fontSize} : null;
+        const condenseText = 'condenseText' in funcObj ? true : false;
+        const fontOverride = 'mediaQueries' in props ? {fontSize: getFontSize(props.mediaQueries, condenseText)} : null;
         return (
             <FunctionButton
                 color={bgColor}

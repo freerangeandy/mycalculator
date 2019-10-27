@@ -45,11 +45,11 @@ export const SYMBOLS = {
     tan: {
         key: 'tan', display: 'tan', converted: 'tan(', prefix: '*', suffix: ')'},
     asin: {
-        key: 'asin', display: 'sin⁻¹', converted: 'asin(', prefix: '*', suffix: ')', fontSize: '83%'},
+        key: 'asin', display: 'sin⁻¹', converted: 'asin(', prefix: '*', suffix: ')', condenseText: true},
     acos: {
-        key: 'acos', display: 'cos⁻¹', converted: 'acos(', prefix: '*', suffix: ')', fontSize: '83%'},
+        key: 'acos', display: 'cos⁻¹', converted: 'acos(', prefix: '*', suffix: ')', condenseText: true},
     atan: {
-        key: 'atan', display: 'tan⁻¹', converted: 'atan(', prefix: '*', suffix: ')', fontSize: '83%'},
+        key: 'atan', display: 'tan⁻¹', converted: 'atan(', prefix: '*', suffix: ')', condenseText: true},
     naturalLog: {
         key: 'naturalLog', display: 'ln', converted: 'log(', prefix: '*', suffix: ')'},
     logarithm: {

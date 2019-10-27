@@ -30,7 +30,8 @@ export default function KeyPane (props) {
         <FunctionPane
             buttonPressed={props.buttonPressed}
             altState={props.altState}
-            gridValues={FUNCTIONS}/>
+            gridValues={FUNCTIONS}
+            mediaQueries={props.mediaQueries}/>
         <ActionPane
             buttonPressed={props.actionModifier}
             columnValues={MODIFIERS}

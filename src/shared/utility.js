@@ -52,3 +52,21 @@ export const handleError = (e) => {
       errorMsg: errorMsg,
   };
 }
+
+export const getFontSize = (mediaQueries, condensed=false) => {
+    const {tinySize, tabletSize} = mediaQueries;
+    const currentMedia = tinySize ? 'tiny' : tabletSize ? 'tablet' : 'normal';
+    return condensed ? CONDENSED_FONT_SIZES[currentMedia] : FONT_SIZES[currentMedia];
+}
+
+export const FONT_SIZES = {
+    tiny: '80%',
+    normal: '90%',
+    tablet: '110%',
+};
+
+const CONDENSED_FONT_SIZES = {
+    tiny: '73%',
+    normal: '83%',
+    tablet: '110%',
+};
