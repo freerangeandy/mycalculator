@@ -37,6 +37,7 @@ export const getAllPoppers = (props) => {
               useDecimals={props.useDecimals}
               toggleDegrees={props.toggleDegrees}
               useDegrees={props.useDegrees}
+              largeSize={tabletSize}
           />
       ),
       placement: altPlacement ? 'bottom' : 'right',
