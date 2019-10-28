@@ -19,8 +19,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     marginBottom: theme.spacing(1),
     overflowY: 'auto', // for scrolling
-  //  height: '27vh',  //  fixed height
-    // height: '100%',
+    // height: '27vh',  //  fixed height
   },
   headTablet: {
     fontSize: '110%',
@@ -28,7 +27,10 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '2%',
   },
   bodyLandscape: {
-    height: '75%',
+    height: '32vh',
+  },
+  bodyLandscapeTablet: {
+    height: '45vh',
   },
 }));
 
@@ -45,19 +47,20 @@ const createFormattedRowData = ([input, output, formatObj]) => {
   }
 }
 
-const createTableRowComponents = (lastRowRef) => (row, idx, arr) => {
+const createTableRowComponents = (lastRowRef, tabletSize) => (row, idx, arr) => {
   const fadeTime = 200;
   const isNewRow = idx === arr.length - 1;
   const tableRowAttribute = isNewRow ? { ref: lastRowRef } : {};
   const inlineInput = (<div><InlineMath math={row.input}/></div>);
   const inlineOutput = (<div><InlineMath math={row.output}/></div>);
-  const inlineFadInput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineInput}</Fade>) : inlineInput;
-  const inlineFadOutput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineOutput}</Fade>) : inlineOutput;
+  const inlineFadeInput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineInput}</Fade>) : inlineInput;
+  const inlineFadeOutput = isNewRow ? (<Fade in={true} timeout={fadeTime}>{inlineOutput}</Fade>) : inlineOutput;
 
+  const tableRowClass = tabletSize ? staticClasses.cellTablet : staticClasses.cell;
   return (
     <TableRow {...tableRowAttribute} className={staticClasses.row} key={idx}>
-      <TableCell className={staticClasses.cell} align="left">{inlineFadInput}</TableCell>
-      <TableCell className={staticClasses.cell} align="right">{inlineFadOutput}</TableCell>
+      <TableCell className={tableRowClass} align="left">{inlineFadeInput}</TableCell>
+      <TableCell className={tableRowClass} align="right">{inlineFadeOutput}</TableCell>
     </TableRow>
   )
 }
@@ -86,8 +89,12 @@ function Display(props){
     );
 
     const formattedRows = displayRows.map(createFormattedRowData);
-    const tableRows = formattedRows.map(createTableRowComponents(tableEndRef));
-    const tableBodyClass = landscape ? classes.bodyLandscape : staticClasses.body;
+    const tableRows = formattedRows.map(createTableRowComponents(tableEndRef, tabletSize));
+    const tableBodyClass = landscape ?
+                            tabletSize ?
+                              classes.bodyLandscapeTablet
+                              : classes.bodyLandscape
+                            : staticClasses.body;
     return (
        <Paper className={`${classes.root} ${tableBodyClass}`}>
          <Table size="small">

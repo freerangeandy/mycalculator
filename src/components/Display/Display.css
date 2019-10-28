@@ -2,8 +2,12 @@
   width: 100%;
 }
 
-.cell {
-  height: 50;
+.cell div {
+  font-size: 12px;
+}
+
+.cellTablet div {
+  font-size: 18px;
 }
 
 .head {
