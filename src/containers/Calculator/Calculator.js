@@ -16,7 +16,7 @@ function Calculator (props) {
     const entryRef = useRef();
     const [errorOpen, setErrorOpen] = useState(false);
     const mediaQueries = useMediaLayout();
-    const {keyPadBelow} = mediaQueries;
+    const {keyPadBelow, tabletSize} = mediaQueries;
 
     useEffect(() => {
       if (props.errorMsg) setErrorOpen(true);
@@ -24,9 +24,11 @@ function Calculator (props) {
 
     useEffect(() => {
       const [start, end] = props.currentSelection;
-      entryRef.current.focus();
-      entryRef.current.setSelectionRange(start,end);
-    },[props.currentSelection]);
+      if (tabletSize) {
+        entryRef.current.focus();
+        entryRef.current.setSelectionRange(start,end);
+      }
+    },[props.currentSelection, tabletSize]);
 
     const gridAttributes = {
       onKeyPress: (event) => {
@@ -39,7 +41,7 @@ function Calculator (props) {
 
     const enterThenFocus = () => {
       if (props.currentEntry.length > 0) props.onEvaluate();
-      entryRef.current.focus();
+      if (tabletSize) entryRef.current.focus();
     }
 
     const handleClose = () => {
