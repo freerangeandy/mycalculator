@@ -3,12 +3,20 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Auxy from '../../hoc/Auxy/Auxy';
+
+const useStyles = makeStyles(theme => ({
+  btnGroup: {
+    boxShadow: 'none',
+  }
+}));
 
 export default function PopperWrapper(props) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
+    const classes = useStyles();
 
     const handleClick = val => event => {
         // console.log('handleClick');
@@ -49,6 +57,7 @@ export default function PopperWrapper(props) {
             <ButtonGroup
                 variant="contained"
                 size="small"
+                className={classes.btnGroup}
                 aria-label="popper button group">
                 {popperButton(props.actionKey)}
             </ButtonGroup>
