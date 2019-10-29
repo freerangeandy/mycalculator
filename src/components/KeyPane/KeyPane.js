@@ -1,27 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import NumPad from './NumPad/NumPad';
 import ArithmeticPane from './ArithmeticPane/ArithmeticPane';
 import FunctionPane from './FunctionPane/FunctionPane';
 import ActionPane from './ActionPane/ActionPane';
-import paneClasses from './KeyPane.css';
 import { FUNCTIONS, MODIFIERS, ACTIONS } from '../../shared/buttonLayout';
 import Auxy from '../../hoc/Auxy/Auxy';
 import { getAllPoppers } from './Poppers/poppers';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(1),
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-}));
+import useKeyPaneStyles from './useKeyPaneStyles';
 
 export default function KeyPane (props) {
-    const classes = useStyles();
+    const classes = useKeyPaneStyles();
     const {keyPadBelow} = props.mediaQueries;
     const allPoppers = getAllPoppers(props);
 
@@ -47,15 +37,15 @@ export default function KeyPane (props) {
             columnValues={ACTIONS}
             poppers={allPoppers}
             flexRow={keyPadBelow}/>
-        <Grid className={paneClasses.flexRow}>
+        <Grid className={classes.flexRow}>
           <NumPad numberPressed={props.buttonPressed} />
           <ArithmeticPane buttonPressed={props.buttonPressed} />
         </Grid>
       </Auxy>
     );
 
-    const upperKeysClass = keyPadBelow ? paneClasses.flexColumn : paneClasses.flexRow;
-    const lowerKeysClass = keyPadBelow ? paneClasses.flexColumn : paneClasses.flexRow;
+    const upperKeysClass = keyPadBelow ? classes.flexColumn : classes.flexRow;
+    const lowerKeysClass = keyPadBelow ? classes.flexColumn : classes.flexRow;
     const containerJustify = keyPadBelow ? "center" : "flex-start";
 
     return (
