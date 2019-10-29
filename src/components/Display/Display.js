@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '2%',
   },
   bodyLandscape: {
-    height: '32vh',
+    height: '64vh',
   },
   bodyLandscapeTablet: {
     height: '45vh',
