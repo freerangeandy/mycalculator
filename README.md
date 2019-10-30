@@ -1,68 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#MyCalculator
+Web-based scientific calculator of the sort I'd want to use regularly, coded with React.js.
 
-## Available Scripts
+## Getting Started
+[placeholder]
 
-In the project directory, you can run:
+### Prerequisites
+```
+[placeholder]
+```
 
-### `npm start`
+### Installing
+```
+[placeholder: don't know]
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Usage
+Most of the buttons, when clicked, will cause a function/operator/value to appear in the input field, allowing you to construct expressions. Clicking the up-arrow by the input field or pressing 'Enter' on a keyboard will evaluate the expression and show the result in the bottom-most row of the display pane above the input field.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The yellow buttons perform various actions:
+* 2nd - shows alternate functions in place of the default function buttons 
+* mode - shows popup, allows toggling of angles as radians vs. degrees, results shown as decimals vs. fractions
+* stat - shows popup, allows access to statistical functions
+* mat - shows popup, allows access to matrix/vector operations/functions
+* ⌫ - deletes all character(s) selected in the input field, or the character directly to the left of the cursor position
+* ans - fills the input field with the result of the most recent evaluation
+* ↦ - shows popup, assign current contents of input field to a variable name of your choosing
+* C - clears all text from the input field
 
-### `npm test`
+### Built With
+* [create-react-app](https://github.com/facebook/create-react-app) - Provided initial app configuration
+* [Material-UI](https://material-ui.com/) - Basis for nearly all components used
+* [nerdamer](https://nerdamer.com/) - Math interpreter
+* [react-katex](https://www.npmjs.com/package/react-katex) - Renders symbolic math in LaTeX
+* [Google Firebase](https://firebase.google.com/) - Hosts the compiled app for public use
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Author
+Andrew M. Lee
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### License
+MyCalculator is open source software [placeholder]
