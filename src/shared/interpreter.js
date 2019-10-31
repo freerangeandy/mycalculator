@@ -30,26 +30,37 @@ export const evalExpression = (expression, useDecimals=false, useDegrees=false) 
     return resultString;
 };
 
-// perhaps need to add argument for input vs. output
-export const convertToLaTeXString = (expression, evalBeforeConversion=true) => {
+export const convertToLaTeXString = (expression, useDecimals=false, evalBeforeConversion=true, isInput=false) => {
+    if (isInput) return convertInputToLaTeX(expression);
+    else         return convertOutputToLaTeX(expression, useDecimals, evalBeforeConversion);
+}
+
+const convertInputToLaTeX = (expression) => {
+    let finalTeX;
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
     const diffFound = containsDerivative(expression);
-    if (!evalBeforeConversion) {
-        return nerdamer(expression).toTeX();
-    } else if (matrixFound) {
-        const {before, match, after} = matrixFound;
-        const finalTeX = before + nerdamer(match).toTeX() + after;
-        return finalTeX;
-    } else if (diffFound) {
-        const tempTeX = nerdamer.convertToLaTeX(expression);
-        const finalTeX = processDerivative(tempTeX);
-        return finalTeX;
-    } else if (vectorFound) {
-        return expression;
+    if (matrixFound)        finalTeX = processMatrix(matrixFound, true);
+    else if (diffFound)     finalTeX = processDerivative(expression);
+    else if (vectorFound)   finalTeX = expression;
+    else                    finalTeX = nerdamer.convertToLaTeX(expression);
+    return finalTeX;
+}
+
+const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversion) => {
+    let finalTeX;
+    const matrixFound = containsMatrix(expression);
+    const vectorFound = isVector(expression);
+    if (useDecimals) {
+        if (matrixFound) finalTeX = processMatrix(matrixFound, false);
+        else             finalTeX = expression;
     } else {
-        return nerdamer.convertToLaTeX(expression);
+        if (!evalBeforeConversion)  finalTeX = nerdamer(expression).toTeX();
+        else if (matrixFound)       finalTeX = processMatrix(matrixFound, false);
+        else if (vectorFound)       finalTeX = expression;
+        else                        finalTeX = nerdamer.convertToLaTeX(expression);
     }
+    return finalTeX;
 }
 
 export const setVariable = (varName, varValue) => {
@@ -70,7 +81,16 @@ export const preventFurtherEval = (postEvalObj, useDecimals) => {
 export const preventEvalOutputPreLaTeX = (expression) => containsSquareRoot(expression);
 export const shouldConvertAnglesToRad = (expression, useDegrees) => useDegrees && containsTrig(expression);
 
-export const processDerivative = (laTeXExpression) => {
+const processMatrix = (matchObj, isInput) => {
+    const {before, match, after} = matchObj;
+    const convertedExp = (isInput && before.length === 0 && after.length === 0)
+                        ? before + match + after
+                        : before + nerdamer(match).toTeX() + after;
+    return convertedExp;
+}
+
+export const processDerivative = (expression) => {
+    const laTeXExpression = nerdamer.convertToLaTeX(expression);
     return laTeXExpression.replace(DIFFERENTIAL_BAD, DIFFERENTIAL_GOOD);
 }
 

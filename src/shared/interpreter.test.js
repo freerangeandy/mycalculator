@@ -72,7 +72,7 @@ describe('convertToLaTeXString', () => {
         const inputString = 'diff(x^2,x,1)';
         const outputLaTeX = '\\frac{d}{d x}\\left({{x}^{2}}\\right)';
         const evalBeforeLaTeX = true;  // automatically handled in method
-        expect(convertToLaTeXString(inputString)).toEqual(outputLaTeX);
+        expect(convertToLaTeXString(inputString, false, evalBeforeLaTeX, true)).toEqual(outputLaTeX);
     });
 
     it(`should match desired LaTeX output with input of '[1,3,-2]'`, () => {
@@ -94,14 +94,14 @@ describe('convertToLaTeXString', () => {
         const inputString = 'sqrt(3)^(-1)';
         const outputLaTeX = '\\frac{1}{\\sqrt{3}}';
         const evalBeforeLaTeX = false;  // automatically handled in method
-        expect(convertToLaTeXString(inputString, evalBeforeLaTeX)).toEqual(outputLaTeX);
+        expect(convertToLaTeXString(inputString, false, evalBeforeLaTeX, false)).toEqual(outputLaTeX);
     });
 
     it(`should match desired LaTeX output with input of '(1/2)*sqrt(3)'`, () => {
         const inputString = '(1/2)*sqrt(3)';
         const outputLaTeX = '\\frac{\\sqrt{3}}{2}';
         const evalBeforeLaTeX = false;
-        expect(convertToLaTeXString(inputString, evalBeforeLaTeX)).toEqual(outputLaTeX);
+        expect(convertToLaTeXString(inputString, false, evalBeforeLaTeX)).toEqual(outputLaTeX);
     });
 
 });
