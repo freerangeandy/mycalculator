@@ -3,6 +3,8 @@ import {configure} from 'enzyme';
 
 import { evalExpression,
         convertToLaTeXString,
+        convertInputToLaTeX,
+        convertOutputToLaTeX,
         convertDegToRad,
         convertRadToDeg,
         convertAnglesToRad,
@@ -10,7 +12,7 @@ import { evalExpression,
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
 
-describe('convertToLaTeXString', () => {
+xdescribe('convertToLaTeXString', () => {
     it(`should match desired LaTeX output with input of '2+2'`, () => {
         const inputString = '2+2';
         const outputLaTeX = '2 + 2';
@@ -104,6 +106,135 @@ describe('convertToLaTeXString', () => {
         expect(convertToLaTeXString(inputString, false, evalBeforeLaTeX)).toEqual(outputLaTeX);
     });
 
+});
+
+describe('convertInputToLaTeX', () => {
+    it(`should render desired LaTeX given input string of '2+2'`, () => {
+        const inputString = '2+2';
+        const inputLaTeX = '2 + 2';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'x^4'`, () => {
+        const inputString = 'x^4';
+        const inputLaTeX = '{x}^{4}';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of '500/10'`, () => {
+        const inputString = '500/10';
+        const inputLaTeX = '\\frac{500}{10}';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'cos(π)'`, () => {
+        const inputString = 'cos(π)';
+        const inputLaTeX = '\\mathrm{cos}\\left(π\\right)';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'matrix([1,0],[2,2])'`, () => {
+        const inputString = 'matrix([1,0],[2,2])';
+        const inputLaTeX = 'matrix([1,0],[2,2])';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'determinant(matrix([1,0],[2,2]))'`, () => {
+        const inputString = 'determinant(matrix([1,0],[2,2]))';
+        const inputLaTeX = 'determinant(\\begin{vmatrix}1 & 0 \\cr 2 & 2\\end{vmatrix})';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'integrate(3*x^2,x)'`, () => {
+        const inputString = 'integrate(3*x^2,x)';
+        const inputLaTeX = '\\int {3 \\cdot {x}^{2}}\\, dx';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'diff(x^2,x,1)'`, () => {
+        const inputString = 'diff(x^2,x,1)';
+        const inputLaTeX = '\\frac{d}{d x}\\left({{x}^{2}}\\right)';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of '[1,3,-2]'`, () => {
+        const inputString = '[1,3,-2]';
+        const inputLaTeX = '[1,3,-2]';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'cross(vector(3,-2,0), vector(2,2,0))'`, () => {
+        const inputString = 'cross(vector(3,-2,0), vector(2,2,0))';
+        const inputLaTeX = '\\mathrm{cross}\\left(\\mathrm{vector}\\left(3,-2,0\\right),\\mathrm{vector}\\left(2,2,0\\right)\\right)';
+        expect(convertToLaTeXString(inputString)).toEqual(inputLaTeX);
+    });
+});
+
+describe('convertOutputToLaTeX', () => {
+
+    it(`should render desired LaTeX given output string of 'x^4'`, () => {
+        const outputString = 'x^4';
+        const outputLaTeX = '{x}^{4}';
+        const useDecimals = false;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of '500/499' (no decimals)`, () => {
+        const outputString = '500/499';
+        const outputLaTeX = '\\frac{500}{499}';
+        const useDecimals = false;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of '2.7027027027027026' (decimals)`, () => {
+        const outputString = '2.7027027027027026';
+        const outputLaTeX = '2.7027027027027026';
+        const useDecimals = true;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of '[1,3,-2]'`, () => {
+        const outputString = '[1,3,-2]';
+        const outputLaTeX = '[1,3,-2]';
+        const useDecimals = false;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of 'matrix([1,0],[2,2])' (no decimals)`, () => {
+        const outputString = 'matrix([1,0],[2,2])';
+        const outputLaTeX = '\\begin{vmatrix}1 & 0 \\cr 2 & 2\\end{vmatrix}';
+        const useDecimals = false;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of 'matrix([1,0],[2,2])' (decimals)`, () => {
+        const outputString = 'matrix([1,0],[2,2])';
+        const outputLaTeX = '\\begin{vmatrix}1 & 0 \\cr 2 & 2\\end{vmatrix}';
+        const useDecimals = true;
+        const evalBeforeLaTeX = true;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of 'sqrt(3)^(-1)'`, () => {
+        const outputString = 'sqrt(3)^(-1)';
+        const outputLaTeX = '\\frac{1}{\\sqrt{3}}';
+        const useDecimals = false;
+        const evalBeforeLaTeX = false;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
+
+    it(`should render desired LaTeX given output string of '(1/2)*sqrt(3)'`, () => {
+        const outputString = '(1/2)*sqrt(3)';
+        const outputLaTeX = '\\frac{\\sqrt{3}}{2}';
+        const useDecimals = false;
+        const evalBeforeLaTeX = false;
+        expect(convertOutputToLaTeX(outputString, useDecimals, evalBeforeLaTeX)).toEqual(outputLaTeX);
+    });
 });
 
 describe('evalExpression', () => {

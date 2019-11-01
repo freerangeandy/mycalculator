@@ -22,8 +22,8 @@ export const evalExpression = (expression, useDecimals=false, useDegrees=false) 
                           ? convertAnglesToRad(expression)
                           : expression;
     const postEvalObj = nerdamer(preEvalExpression);
-    console.log('postEvalObj: ' + postEvalObj);
-    console.log(postEvalObj);
+    // console.log('postEvalObj: ' + postEvalObj);
+    // console.log(postEvalObj);
     const noFurtherEval = preventFurtherEval(postEvalObj, useDecimals);
     const resultObject = noFurtherEval ? postEvalObj : postEvalObj.evaluate();
     const resultString = useDecimals ? resultObject.text('decimals') : resultObject.text('fractions');
@@ -35,7 +35,7 @@ export const convertToLaTeXString = (expression, useDecimals=false, evalBeforeCo
     else         return convertOutputToLaTeX(expression, useDecimals, evalBeforeConversion);
 }
 
-const convertInputToLaTeX = (expression) => {
+export const convertInputToLaTeX = (expression) => {
     let finalTeX;
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
@@ -47,7 +47,7 @@ const convertInputToLaTeX = (expression) => {
     return finalTeX;
 }
 
-const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversion) => {
+export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversion) => {
     let finalTeX;
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
