@@ -9,6 +9,9 @@ import {
     trigExactResult,
     containsTrig,
     containsInverseTrig,
+    containsDerivative,
+    containsSquareRoot,
+    containsSciNotation
 } from './patternMatch';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -213,7 +216,6 @@ describe('containsTrig()', () => {
     });
 });
 
-
 describe('containsInverseTrig()', () => {
     it('should return true if asin(1/sqrt(2))', () => {
         const expression = 'asin(1/sqrt(2))';
@@ -233,5 +235,54 @@ describe('containsInverseTrig()', () => {
     it('should return false if not inverse trig function: ayyy(2)', () => {
         const expression = 'ayyy(2)';
         expect(containsInverseTrig(expression)).toEqual(false);
+    });
+});
+
+describe('containsDerivative()', () => {
+    it('should return true if diff(x^2,x,1)', () => {
+        const expression = 'diff(x^2,x,1)';
+        const matchObj = containsDerivative(expression);
+        expect(matchObj.length > 1).toEqual(true);
+    });
+});
+
+describe('containsSquareRoot()', () => {
+    it('should return true if sqrt(3)^(-1)', () => {
+        const expression = 'sqrt(3)^(-1)';
+        const matchObj = containsSquareRoot(expression);
+        expect(matchObj.length > 1).toEqual(true);
+    });
+
+    it('should return true if (1/2)*sqrt(3)', () => {
+        const expression = '(1/2)*sqrt(3)';
+        const matchObj = containsSquareRoot(expression);
+        expect(matchObj.length > 1).toEqual(true);
+    });
+});
+
+describe('containsSciNotation()', () => {
+    it('should return true if 2.938355780498216e+22', () => {
+        const expression = '2.938355780498216e+22';
+        const expectedFracOpenBrack = '';
+        const expectedCoefficient = '2.938355780498216';
+        const expectedMagnitude = 'e+22';
+        const expectedCloseBrack = '';
+        const matchObj = containsSciNotation(expression);
+        expect(matchObj.fracOpenBrack).toEqual(expectedFracOpenBrack);
+        expect(matchObj.coefficient).toEqual(expectedCoefficient);
+        expect(matchObj.magnitude).toEqual(expectedMagnitude);
+        expect(matchObj.closeBrack).toEqual(expectedCloseBrack);
+    });
+    it('should return true if \\frac{1}{8.204789149834405e+50}', () => {
+        const expression = '\\frac{1}{8.204789149834405e+50}';
+        const expectedFracOpenBrack = '\\frac{1}{';
+        const expectedCoefficient = '8.204789149834405';
+        const expectedMagnitude = 'e+50';
+        const expectedCloseBrack = '}';
+        const matchObj = containsSciNotation(expression);
+        expect(matchObj.fracOpenBrack).toEqual(expectedFracOpenBrack);
+        expect(matchObj.coefficient).toEqual(expectedCoefficient);
+        expect(matchObj.magnitude).toEqual(expectedMagnitude);
+        expect(matchObj.closeBrack).toEqual(expectedCloseBrack);
     });
 });
