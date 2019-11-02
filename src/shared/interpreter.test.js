@@ -8,6 +8,7 @@ import { evalExpression,
         convertDegToRad,
         convertRadToDeg,
         convertAnglesToRad,
+        processSciNotation
 } from './interpreter.js';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -398,5 +399,17 @@ describe('convertAnglesToRad', () => {
         const outputString = 'cos(0.018277045187202502)';
         expect(convertAnglesToRad(inputString)).toEqual(outputString);
     });
+});
 
+describe('processSciNotation', () => {
+    it(`should match desired output string given input of '2.938355780498216e+22'`, () => {
+        const inputString = '2.938355780498216e+22';
+        const outputString = '2.938355780498216*{10}^{22}';
+        expect(processSciNotation(inputString)).toEqual(outputString);
+    });
+    it(`should match desired output string given input of '\\frac{1}{8.204789149834405e+50}'`, () => {
+        const inputString = '\\frac{1}{8.204789149834405e+50}';
+        const outputString = '8.204789149834405*{10}^{-50}';
+        expect(processSciNotation(inputString)).toEqual(outputString);
+    });
 });

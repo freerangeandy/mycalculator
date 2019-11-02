@@ -71,14 +71,14 @@ export const containsSquareRoot = (expression) => {
 }
 
 export const containsSciNotation = (expression) => {
-    const regex = new RegExp(/(\\frac\{1\}\{)?(\d\.\d+)e\+(\d+)(\})?/);
+    const regex = new RegExp(/(\\frac\{1\}\{)?(\d\.\d+)(e\+)(\d+)(\})?/);
     const match = expression.match(regex);
     if (!match) return false;
     else {
         const matchObj = clearUndefined({
             fracOpenBrack: match[1],
             coefficient: match[2],
-            ePlus: match[3].
+            ePlus: match[3],
             magnitude: match[4],
             closeBrack: match[5],
         });

@@ -1,4 +1,4 @@
-#MyCalculator
+# MyCalculator
 Web-based scientific calculator of the sort I'd want to use regularly, coded with React.js.
 
 ## Getting Started
@@ -18,7 +18,7 @@ Web-based scientific calculator of the sort I'd want to use regularly, coded wit
 Most of the buttons, when clicked, will cause a function/operator/value to appear in the input field, allowing you to construct expressions. Clicking the up-arrow by the input field or pressing 'Enter' on a keyboard will evaluate the expression and show the result in the bottom-most row of the display pane above the input field.
 
 The yellow buttons perform various actions:
-* 2nd - shows alternate functions in place of the default function buttons 
+* 2nd - shows alternate functions in place of the default function buttons
 * mode - shows popup, allows toggling of angles as radians vs. degrees, results shown as decimals vs. fractions
 * stat - shows popup, allows access to statistical functions
 * mat - shows popup, allows access to matrix/vector operations/functions

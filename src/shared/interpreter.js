@@ -9,6 +9,7 @@ import { containsMatrix,
     containsDerivative,
     containsTrig,
     containsSquareRoot,
+    containsSciNotation,
 } from './patternMatch';
 
 export const setConstant = (symbol, val) => {
@@ -60,6 +61,7 @@ export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversi
         else if (vectorFound)       finalTeX = expression;
         else                        finalTeX = nerdamer.convertToLaTeX(expression);
     }
+    finalTeX = processSciNotation(finalTeX); // add post-processing function?
     return finalTeX;
 }
 
@@ -87,6 +89,22 @@ const processMatrix = (matchObj, isInput) => {
                         ? before + match + after
                         : before + nerdamer(match).toTeX() + after;
     return convertedExp;
+}
+// refactor function
+export const processSciNotation = (laTeXExpression) => {
+    const matchObj = containsSciNotation(laTeXExpression);
+    if (!matchObj) return laTeXExpression;
+    const {fracOpenBrack, ePlus, magnitude, closeBrack} = matchObj;
+    const ePlusMagnitude = ePlus.concat(magnitude);
+    let processedLaTeX = laTeXExpression;
+    if (fracOpenBrack.length > 0) {
+        processedLaTeX = processedLaTeX.replace(fracOpenBrack,'');
+        processedLaTeX = processedLaTeX.replace(closeBrack,'');
+        processedLaTeX = processedLaTeX.replace(ePlusMagnitude,`*{10}^{-${magnitude}}`);
+    } else {
+        processedLaTeX = processedLaTeX.replace(ePlusMagnitude,`*{10}^{${magnitude}}`);
+    }
+    return processedLaTeX;
 }
 
 export const processDerivative = (expression) => {

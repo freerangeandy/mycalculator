@@ -265,7 +265,7 @@ describe('containsSciNotation()', () => {
         const expression = '2.938355780498216e+22';
         const expectedFracOpenBrack = '';
         const expectedCoefficient = '2.938355780498216';
-        const expectedMagnitude = 'e+22';
+        const expectedMagnitude = '22';
         const expectedCloseBrack = '';
         const matchObj = containsSciNotation(expression);
         expect(matchObj.fracOpenBrack).toEqual(expectedFracOpenBrack);
@@ -277,7 +277,7 @@ describe('containsSciNotation()', () => {
         const expression = '\\frac{1}{8.204789149834405e+50}';
         const expectedFracOpenBrack = '\\frac{1}{';
         const expectedCoefficient = '8.204789149834405';
-        const expectedMagnitude = 'e+50';
+        const expectedMagnitude = '50';
         const expectedCloseBrack = '}';
         const matchObj = containsSciNotation(expression);
         expect(matchObj.fracOpenBrack).toEqual(expectedFracOpenBrack);
