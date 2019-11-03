@@ -54,7 +54,7 @@ export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversi
     const vectorFound = isVector(expression);
     if (useDecimals) {
         if (matrixFound) finalTeX = processMatrix(matrixFound, false);
-        else             finalTeX = expression;
+        else             finalTeX = processDecimalLaTeX(expression);
     } else {
         if (!evalBeforeConversion)  finalTeX = nerdamer(expression).toTeX();
         else if (matrixFound)       finalTeX = processMatrix(matrixFound, false);
@@ -63,6 +63,14 @@ export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversi
     }
     finalTeX = processSciNotation(finalTeX); // add post-processing function?
     return finalTeX;
+}
+
+export const processDecimalLaTeX = (expression) => {
+    const regex = new RegExp(/\.+/);
+    if (expression.match(regex) != null) {
+        let convertedLaTeX = expression.replace('*',' \\cdot ');
+        return convertedLaTeX;
+    } else return nerdamer(expression).toTeX();
 }
 
 export const setVariable = (varName, varValue) => {

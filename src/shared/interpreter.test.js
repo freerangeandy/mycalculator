@@ -8,7 +8,8 @@ import { evalExpression,
         convertDegToRad,
         convertRadToDeg,
         convertAnglesToRad,
-        processSciNotation
+        processDecimalLaTeX,
+        processSciNotation,
 } from './interpreter.js';
 
 configure({adapter: new Adapter()}); // adapt enzyme to react v16
@@ -401,13 +402,27 @@ describe('convertAnglesToRad', () => {
     });
 });
 
+describe('processDecimalLaTeX', () => {
+    it(`should leave '0.234' as decimals`, () => {
+        const inputString = '0.234';
+        const outputString = '0.234';
+        expect(processDecimalLaTeX(inputString)).toEqual(outputString);
+    });
+
+    it(`should leave '0.4*x^2' as decimals but convert '*'`, () => {
+        const inputString = '0.4*x^2';
+        const outputString = '0.4 \\cdot x^2';
+        expect(processDecimalLaTeX(inputString)).toEqual(outputString);
+    });
+});
+
 describe('processSciNotation', () => {
-    it(`should match desired output string given input of '2.938355780498216e+22'`, () => {
+    it(`should convert '2.938355780498216e+22' to a power of 10`, () => {
         const inputString = '2.938355780498216e+22';
         const outputString = '2.938355780498216*{10}^{22}';
         expect(processSciNotation(inputString)).toEqual(outputString);
     });
-    it(`should match desired output string given input of '\\frac{1}{8.204789149834405e+50}'`, () => {
+    it(`should convert '\\frac{1}{8.204789149834405e+50}' to negative power of 10`, () => {
         const inputString = '\\frac{1}{8.204789149834405e+50}';
         const outputString = '8.204789149834405*{10}^{-50}';
         expect(processSciNotation(inputString)).toEqual(outputString);

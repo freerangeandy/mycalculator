@@ -51,7 +51,7 @@ function Display(props){
     const classes = useDisplayStyles();
     const {displayRows} = props;
     const tableEndRef = useRef(null);
-    const {landscape, normalSize, tabletSize} = props.mediaQueries;
+    const {landscape, tabletSize} = props.mediaQueries;
     const scrollToBottom = () => {
       if (displayRows.length > 0) {
         tableEndRef.current.scrollIntoView({ behavior: "smooth" });
