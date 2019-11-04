@@ -35,7 +35,7 @@ export const convertToLaTeXString = (expression, useDecimals=false, evalBeforeCo
     if (isInput) return convertInputToLaTeX(expression);
     else         return convertOutputToLaTeX(expression, useDecimals, evalBeforeConversion);
 }
-
+// stop it from rendering decimals as fractions
 export const convertInputToLaTeX = (expression) => {
     let finalTeX;
     const matrixFound = containsMatrix(expression);
@@ -61,8 +61,14 @@ export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversi
         else if (vectorFound)       finalTeX = expression;
         else                        finalTeX = nerdamer.convertToLaTeX(expression);
     }
-    finalTeX = processSciNotation(finalTeX); // add post-processing function?
+    finalTeX = postProcessLaTeXOutput(finalTeX);
     return finalTeX;
+}
+
+export const postProcessLaTeXOutput = (tempLaTeX) => {
+  const sciNotationFound = containsSciNotation(tempLaTeX);
+  if (!sciNotationFound)  return processSciNotation(tempLaTeX);
+  else                    return tempLaTeX;
 }
 
 export const processDecimalLaTeX = (expression) => {
