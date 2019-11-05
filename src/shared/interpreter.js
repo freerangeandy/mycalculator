@@ -31,9 +31,9 @@ export const evalExpression = (expression, useDecimals=false, useDegrees=false) 
     return resultString;
 };
 
-export const convertToLaTeXString = (expression, useDecimals=false, evalBeforeConversion=true, isInput=false) => {
+export const convertToLaTeXString = (expression, useDecimals=false, isInput=false) => {
     if (isInput) return convertInputToLaTeX(expression);
-    else         return convertOutputToLaTeX(expression, useDecimals, evalBeforeConversion);
+    else         return convertOutputToLaTeX(expression, useDecimals);
 }
 // stop it from rendering decimals as fractions
 export const convertInputToLaTeX = (expression) => {
@@ -48,15 +48,16 @@ export const convertInputToLaTeX = (expression) => {
     return finalTeX;
 }
 
-export const convertOutputToLaTeX = (expression, useDecimals, evalBeforeConversion) => {
+export const convertOutputToLaTeX = (expression, useDecimals) => {
     let finalTeX;
     const matrixFound = containsMatrix(expression);
     const vectorFound = isVector(expression);
+    const noEvalBeforeConversion = preventEvalOutputPreLaTeX(expression);
     if (useDecimals) {
         if (matrixFound) finalTeX = processMatrix(matrixFound, false);
         else             finalTeX = processDecimalLaTeX(expression);
     } else {
-        if (!evalBeforeConversion)  finalTeX = nerdamer(expression).toTeX();
+        if (noEvalBeforeConversion)  finalTeX = nerdamer(expression).toTeX();
         else if (matrixFound)       finalTeX = processMatrix(matrixFound, false);
         else if (vectorFound)       finalTeX = expression;
         else                        finalTeX = nerdamer.convertToLaTeX(expression);

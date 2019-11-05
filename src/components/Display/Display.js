@@ -12,15 +12,14 @@ import { createData } from '../../shared/utility';
 import { convertToLaTeXString } from '../../shared/interpreter'
 import useDisplayStyles from './useDisplayStyles';
 
-const convertToDisplayString = (expression, formatObj, isInput) => {
-    return convertToLaTeXString(expression, formatObj.useDecimals, formatObj.evalOutputPreLaTeX, isInput);
-}
+const IS_INPUT = true;
+const IS_FALSE = false;
 
 const createFormattedRowData = ([input, output, formatObj]) => {
   try {
-      const latexEntry = convertToDisplayString(input, formatObj, true);
+      const latexEntry = convertToLaTeXString(input, formatObj.useDecimals, IS_INPUT);
       console.log(`input string: ${input} latexEntry:${latexEntry}`);
-      const latexResult = convertToDisplayString(output, formatObj, false);
+      const latexResult = convertToLaTeXString(output, formatObj.useDecimals, IS_FALSE);
       console.log(`result string: ${output} latexResult:${latexResult}`);
       return createData(latexEntry, latexResult);
   } catch (e) {
