@@ -2,7 +2,9 @@
 Web-based scientific calculator of the sort I'd want to use regularly, coded with React.js.
 
 ## Getting Started
-[placeholder]
+```
+[placeholder: don't know]
+```
 
 ### Prerequisites
 ```
@@ -10,9 +12,9 @@ Web-based scientific calculator of the sort I'd want to use regularly, coded wit
 ```
 
 ### Installing
-```
-[placeholder: don't know]
-```
+After cloning the repository to a local directory, open a terminal window in the top-level directory of the repository and execute the command 'npm install'.
+
+Once the libraries have finished installing, execute the command 'npm start' in the terminal window. The application should appear in its own browser window, shortly, at the address 'localhost:3000'.
 
 ### Usage
 Most of the buttons, when clicked, will cause a function/operator/value to appear in the input field, allowing you to construct expressions. Clicking the up-arrow by the input field or pressing 'Enter' on a keyboard will evaluate the expression and show the result in the bottom-most row of the display pane above the input field.
