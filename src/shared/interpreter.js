@@ -35,7 +35,7 @@ export const convertToLaTeXString = (expression, useDecimals=false, isInput=fals
     if (isInput) return convertInputToLaTeX(expression);
     else         return convertOutputToLaTeX(expression, useDecimals);
 }
-// stop it from rendering decimals as fractions
+
 export const convertInputToLaTeX = (expression) => {
     let finalTeX;
     const matrixFound = containsMatrix(expression);
@@ -44,7 +44,8 @@ export const convertInputToLaTeX = (expression) => {
     if (matrixFound)        finalTeX = processMatrix(matrixFound, true);
     else if (diffFound)     finalTeX = processDerivative(expression);
     else if (vectorFound)   finalTeX = expression;
-    else                    finalTeX = nerdamer.convertToLaTeX(expression);
+    else                    finalTeX = processDecimalLaTeX(expression);
+    finalTeX = postProcessLaTeXInput(finalTeX);
     return finalTeX;
 }
 
@@ -66,6 +67,15 @@ export const convertOutputToLaTeX = (expression, useDecimals) => {
     return finalTeX;
 }
 
+export const postProcessLaTeXInput = (tempLaTeX) => {
+  const trigFunctionFound = containsTrig(tempLaTeX);
+  if (trigFunctionFound) {
+    const regex = RegExp(/sin|cos|tan/g);
+    tempLaTeX = tempLaTeX.replace(regex, trig => `\\mathrm{${trig}}`);
+  }
+  return tempLaTeX;
+}
+
 export const postProcessLaTeXOutput = (tempLaTeX) => {
   const sciNotationFound = containsSciNotation(tempLaTeX);
   if (!sciNotationFound)  return processSciNotation(tempLaTeX);
@@ -77,7 +87,7 @@ export const processDecimalLaTeX = (expression) => {
     if (expression.match(regex) != null) {
         let convertedLaTeX = expression.replace('*',' \\cdot ');
         return convertedLaTeX;
-    } else return nerdamer(expression).toTeX();
+    } else return nerdamer.convertToLaTeX(expression);//nerdamer(expression).toTeX();
 }
 
 export const setVariable = (varName, varValue) => {

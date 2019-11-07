@@ -135,6 +135,30 @@ describe('convertInputToLaTeX', () => {
         expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
     });
 
+    it(`should render desired LaTeX given input string of '49.5'`, () => {
+        const inputString = '49.5';
+        const inputLaTeX = '49.5';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of '49.5*3.1^3'`, () => {
+        const inputString = '49.5*3.1^3';
+        const inputLaTeX = '49.5 \\cdot 3.1^3';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'cos(33.3)'`, () => {
+        const inputString = 'cos(33.3)';
+        const inputLaTeX = '\\mathrm{cos}(33.3)';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
+    it(`should render desired LaTeX given input string of 'sin(43.1) + tan(-23.7)'`, () => {
+        const inputString = 'sin(43.1) + tan(-23.7)';
+        const inputLaTeX = '\\mathrm{sin}(43.1) + \\mathrm{tan}(-23.7)';
+        expect(convertInputToLaTeX(inputString)).toEqual(inputLaTeX);
+    });
+
     it(`should render desired LaTeX given input string of 'cos(π)'`, () => {
         const inputString = 'cos(π)';
         const inputLaTeX = '\\mathrm{cos}\\left(π\\right)';
