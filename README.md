@@ -2,21 +2,21 @@
 Web-based scientific calculator of the sort I'd want to use regularly, coded with React.js.
 
 ## Getting Started
-```
-[placeholder: don't know]
-```
-
 ### Prerequisites
-```
-[placeholder]
-```
+You’ll need to have Node v8.12.0 or later version on your local development machine in order to use the node package manager (npm) commands to install libraries specifically used by MyCalculator.
 
 ### Installing
-After cloning the repository to a local directory, open a terminal window in the top-level directory of the repository and execute the command 'npm install'.
+After cloning the repository to a local directory, open a terminal window, navigate to the top-level directory of the repository, and execute the command:
+```
+npm install
+```
+Once the libraries have finished installing, execute the following command in the terminal window:
+```
+npm start
+```
+The application should appear in its own browser window, shortly, at the address 'localhost:3000'.
 
-Once the libraries have finished installing, execute the command 'npm start' in the terminal window. The application should appear in its own browser window, shortly, at the address 'localhost:3000'.
-
-### Usage
+## Usage
 Most of the buttons, when clicked, will cause a function/operator/value to appear in the input field, allowing you to construct expressions. Clicking the up-arrow by the input field or pressing 'Enter' on a keyboard will evaluate the expression and show the result in the bottom-most row of the display pane above the input field.
 
 The yellow buttons perform various actions:
@@ -40,4 +40,4 @@ The yellow buttons perform various actions:
 Andrew M. Lee
 
 ### License
-MyCalculator is open source software [placeholder]
+MyCalculator is open source software [license placeholder]
