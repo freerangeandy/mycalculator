@@ -24,6 +24,7 @@ export const getAllPoppers = (props) => {
           <InputPopper
               closeHandler={closeHandler}
               submitHandler={(varName) => props.secondaryAction(SYMBOLS.assign.key, varName)}
+              largeSize={tabletSize}
           />
       ),
       placement: altPlacement ? 'top-end' : 'left',
