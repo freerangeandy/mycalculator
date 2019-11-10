@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -62,11 +63,10 @@ function Entry(props) {
       </IconButton>
     );
 
-    const dividerClass = tabletSize ? `${classes.divider} ${classes.dividerTablet}` : classes.divider;
     return (
         <Paper className={classes.root}>
             {inputField}
-            <Divider className={dividerClass} />
+            <Divider className={clsx(classes.divider, tabletSize && classes.dividerTablet)} />
             {iconButton}
         </Paper>
     )

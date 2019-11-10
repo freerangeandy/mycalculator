@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import clsx from 'clsx';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -54,14 +55,14 @@ function Display(props){
     const scrollToBottom = () => {
       if (displayRows.length > 0) {
         tableEndRef.current.scrollIntoView({ behavior: "smooth" });
-        console.log('scrolled');
+        //console.log('scrolled');
       }
     };
     useEffect(scrollToBottom, [displayRows]);
 
     const degreesMode = props.useDegrees ? 'degrees' : 'radians';
     const decimalMode = props.useDecimals ? 'decimals' : 'fractions';
-    const tableHeaderClass = tabletSize ? `${classes.head} ${classes.headTablet}` : classes.head;
+    const tableHeaderClass = clsx(classes.head, tabletSize && classes.headTablet);
     const headerRow = (
       <TableRow className={classes.headerRow}>
         <TableCell className={tableHeaderClass}>input <span>({degreesMode})</span></TableCell>
@@ -77,7 +78,7 @@ function Display(props){
                               : classes.bodyLandscape
                             : classes.body;
     return (
-       <Paper className={`${classes.root} ${tableBodyClass}`}>
+       <Paper className={clsx(classes.root, tableBodyClass)}>
          <Table size="small">
            <TableHead>
              {headerRow}
