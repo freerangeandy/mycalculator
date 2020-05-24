@@ -40,4 +40,4 @@ The yellow buttons perform various actions:
 Andrew M. Lee
 
 ### License
-MyCalculator is open source software [license placeholder]
+MyCalculator is open source software (MIT License)
